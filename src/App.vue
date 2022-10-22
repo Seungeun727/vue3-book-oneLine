@@ -21,7 +21,6 @@ export default {
 
 <style>
 #app {
-  /* text-align: center; */
   color: #333;
   margin-top: 60px;
 }

@@ -1,11 +1,14 @@
 <template>
-  <div>Board Page</div>
+  <BoardWrite />
 </template>
 
 <script>
+import BoardWrite from '../components/board/BoardWrite';
 export default {
   name: 'Board',
-  components: {},
+  components: {
+    BoardWrite,
+  },
 };
 </script>
 
