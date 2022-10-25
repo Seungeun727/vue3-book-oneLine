@@ -20,6 +20,7 @@ module.exports = defineConfig({
       }
     },
   },
+  outputDir: '../express-books/public',
   transpileDependencies: true,
   lintOnSave: false
 })

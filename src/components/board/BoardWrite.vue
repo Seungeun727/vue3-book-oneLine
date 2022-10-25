@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'BoardWrite',
   components: {},
@@ -43,7 +44,23 @@ export default {
     }
   },
   methods: {
-    submitForm() {}
+    submitForm() {
+      const InputData = JSON.stringify({ 
+        title: this.title, 
+        author: this.author, 
+        text: this.text 
+      });
+      axios.post(`${process.env.VUE_APP_API_URL}` + "/board/write/" + 4, InputData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((res) => {
+        console.log("submitForm Success", res.data);
+      }).catch((err) => {
+        console.log("submitForm Error", err.response);
+      })
+    } 
   },
 };
 </script>
