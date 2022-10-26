@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 import board from './board';
 
 const store = createStore({
-  moudles: {
+  modules: {
     board,
   }
 });
