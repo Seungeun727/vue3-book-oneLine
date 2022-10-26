@@ -25,4 +25,11 @@ export default {
 }  
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+  width: 900px;
+  height: 500px;
+  padding-top: 70px;
+  margin: 0 auto;
+}
+</style>
