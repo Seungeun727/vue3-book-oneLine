@@ -15,9 +15,9 @@ const board = {
     }
   },
   actions: {
-    getBoardList({commit}) {
-      axios.get(`${process.env.VUE_APP_API_URL}/board`, 
-      { params: { currentPage: 2, pageSize: 10 } 
+    getBoardList({commit}, pageInfo) {
+      axios.get(`${process.env.VUE_APP_API_URL}/board/`, 
+      { params: pageInfo 
       }).then((res) => {
         commit('setBoardList', res.data.posts);
         commit('totalPage', res.data.totalPage);

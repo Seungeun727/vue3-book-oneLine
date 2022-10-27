@@ -4,7 +4,8 @@
       <BoardItem 
         :posts="posts" />
     </div>
-    <BoardPageButton />
+    <BoardPageButton
+      @child="getPosts" />
   </div>
 </template>
 
@@ -23,8 +24,13 @@ export default {
     ...mapState('board', ['posts']),
   },
   created() {
-    this.$store.dispatch("board/getBoardList");
+    this.getPosts();
   },
+  methods: {
+    getPosts(pageInfo) {
+      this.$store.dispatch("board/getBoardList", pageInfo)
+    }
+  }
 }  
 </script>
 

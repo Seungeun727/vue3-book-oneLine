@@ -9,7 +9,12 @@
     <div 
       v-for="num in totalPage"
       :key="num">
-      <button>{{ num }}</button>
+      <button
+        type="button" 
+        class="btn btn-page"
+        @click="pageBtn">
+        {{ num }}
+      </button>
     </div>
     <button 
       type="button"
@@ -24,9 +29,22 @@
 import { mapState, mapMutations } from 'vuex';
 export default {
   name: 'BoardPageButton',
+  emits: {'child': null},
+  data() {
+    return {
+      pageSize: 10,
+    }
+  },
   computed: {
     ...mapState('board', ['totalPage']),
     ...mapMutations('board', ['totalPages']),
+  },
+  methods: {
+    pageBtn(e) {
+      const currentPage = parseInt(e.target.textContent);
+      const pageInfo = { currentPage, pageSize: this.pageSize };
+      this.$emit('child', pageInfo);
+    },
   }
 }
 </script>
@@ -39,6 +57,21 @@ export default {
 }
 
 .btn {
-  height: 20px;
+  width: 45px;
+  height: 30px;
+  border: 0;
+  outline: 0;
+  background: 0;
+  font-size: 1.0rem;
+}
+
+.btn-page {
+  padding: 8px;
+}
+
+.btn-page:hover {
+  background-color: $btn-color;
+  border-radius: 20px;
+  color: $white;
 }
 </style>
