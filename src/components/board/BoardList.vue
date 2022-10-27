@@ -4,17 +4,20 @@
       <BoardItem 
         :posts="posts" />
     </div>
+    <BoardPageButton />
   </div>
 </template>
 
 <script>
 import BoardItem from './BoardItem.vue';
+import BoardPageButton from './BoardPageButton.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'BoardList',
   components: {
     BoardItem,
+    BoardPageButton
   },
   computed: {
     ...mapState('board', ['posts']),
