@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <button 
+    <button
       type="button"
       class="btn btn-prev"
-      @click="prevBtn">
+      @click="prevBtn()">
       Prev
     </button>
     <div 
@@ -16,10 +16,10 @@
         {{ num }}
       </button>
     </div>
-    <button 
+    <button
       type="button"
       class="btn btn-next"
-      @click="nextBtn">
+      @click="nextBtn()">
       Next
     </button>
   </div>
@@ -44,8 +44,33 @@ export default {
       const currentPage = parseInt(e.target.textContent);
       const pageInfo = { currentPage, pageSize: this.pageSize };
       this.$emit('child', pageInfo);
+    },  
+    prevBtn() {
+      const { currentpage, pagesize } = this.$route.query;
+      let currentPage = parseInt(currentpage);
+      if(currentPage > 1) {
+        currentPage -= 1;
+      } else {
+        currentPage = 1;
+      }
+      const pageInfo = { currentPage, pageSize: pagesize };
+      this.$store.dispatch("board/getBoardList", pageInfo);
+      this.$router.push({ name: 'Board', query: { currentpage: currentPage, pagesize}});
     },
-  }
+    nextBtn() {
+      const { currentpage, pagesize } = this.$route.query;
+      let currentPage = parseInt(currentpage);
+      if(currentPage >= this.totalPage) {
+        currentPage = this.totalPage;
+      } else {
+        currentPage += 1;
+      }
+      const pageInfo = { currentPage, pageSize: pagesize };
+      this.$store.dispatch("board/getBoardList", pageInfo);
+      this.$router.push({ name: 'Board', query: { currentpage: currentPage.toString(), pagesize}});
+    }
+  },
+  
 }
 </script>
 

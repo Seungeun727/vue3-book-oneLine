@@ -3,9 +3,11 @@
     <router-link to="/">
       Home
     </router-link>
-    <router-link to="/board">
-      board
-    </router-link>
+    <router-link
+      :to="{ name: 'Board', query: {
+        currentpage: 1, pagesize: 10 }}">
+      Board
+    </router-link> 
   </div>
 </template>
 

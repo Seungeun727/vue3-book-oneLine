@@ -16,7 +16,7 @@ const board = {
   },
   actions: {
     getBoardList({commit}, pageInfo) {
-      axios.get(`${process.env.VUE_APP_API_URL}/board/`, 
+      axios.get(`${process.env.VUE_APP_API_URL}/board`, 
       { params: pageInfo 
       }).then((res) => {
         commit('setBoardList', res.data.posts);
