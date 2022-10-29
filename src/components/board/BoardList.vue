@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div> 
+    <div>
+      <button @click="addBoard()">
+        추가
+      </button> 
       <BoardItem 
         :posts="posts" />
     </div>
@@ -29,6 +32,9 @@ export default {
   methods: {
     getPosts(pageInfo) {
       this.$store.dispatch("board/getBoardList", pageInfo)
+    },
+    addBoard() {
+      this.$router.push('board/write');
     }
   }
 }  

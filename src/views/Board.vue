@@ -1,17 +1,11 @@
 <template>
-  <!-- <BoardWrite /> -->
-  <BoardList />
+  <router-view />
 </template>
 
 <script>
-// import BoardWrite from '../components/board/BoardWrite';
-import BoardList from '../components/board/BoardList';
 export default {
   name: 'Board',
-  components: {
-    // BoardWrite,
-    BoardList,
-  },
+  components: {},
 };
 </script>
 

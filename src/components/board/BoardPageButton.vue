@@ -61,7 +61,7 @@ export default {
       const currentPage = parseInt(e.target.textContent);
       const pageInfo = { currentPage, pageSize: this.pageSize };
       this.$emit('child', pageInfo);
-      this.$router.push({ name: 'Board', query: { currentpage: currentPage, pagesize: 10}});
+      this.$router.push({ name: 'BoardList', query: { currentpage: currentPage, pagesize: 10}});
     },  
     prevBtn() {
       let currentPage = this.currentPage;
@@ -73,7 +73,7 @@ export default {
       }
       const pageInfo = { currentPage, pageSize: this.pagesize };
       this.$store.dispatch("board/getBoardList", pageInfo);
-      this.$router.push({ name: 'Board', query: { currentpage: currentPage, pageSize: 10}});
+      this.$router.push({ name: 'BoardList', query: { currentpage: currentPage, pageSize: 10}});
     },
     nextBtn() {
       this.limit = 0;
@@ -85,7 +85,7 @@ export default {
       }
       const pageInfo = { currentPage, pageSize: this.pageSize };
       this.$store.dispatch("board/getBoardList", pageInfo);
-      this.$router.push({ name: 'Board', query: { currentpage: currentPage, pagesize: this.pageSize}});
+      this.$router.push({ name: 'BoardList', query: { currentpage: currentPage, pagesize: this.pageSize}});
     }
   },
   

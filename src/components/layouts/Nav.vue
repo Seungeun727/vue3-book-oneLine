@@ -4,7 +4,7 @@
       Home
     </router-link>
     <router-link
-      :to="{ name: 'Board', query: {
+      :to="{ name: 'BoardList', query: {
         currentpage: 1, pagesize: 10 }}">
       Board
     </router-link> 
