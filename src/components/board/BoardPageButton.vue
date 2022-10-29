@@ -3,6 +3,7 @@
     <button
       type="button"
       class="btn btn-prev"
+      :disabled="pageStop"
       @click="prevBtn()">
       Prev
     </button>
@@ -13,7 +14,15 @@
         type="button" 
         class="btn btn-page"
         @click="pageBtn">
-        {{ num }}
+        <span
+          v-if="currentPage == num"
+          :class="isActive">
+          {{ num }}
+        </span>
+        <span
+          v-else>
+          {{ num }}
+        </span>
       </button>
     </div>
     <button
@@ -33,41 +42,50 @@ export default {
   data() {
     return {
       pageSize: 10,
+      limit: 0,
+      isActive: "change",
     }
   },
   computed: {
     ...mapState('board', ['totalPage']),
     ...mapMutations('board', ['totalPages']),
+    pageStop() {
+      return this.limit == 1 ? true : false;
+    },
+    currentPage() {
+      return parseInt(this.$route.query.currentpage);
+    }
   },
   methods: {
     pageBtn(e) {
       const currentPage = parseInt(e.target.textContent);
       const pageInfo = { currentPage, pageSize: this.pageSize };
       this.$emit('child', pageInfo);
+      this.$router.push({ name: 'Board', query: { currentpage: currentPage, pagesize: 10}});
     },  
     prevBtn() {
-      const { currentpage, pagesize } = this.$route.query;
-      let currentPage = parseInt(currentpage);
+      let currentPage = this.currentPage;
       if(currentPage > 1) {
         currentPage -= 1;
       } else {
         currentPage = 1;
+        this.limit = 1;
       }
-      const pageInfo = { currentPage, pageSize: pagesize };
+      const pageInfo = { currentPage, pageSize: this.pagesize };
       this.$store.dispatch("board/getBoardList", pageInfo);
-      this.$router.push({ name: 'Board', query: { currentpage: currentPage, pagesize}});
+      this.$router.push({ name: 'Board', query: { currentpage: currentPage, pageSize: 10}});
     },
     nextBtn() {
-      const { currentpage, pagesize } = this.$route.query;
-      let currentPage = parseInt(currentpage);
+      this.limit = 0;
+      let currentPage = this.currentPage;
       if(currentPage >= this.totalPage) {
         currentPage = this.totalPage;
       } else {
         currentPage += 1;
       }
-      const pageInfo = { currentPage, pageSize: pagesize };
+      const pageInfo = { currentPage, pageSize: this.pageSize };
       this.$store.dispatch("board/getBoardList", pageInfo);
-      this.$router.push({ name: 'Board', query: { currentpage: currentPage.toString(), pagesize}});
+      this.$router.push({ name: 'Board', query: { currentpage: currentPage, pagesize: this.pageSize}});
     }
   },
   
@@ -90,13 +108,22 @@ export default {
   font-size: 1.0rem;
 }
 
-.btn-page {
+.btn .btn-page {
   padding: 8px;
 }
 
-.btn-page:hover {
-  background-color: $btn-color;
-  border-radius: 20px;
+.change {
+  display: block;
+  width: 30px;
+  padding: 6px;
   color: $white;
+  background-color: map-get($blue-colors, color3);
+  border-radius: 30px;
+  font-size: 1.0rem;
+}
+
+.change:hover {
+  background-color: $btn-color;
+  border-radius: 30px;
 }
 </style>
