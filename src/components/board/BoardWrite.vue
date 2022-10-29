@@ -1,32 +1,34 @@
 <template>
   <div class="container">
     <form class="form">
-      <h2>Title</h2>
-      <div>
-        <label for="title">title:</label>
-        <input 
-          v-model="title"
-          type="text"
-          placeholder="제목을 입력하세요.">
+      <div class="content">
+        <span class="main-title">책 등록</span>
+        <div
+          v-for="(element, value) in form" 
+          :key="value">
+          <label>{{ value }}</label>
+          <input type="text">
+        </div>
+        <div>
+          <label for="text">기록 내용</label>
+          <textarea 
+            v-model="text" />
+        </div>
+        <div class="btn-group">
+          <button 
+            class="btn btn--black"
+            type="button" 
+            @click="submitForm()">
+            제출
+          </button>
+          <button 
+            class="btn btn--white"
+            type="button" 
+            @click="cancleForm()">
+            취소
+          </button>
+        </div>
       </div>
-      <div>
-        <label for="author">author:</label>
-        <input
-          v-model="author" 
-          type="text"
-          placeholder="저자를 입력하세요.">
-      </div>
-      <div>
-        <label for="text">memo:</label>
-        <textarea 
-          v-model="text"
-          placeholder="글을 작성하세요." />
-      </div>
-      <button 
-        type="button" 
-        @click="submitForm()">
-        작성
-      </button>
     </form>
   </div>
 </template>
@@ -38,18 +40,23 @@ export default {
   components: {},
   data() {
     return {
-      title: '',
-      author: '',
+      form: {
+        title: '',
+        author: '',
+        date: '',
+      },
       text: '',
     }
   },
   methods: {
     submitForm() {
       const InputData = JSON.stringify({ 
-        title: this.title, 
-        author: this.author, 
-        text: this.text 
+        title: this.form.title, 
+        author: this.form.author, 
+        text: this.text,
+        date: this.form.date 
       });
+      console.log(InputData);
       axios.post(`${process.env.VUE_APP_API_URL}` + "/board/write/" + 4, InputData, {
         headers: {
           'Content-Type': 'application/json',
@@ -68,32 +75,45 @@ export default {
 <style lang="scss" scoped>
 .container {
   margin: 0 auto;
-  width: 700px;
+  width: 800px;
   height: 800px;
-  display: flex;
-  flex-direction: column; 
-  align-items:center;
   background-color: $back-color;
   .form {
     width: 600px;
-    height: 600px;
+    height: 700px;
     background-color: $white;
-    padding: 15px;
-
+    margin: 30px auto;
+    
+    .main-title {
+      display: inline-block;
+      font-size: $font-size;
+      margin-bottom: 15px;
+    }
   }
 }
 
-input, textarea {
-  width: 350px;
-  border: 1px solid #ccc;
-  border-radius: .3rem;
+.content {
+  padding: 20px;
 }
 
 input {
-  height: 25px;
-  outline: 0;
+  border: 0;
+  border-bottom: 1px solid $light-gray;
+
+  &:focus {
+    border-bottom: 1px solid $light-yellow;
+  }
 }
+
 textarea {
-  height: 40px;
+  border: 1px solid $light-gray;
+  outline: none;
+  &:focus {
+    border: 1px solid $light-yellow;
+  }
+}
+.btn-group {
+  margin-top: 30px;
+  float: right;
 }
 </style>

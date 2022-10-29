@@ -1,0 +1,14 @@
+.btn--black {
+  padding: 5px;
+  color: $white;
+  background-color: $btn-color;
+  border-radius: 3px;
+}
+
+.btn--white {
+  margin-left: 2px;
+  padding: 7px;
+  background: 0;
+  border: 1px solid $light-gray;
+  border-radius: 3px;
+}

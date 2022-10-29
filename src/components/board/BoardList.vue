@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <div>
-      <button @click="addBoard()">
-        추가
+      <button 
+        class="btn btn-add"
+        @click="addBoard()">
+        등록
       </button> 
       <BoardItem 
         :posts="posts" />
@@ -46,5 +48,23 @@ export default {
   height: 500px;
   padding-top: 70px;
   margin: 0 auto;
+}
+
+.btn {
+  outline: 0;
+  border: 0;
+  width: 100px;
+  height: 30px;
+  background: 0;
+}
+
+.btn-add {
+  float: right;
+  margin-bottom:5px;
+  background-color: $btn-color;
+  color: white;
+  box-shadow: 2px 2px #00000a13;
+  font-size: 1.0rem;
+  font-weight: 700;
 }
 </style>

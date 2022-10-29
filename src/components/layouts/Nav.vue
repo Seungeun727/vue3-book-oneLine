@@ -26,7 +26,8 @@ export default {
   padding: 20px;
   width: 100%;
   height: 25px;
-  border-bottom: 1px solid $light-gray;
+  background-color: $white;
+  box-shadow: 1px 1px #00000a25;
 }
 
 a {
