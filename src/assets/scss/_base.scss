@@ -10,6 +10,13 @@ input {
   margin-bottom: 20px;
   outline: 0;
 }
+  
+input:not(:valid) {
+  border-bottom: 1px solid $dark-pink;
+}
+input:valid {
+  border-bottom: 1px solid green;
+}
 
 textarea {
   border: 1px solid #ccc;
