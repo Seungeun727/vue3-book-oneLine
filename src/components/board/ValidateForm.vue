@@ -6,10 +6,10 @@
         v-model="form.title"  
         :invalid="!validTitle"
         type="text"
-        maxlength="40"
         required>
-      <span>
-        {{ errorMsg.title }}
+      <span
+        v-if="validTitle != null">
+        {{ validTitle }}
       </span>
     </div>
     <div>
@@ -24,11 +24,13 @@
         v-model="form.date"
         type="text"
         :invalid="!validDate"
-        :maxlength="11"
+        :maxlength="8"
+        placeholder="-제외(19000110)"
         class="date-input" 
         required>
-      <span>
-        {{ errorMsg.date }}
+      <span
+        v-if="validTitle != null">
+        {{ validDate }}
       </span>
     </div>
     <div>
@@ -46,6 +48,7 @@
 </template>
 
 <script>
+import { checkTitle, checkDate } from '../../utils/validateBoard.js';
 export default {
   emits: ['get-child'],
   data() {
@@ -58,7 +61,6 @@ export default {
       },
       errorMsg: {
         title: '',
-        author: '',
         date: ''
       },
     }
@@ -66,39 +68,18 @@ export default {
   computed: {
     error() {
       return Object.values(this.errorMsg)
-        .map(error => console.log(error == null));
+        .map(error => error == null);
     },
     validTitle() {
-      return this.checkTitle();
+      const titleMsg = checkTitle(this.form.title, this.errorMsg.title);
+      return titleMsg;
     },
     validDate() {
-      return this.checkDate();
+      const dateMsg = checkDate(this.form.date, this.errorMsg.date);
+      return dateMsg;
     }
   },
   methods: {
-    checkTitle() {
-      const { title } = this.form;
-      if(!title && title == "") {
-        this.errorMsg.title = "제목 입력은 필수입니다.";
-      } else {
-        this.errorMsg.title="";
-        if(title.length > 40) {
-          this.errorMsg.title= "제목은 40자 이내로 작성하세요.";
-        } 
-      }
-    },
-    checkDate() {
-      const { date } = this.form;
-      if(!date && date == "") {
-        this.errorMsg.date = "날짜 입력은 필수입니다.";
-      } else {
-        if(date != 11 && date < 11) {
-          this.errorMsg.date = "날짜는 11자입니다.";
-        } else {
-          this.errorMsg.date = "";
-        }
-      }
-    },
     sendParents() {
       this.$emit("get-child", this.form);
     }
@@ -127,26 +108,6 @@ span {
   font-size: 0.8em;
   color: $dark-pink;
 }
-.date-box {
-  width: 120px;
-  display: inline-block;
-  .date-input {
-    width: 130px;
-    height: 32px;
-    outline: 0;
-    border: 1px solid $light-gray;
-    border-radius: 5px;
-    background: #fffefe;
-    text-align: center;
-  }
-}
-.date-input:not(:valid) {
-  border: 1px solid $dark-pink;
-}
-.date-input:not(:invalid) {
-  border: 1px solid green;
-}
-
 .btn-group {
   margin-top: 30px;
   float: right;
