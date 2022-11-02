@@ -21,17 +21,12 @@
     <div class="date-box">
       <label for="date">등록일</label>
       <input
-        v-model="form.date"
+        id="date"
         type="text"
-        :invalid="!validDate"
-        :maxlength="8"
-        placeholder="-제외(19000110)"
+        :maxlength="10"
         class="date-input" 
-        required>
-      <span
-        v-if="validTitle != null">
-        {{ validDate }}
-      </span>
+        required
+        @input="autoDate($event)">
     </div>
     <div>
       <label for="text">기록 내용</label>
@@ -41,7 +36,7 @@
     <button 
       class="btn-group btn btn--black"
       type="button" 
-      @click="sendParents()">
+      @click="sendParents($event)">
       제출
     </button>
   </form>
@@ -74,15 +69,17 @@ export default {
       const titleMsg = checkTitle(this.form.title, this.errorMsg.title);
       return titleMsg;
     },
-    validDate() {
-      const dateMsg = checkDate(this.form.date, this.errorMsg.date);
-      return dateMsg;
-    }
   },
   methods: {
     sendParents() {
+      const dateEl = document.querySelector('#date');
+      this.form.date = dateEl.value;
       this.$emit("get-child", this.form);
-    }
+    }, 
+    autoDate(e) {
+      e.target.value = e.target.value.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');  
+      return checkDate(e.target.value);
+    },  
   }
 }
 </script>
