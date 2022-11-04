@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import * as veeValidate from 'vee-validate';
 import App from './App.vue'
 import router from './routes'
 import store from './store'
@@ -10,4 +11,5 @@ app.config.globalProperties.$axios = axios;
 app
   .use(router)
   .use(store)
+  .use(veeValidate)
   .mount('#app')

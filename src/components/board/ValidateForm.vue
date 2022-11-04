@@ -1,89 +1,126 @@
 <template>
-  <form>
-    <div class="title">
-      <label for="title">제목</label>
-      <input
-        v-model="form.title"  
-        :invalid="!validTitle"
-        type="text"
-        required>
-      <span
-        v-if="validTitle != null">
-        {{ validTitle }}
-      </span>
-    </div>
-    <div>
-      <label for="author">저자</label>
-      <input 
-        v-model="form.author"
-        type="text">  
-    </div>
-    <div class="date-box">
-      <label for="date">등록일</label>
-      <input
-        id="date"
-        type="text"
-        :maxlength="10"
-        class="date-input" 
-        required
-        @input="autoDate($event)">
-    </div>
-    <div>
-      <label for="text">기록 내용</label>
-      <textarea 
-        v-model="form.text" />
-    </div>
-    <button 
-      class="btn-group btn btn--black"
-      type="button" 
-      @click="sendParents($event)">
+  <div>
+    <Form
+      :initial-values="formValues">
+      <Field
+        v-slot="{ field, errorMessage }"
+        v-model="formValues.title"
+        :rules="validateTitle"
+        name="title"
+        type="text">
+        <label>제목</label>
+        <input 
+          v-bind="field">
+        <span 
+          v-if="errorMessage">
+          {{ errorMessage }}
+        </span>
+      </Field>
+      <Field
+        v-slot="{ field ,errorMessage }"
+        v-model="formValues.author"
+        :rules="validateAuthor"
+        name="author"
+        type="text">
+        <label>author</label>
+        <input 
+          v-bind="field">
+        <span 
+          v-if="errorMessage">
+          {{ errorMessage }}
+        </span>
+      </Field>
+      <Field
+        v-slot="{ field, errorMessage }"
+        :rules="validateDate"
+        name="date"
+        type="text">
+        <label>시작 날짜</label>
+        <input 
+          id="dates"
+          v-model="formValues.date"
+          v-bind="field"
+          @input="checkDate($event)"> 
+        <span 
+          v-if="errorMessage">
+          {{ errorMessage }}
+        </span>
+      </Field> 
+      <label for="content">내용</label>
+      <Field
+        v-slot="{ errorMessage }"
+        v-model="formValues.text" 
+        as="textarea" 
+        name="content"
+        :rules="validateContent">
+        <span 
+          v-if="errorMessage">
+          {{ errorMessage }}
+        </span>
+      </Field>
+    </Form>
+    <button
+      class="btn-group btn btn--black" 
+      type="submit" 
+      @click="onSubmit(formValues)">
       제출
     </button>
-  </form>
+  </div>
 </template>
-
 <script>
-import { checkTitle, checkDate } from '../../utils/validateBoard.js';
+import { Form, Field } from 'vee-validate';
+import { checkDate } from '../../utils/validateBoard.js';
+
 export default {
+  components: {
+    Form,
+    Field,
+  },
   emits: ['get-child'],
   data() {
     return {
-      form: {
-        title: '',
-        author: '',
-        date: '',
-        text: '',
-      },
-      errorMsg: {
-        title: '',
-        date: ''
+      formValues: {
+      title: '',
+      author: '',
+      text: '',
+      date: '',
       },
     }
-  }, 
-  computed: {
-    error() {
-      return Object.values(this.errorMsg)
-        .map(error => error == null);
-    },
-    validTitle() {
-      const titleMsg = checkTitle(this.form.title, this.errorMsg.title);
-      return titleMsg;
-    },
   },
   methods: {
-    sendParents() {
-      const dateEl = document.querySelector('#date');
-      this.form.date = dateEl.value;
-      this.$emit("get-child", this.form);
-    }, 
-    autoDate(e) {
+    onSubmit(formData) {
+      const dateEl = document.querySelector('#dates');
+      // console.log(dateEl, formData);
+      this.formValues.date = dateEl.value;
+      this.$emit("get-child", formData);
+    },
+    validateTitle(value) {
+      if (!value && value =="") {
+        return '제목 입력란은 필수입니다.';
+      }
+      return true;
+    },
+    validateAuthor(value) {
+      if(!value && value == "") {
+        return '저자 입력란은 필수입니다.';
+      }
+      return true;
+    },
+    validateContent(value) {
+      if(!value && value == undefined) {
+        return '내용 입력란은 필수입니다.';
+      }
+      return true;
+    },
+    checkDate(e) {
       e.target.value = e.target.value.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');  
-      return checkDate(e.target.value);
-    },  
-  }
-}
+    },
+    validateDate(date) {
+      return checkDate(date);
+    },
+  },
+};
 </script>
-
 <style lang="scss" scoped>
 input {
   width: 450px;
@@ -103,10 +140,8 @@ span {
   width: 180px;
   display: block;
   font-size: 0.8em;
-  color: $dark-pink;
 }
 .btn-group {
-  margin-top: 30px;
   float: right;
 }
 </style>

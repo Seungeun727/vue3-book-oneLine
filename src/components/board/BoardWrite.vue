@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form class="form">
+    <div class="form">
       <div class="content">
         <span class="main-title">책 등록</span>
         <ValidateForm 
@@ -14,7 +14,7 @@
           </button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -63,13 +63,10 @@ export default {
     }
   }
 }
-
 .content {
   padding: 20px;
 }
 .btn-group {
-  margin-top: 30px;
   float: right;
-  right: 0;
 }
 </style>
