@@ -11,10 +11,15 @@
       </tr>
       <tr 
         v-for="post in posts"
-        :key="post.no">
+        :key="post.board_no">
         <td>{{ post.board_no }}</td>
         <td>{{ post.user_name }}</td>
-        <td>{{ post.board_title }}</td>
+        <td>
+          <router-link
+            :to="{ name: 'BoardDetail', params: { id: `${post.board_no}`}}">
+            {{ post.board_title }}
+          </router-link>
+        </td>
         <td>{{ post.board_author }}</td>
         <td>{{ post.board_text }}</td>
         <td>{{ post.createdAt }}</td>
@@ -55,7 +60,6 @@ table td:last-child {
 
 th, td {
   padding: 10px;
-  border-top: 1px solid black;
   border-bottom: 1px solid black;
   border-color: map-get($gray-colors, color1);
 }
@@ -66,4 +70,14 @@ th {
   font-weight: 700;
 }
 
+a {
+  width: 0;
+  text-decoration: none;
+  color: $font-color;
+  font-weight: 550;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 </style>
