@@ -25,12 +25,17 @@
         {{ post.board_text }}
       </div>
     </div>
+    <BoardDetailButton />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import BoardDetailButton from './BoardDetailButton';
 export default {
+  components: {
+    BoardDetailButton,
+  },  
   props: {
     id: {
       type: Number,

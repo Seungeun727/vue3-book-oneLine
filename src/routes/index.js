@@ -3,6 +3,7 @@ import Home from '../views/Home';
 import Board from '../views/Board';
 import BoardList from '../components/board/BoardList';
 import BoardWrite from '../components/board/BoardWrite';
+import BoardEdit from '../components/board/BoardEdit';
 import BoardDetail from '../components/board/BoardDetail';
 import NotFound from '../views/NotFound';
 
@@ -26,6 +27,11 @@ const routes = [
         path: 'write',
         name: 'BoardWrite',
         component: BoardWrite,
+      },
+      {
+        path: 'edit/:id',
+        name: 'BoardEdit',
+        component: BoardEdit,
       },
       {
         path: 'detail/:id',
