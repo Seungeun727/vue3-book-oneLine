@@ -24,8 +24,10 @@
       <div class="content-text">
         {{ post.board_text }}
       </div>
+      <div class="btn">
+        <BoardDetailButton />
+      </div>
     </div>
-    <BoardDetailButton />
   </div>
 </template>
 
@@ -58,6 +60,7 @@ export default {
   padding-top: 70px;
 }
 .content {
+  position: relative;
   width: 70%;
   height: 600px;
   margin-left: 150px;
@@ -78,7 +81,6 @@ export default {
     }
   }
 }
-
 .content-title {
   font-size: $font-size;
   font-weight: 650;
@@ -94,4 +96,11 @@ export default {
   color: black;
   padding: 10px;
 }
+.btn {
+  width: 100px;
+  right: 0;
+  bottom: 30px;
+  position: absolute;
+}
+
 </style>

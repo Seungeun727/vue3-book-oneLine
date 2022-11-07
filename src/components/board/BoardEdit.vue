@@ -1,40 +1,57 @@
 <template>
-  <div>
+  <div class="container">
     <Form
+      class="form"
       :initial-values="formValues">
-      <Field
-        v-slot="{ field, errorMessage }"
-        v-model="formValues.title"
-        :rules="validateTitle"
-        name="title"
-        type="text">
-        <label>제목</label>
-        <input 
-          v-bind="field">
-        <span 
-          v-if="errorMessage">
-          {{ errorMessage }}
+      <div class="main-title">
+        <span class="title">
+          게시물 수정
         </span>
-      </Field>
-      <label for="content">내용</label>
-      <Field
-        v-slot="{ errorMessage }"
-        v-model="formValues.text" 
-        as="textarea" 
-        name="content"
-        :rules="validateContent">
-        <span 
-          v-if="errorMessage">
-          {{ errorMessage }}
-        </span>
-      </Field>
+      </div>
+      <div class="content">
+        <Field
+          v-slot="{ field, errorMessage }"
+          v-model="formValues.title"
+          :rules="validateTitle"
+          name="title"
+          type="text">
+          <label>제목</label>
+          <input 
+            v-bind="field">
+          <span 
+            v-if="errorMessage">
+            {{ errorMessage }}
+          </span>
+        </Field>
+        <label for="content">내용</label>
+        <Field
+          v-slot="{ errorMessage }"
+          v-model="formValues.text" 
+          as="textarea" 
+          name="content"
+          :rules="validateContent">
+          <span 
+            v-if="errorMessage">
+            {{ errorMessage }}
+          </span>
+        </Field>
+      </div>
+      <div class="btn-group">
+        <button
+          class="btn btn--blue" 
+          type="button" 
+          @click="modifyForm(formValues)">
+          수정
+        </button>
+        <button
+          class="btn btn--white" 
+          type="button" 
+          @click="cancleForm()">
+          취소
+        </button>
+      </div>
     </Form>
-    <button
-      class="btn-group btn btn--black" 
-      type="submit" 
-      @click="modifyForm(formValues)">
-      수정
-    </button>
+    {{ msg }}
   </div>
 </template>
 <script>
@@ -51,6 +68,7 @@ export default {
         title: '',
         text: '',
       },
+      msg: '',
     }
   },
   methods: {
@@ -68,7 +86,6 @@ export default {
     },
     modifyForm(formData) {
       const postId = this.$route.params.id;
-      console.log(postId);
       axios.post(`${process.env.VUE_APP_API_URL}` + "/board/update/" + postId,
       JSON.stringify(formData), {
         headers: {
@@ -80,22 +97,35 @@ export default {
       }).catch((err) => {
         console.log("modifyForm Error", err.response);
       })
+    }, 
+    cancleForm() {
+      this.$router.go(-1);
     } 
   },
 };
 </script>
 <style lang="scss" scoped>
-input {
-  width: 450px;
-  border: 0;
-  border-bottom: 1px solid $light-gray;
-  margin-bottom: 5px;
+.form {
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  width: 500px;
+  height: 700px;
+  box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.3);
 }
 
-textarea {
-  width: 450px;
-  height: 120px;
-  border: 1px solid $light-gray;
-  outline: none;
+.main-title { 
+  height: 45px;
+  background: #333;
+  font-size: $font-size;
+  color: white;
+  padding: 5px;
+}
+
+.content {
+  padding: 15px;
+}
+
+.btn-group {
+  padding: 10px;
 }
 </style>
