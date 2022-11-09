@@ -5,6 +5,8 @@ import router from './routes'
 import store from './store'
 import axios from 'axios'
 
+import 'normalize.css'
+
 const app = createApp(App)
 app.config.globalProperties.$axios = axios;
 
