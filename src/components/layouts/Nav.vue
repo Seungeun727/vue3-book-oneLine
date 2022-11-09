@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div id="nav">
     <router-link to="/">
       Home
     </router-link>
@@ -20,13 +20,14 @@ export default {
 
 <style lang="scss" scoped>
 
-.container {
+#nav {
   position: fixed;
   top: 0;
   padding: 20px;
   width: 100%;
   height: 25px;
-  background-color: $white;
+  background-color: #fefefe;
+  z-index: 2;
   box-shadow: 1px 1px #00000a25;
 }
 

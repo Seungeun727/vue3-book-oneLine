@@ -2,8 +2,8 @@
   <div>
     <TheHeader />
     <router-view />
-    <TheFooter />
   </div>
+  <TheFooter />
 </template>
 
 <script>
@@ -18,9 +18,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app {
   color: #333;
   margin-top: 60px;
+  padding-bottom: 130px;
+  position: relative;
+  min-height: 100%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="btn-container">
     <button
       type="button"
       class="btn btn-prev"
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.btn-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
