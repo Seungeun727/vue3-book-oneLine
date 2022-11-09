@@ -1,4 +1,5 @@
 @mixin change-button($bg-color) {
+  border: 0;
   color: $white;
   padding: 5px;
   border-radius: 3px;
@@ -6,11 +7,11 @@
 }
 
 @mixin outline-button($border-color) {
-  @if ($border-color == "#232323") {
-    color: $white;
-  } 
+  @if $border-color == $light-gray {
+    color: map-get($gray-colors, color4);
+  }
   @else {
-    color: $font-color;
+    color: $border-color;
   }
   margin-left: 2px;
   background: 0;
@@ -26,6 +27,14 @@
   @include outline-button($light-gray);
 }
 
+.btn--red {
+  @include change-button($dark-pink);
+}
+
 .btn--blue {
   @include change-button(map-get($blue-colors, color3));
+}
+
+.btn--navy {
+  @include change-button(map-get($blue-colors, $nav-color));
 }

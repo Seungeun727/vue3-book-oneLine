@@ -1,32 +1,37 @@
 <template>
   <div class="btn-container">
     <router-link
+      class="btn btn--white"
       :to="{ name: 'BoardEdit', params: { id }}">
       수정
     </router-link>
     <button
-      type="button"
+      type="text"
+      class="btn btn--white"
       @click="openModal()">
       삭제
     </button>
     <ModalMessage
-      v-if="isShow">
-      <template #header>
-        <h1>삭제</h1>
-      </template>
-      <template #body>
-        <p>{{ message }}</p>
-        <button @click="deletePost()">
+      v-if="isShow"
+      :message="message"
+      @close="cancleModal">
+      <template #header /> 
+      <template #footer>
+        <button 
+          class="btn btn--red"
+          @click="deletePost()">
           확인
         </button>
-        <button @click="cancleModal()">
+        <button 
+          class="btn btn--white"
+          @click="cancleModal()">
           취소
         </button>
       </template>
     </ModalMessage> 
     <button 
       type="button"
-      class="btn btn--white"
+      class="btn btn--black"
       @click="moveList()">
       목록
     </button>
@@ -49,7 +54,7 @@ export default {
   data() {
     return {
       isShow: false,
-      message: '게시물을 삭제하시겠습니까?'
+      message: '삭제'
     }
   },
   methods: {
@@ -60,10 +65,11 @@ export default {
       this.isShow = true;
     },
     cancleModal() {
-      this.isshow = false;
+      this.isShow = false;
     },
     deletePost() {
       const postId = this.$route.params.id;
+      console.log(typeof postId);
       axios.post(`${process.env.VUE_APP_API_URL}` + "/board/delete/" + postId, {
         headers: {
           'Content-Type': 'application/json',
@@ -83,13 +89,17 @@ export default {
 
 <style lang="scss" scoped>
 .btn-container {
-  width: 100px;
-  height: 50px;
+  width: 500px auto;
+  display: flex;
+  flex-direction: row;
 }
 
-a {
+a.btn.btn--white {
+  display: block;
   text-decoration: none;
-  color: map-get($blue-colors, color3);
-  font-size: $font-size-small;
+  text-align: center;
+  line-height: 35px;
+  height: 33px;
+  padding: 0px;
 }
 </style>

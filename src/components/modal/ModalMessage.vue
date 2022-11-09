@@ -4,13 +4,21 @@
     class="modal">
     <div class="modal-background">
       <div class="modal-card">
+        <button 
+          class="btn btn--close"
+          @click.self="$emit('close')">
+          x
+        </button>
         <div class="modal-inner">
           <div class="modal-header">
-            <slot name="header" />
+            <slot name="header">
+              <h2>{{ message }} 알림</h2>
+            </slot>
           </div>
           <div class="modal-body">
-            <slot name="body" />
+            <p>게시글 {{ message }}하시겠습니까?</p>
           </div>
+          <slot name="footer" />
         </div>
       </div>
     </div>
@@ -18,7 +26,15 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    message: {
+      type: String,
+      default: '',
+    }
+  },
+  emits: ['close'],
+}
 </script>
 
 <style lang="scss" scoped>
@@ -39,14 +55,24 @@ export default {}
     position: absolute;
     right: 50%;
     bottom: 450px;
-    width: 350px;
-    height: 150px;
+    width: 240px;
+    height: 180px;
     border-radius: 10px;
     box-shadow: 2px 2px #00000015;
     border: 1px solid $light-gray;
-    background-color: $white;
     z-index: 2;
-    padding: 10px;
+    padding-left: 15px;
+    background-color: $white;
   }
+}
+
+.modal-inner {
+  text-align: center;
+}
+
+.btn--close {
+  outline: 0;
+  float: right;
+  font-size: 1.2rem;
 }
 </style>

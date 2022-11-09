@@ -24,7 +24,7 @@
       <div class="content-text">
         {{ post.board_text }}
       </div>
-      <div class="btn">
+      <div class="btn-group">
         <BoardDetailButton />
       </div>
     </div>
@@ -96,8 +96,8 @@ export default {
   color: black;
   padding: 10px;
 }
-.btn {
-  width: 100px;
+.btn-group {
+  width: 350px;
   right: 0;
   bottom: 30px;
   position: absolute;

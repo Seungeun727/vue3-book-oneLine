@@ -39,6 +39,9 @@ export default {
       }).catch((err) => {
         console.log("submitForm Error", err.response);
       })
+    },
+    cancleForm() {
+      this.$router.push({ name: 'BoardList'});
     } 
   },
 };
