@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <div class="table-container">
     <table>
       <tr>
         <th>번호</th>
         <th>작성자</th>
         <th>제목</th>
-        <th>저자</th>
         <th>텍스트</th>
         <th>등록일</th>
       </tr>
@@ -20,7 +19,6 @@
             {{ post.board_title }}
           </router-link>
         </td>
-        <td>{{ post.board_author }}</td>
         <td>{{ post.board_text }}</td>
         <td>{{ post.createdAt }}</td>
       </tr>
@@ -41,10 +39,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table-container {
+  border: 1px solid #eceaea;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  width: 900px;
+  height: 650px;
+  padding: 20px;
+  background-color: $white;
+}
+
 table {
   text-align: center;
-  width: 100%;
   border-collapse: collapse;
+  width: 100%;
+  height: 600px;
 }
 
 table th:first-child,
@@ -65,9 +74,8 @@ th, td {
 }
 
 th {
-  background-color: map-get($gray-colors, color1);
   color: $font-color;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 a {

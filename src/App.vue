@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="containers">
     <TheHeader />
-    <router-view />
+    <div id="main">
+      <router-view />
+    </div>
   </div>
   <TheFooter />
 </template>
@@ -25,5 +27,9 @@ export default {
   padding-bottom: 130px;
   position: relative;
   min-height: 100%;
+}
+
+#main {
+  margin-top: 80px;
 }
 </style>

@@ -97,15 +97,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-.btn {
-  width: 45px;
-  height: 30px;
-  border: 0;
-  outline: 0;
-  background: 0;
-  font-size: 1.0rem;
+  margin-top: 40px;
 }
 
 .btn .btn-page {
@@ -117,13 +109,12 @@ export default {
   width: 30px;
   padding: 6px;
   color: $white;
-  background-color: map-get($blue-colors, color3);
-  border-radius: 30px;
-  font-size: 1.0rem;
-}
-
-.change:hover {
   background-color: $btn-color;
   border-radius: 30px;
+  font-size: 1.0rem;
+  &:hover {
+    background-color: map-get($blue-colors, color3);
+    border-radius: 30px;
+  }
 }
 </style>

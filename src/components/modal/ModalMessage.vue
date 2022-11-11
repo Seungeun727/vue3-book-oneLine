@@ -12,11 +12,16 @@
         <div class="modal-inner">
           <div class="modal-header">
             <slot name="header">
-              <h2>{{ message }} 알림</h2>
+              <h2>알림</h2>
             </slot>
           </div>
           <div class="modal-body">
-            <p>게시글 {{ message }}하시겠습니까?</p>
+            <p v-if="visible == false">
+              게시글 {{ message }}하시겠습니까?
+            </p>
+            <p v-else>
+              {{ message }}
+            </p>
           </div>
           <slot name="footer" />
         </div>
@@ -31,7 +36,11 @@ export default {
     message: {
       type: String,
       default: '',
-    }
+    },
+    visible: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['close'],
 }
