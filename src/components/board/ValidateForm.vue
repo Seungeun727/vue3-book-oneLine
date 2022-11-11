@@ -22,7 +22,7 @@
         :rules="validateAuthor"
         name="author"
         type="text">
-        <label>author</label>
+        <label>작성자</label>
         <input 
           v-bind="field">
         <span 
@@ -48,23 +48,31 @@
       </Field> 
       <label for="content">내용</label>
       <Field
-        v-slot="{ errorMessage }"
+        v-slot="{ field, errorMessage }"
         v-model="formValues.text" 
-        as="textarea" 
         name="content"
         :rules="validateContent">
+        <textarea v-bind="field" />
         <span 
           v-if="errorMessage">
           {{ errorMessage }}
         </span>
       </Field>
+      <div class="btn-group">
+        <button
+          class="btn btn--black" 
+          type="submit" 
+          @click="onSubmit(formValues)">
+          제출
+        </button>
+        <button 
+          class="btn btn--white"
+          type="button" 
+          @click="cancleForm()">
+          취소
+        </button>
+      </div>
     </Form>
-    <button
-      class="btn-group btn btn--black" 
-      type="submit" 
-      @click="onSubmit(formValues)">
-      제출
-    </button>
   </div>
 </template>
 <script>
@@ -90,7 +98,6 @@ export default {
   methods: {
     onSubmit(formData) {
       const dateEl = document.querySelector('#dates');
-      // console.log(dateEl, formData);
       this.formValues.date = dateEl.value;
       this.$emit("get-child", formData);
     },
@@ -107,7 +114,7 @@ export default {
       return true;
     },
     validateContent(value) {
-      if(!value && value == undefined) {
+      if(!value && value == "") {
         return '내용 입력란은 필수입니다.';
       }
       return true;
@@ -118,24 +125,13 @@ export default {
     validateDate(date) {
       return checkDate(date);
     },
+    cancleForm() {
+      this.$router.push({ name: 'BoardList'});
+    }
   },
 };
 </script>
 <style lang="scss" scoped>
-input {
-  width: 450px;
-  border: 0;
-  border-bottom: 1px solid $light-gray;
-  margin-bottom: 5px;
-}
-
-textarea {
-  width: 450px;
-  height: 120px;
-  border: 1px solid $light-gray;
-  outline: none;
-}
-
 span {
   width: 180px;
   display: block;
@@ -143,5 +139,7 @@ span {
 }
 .btn-group {
   float: right;
+  position: absolute;
+  right: 770px;
 }
 </style>

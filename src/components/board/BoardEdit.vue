@@ -5,7 +5,7 @@
       :initial-values="formValues">
       <div class="main-title">
         <span class="title">
-          게시물 수정
+          책 편집
         </span>
       </div>
       <div class="content">
@@ -16,22 +16,25 @@
           name="title"
           type="text">
           <label>제목</label>
-          <input 
+          <input
             v-bind="field">
-          <span 
-            v-if="errorMessage">
+          <span
+            v-if="errorMessage"
+            :class="{ valid: isValid}">
             {{ errorMessage }}
           </span>
         </Field>
         <label for="content">내용</label>
         <Field
-          v-slot="{ errorMessage }"
+          v-slot="{ field, errorMessage }"
           v-model="formValues.text" 
-          as="textarea" 
           name="content"
           :rules="validateContent">
-          <span 
-            v-if="errorMessage">
+          <textarea
+            v-bind="field" />
+          <span
+            v-if="errorMessage"
+            :class="{ valid: isValid }">
             {{ errorMessage }}
           </span>
         </Field>
@@ -69,17 +72,20 @@ export default {
         text: '',
       },
       msg: '',
+      isValid: false,
     }
   },
   methods: {
     validateTitle(value) {
       if (!value && value =="") {
+        this.isValid = true;
         return '제목 입력란은 필수입니다.';
       }
       return true;
     },
     validateContent(value) {
-      if(!value && value == undefined) {
+      if(!value && value == "") {
+        this.isValid = true;
         return '내용 입력란은 필수입니다.';
       }
       return true;
@@ -107,25 +113,21 @@ export default {
 <style lang="scss" scoped>
 .form {
   margin: 0 auto;
-  border: 1px solid #ccc;
   width: 500px;
   height: 700px;
-  box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.3);
 }
 
 .main-title { 
   height: 45px;
-  background: #333;
   font-size: $font-size;
-  color: white;
+  color: $font-color;
   padding: 5px;
 }
-
-.content {
-  padding: 15px;
-}
-
 .btn-group {
-  padding: 10px;
+  position: absolute;
+  right: 740px;
+}
+.valid  {
+  color: $dark-pink;
 }
 </style>

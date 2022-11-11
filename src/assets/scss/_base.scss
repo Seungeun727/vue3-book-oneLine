@@ -1,13 +1,6 @@
 label {
   display: block;
-  margin-top: 10px;
-}
-  
-input:not(:valid) {
-  border-bottom: 1px solid $dark-pink;
-}
-input:valid {
-  border-bottom: 1px solid green;
+  margin: 7px 3px;
 }
 
 input {
@@ -15,6 +8,7 @@ input {
   height: 32px;
   border: 1px solid $light-gray;
   border-radius: .2rem;
+  box-shadow: 2px 2px -4px #00000018;
   margin-bottom: 5px;
 }
 
@@ -30,6 +24,7 @@ textarea {
   width: 50px;
   height: 35px;
   padding: 5px;
+  margin: 5px 5px;
   border: 0;
   outline: 0;
   background: 0;

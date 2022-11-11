@@ -5,14 +5,6 @@
         <span class="main-title">책 등록</span>
         <ValidateForm 
           @get-child="submitForm" />
-        <div class="btn-group">
-          <button 
-            class="btn btn--white"
-            type="button" 
-            @click="cancleForm()">
-            취소
-          </button>
-        </div>
       </div>
     </div>
   </div>
@@ -39,10 +31,7 @@ export default {
       }).catch((err) => {
         console.log("submitForm Error", err.response);
       })
-    },
-    cancleForm() {
-      this.$router.push({ name: 'BoardList'});
-    } 
+    }, 
   },
 };
 </script>
@@ -51,12 +40,11 @@ export default {
 .container {
   margin: 0 auto;
   width: 800px;
+  background-color: $white;
   height: 800px;
-  background-color: $back-color;
   .form {
     width: 600px;
     height: 700px;
-    background-color: $white;
     margin: 30px auto;
     
     .main-title {
@@ -68,8 +56,5 @@ export default {
 }
 .content {
   padding: 20px;
-}
-.btn-group {
-  float: right;
 }
 </style>
