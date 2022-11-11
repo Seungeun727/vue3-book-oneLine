@@ -1,5 +1,5 @@
 <template>
-  <div class="containers">
+  <div>
     <TheHeader />
     <div id="main">
       <router-view />
@@ -20,16 +20,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #app {
   color: #333;
   margin-top: 60px;
-  padding-bottom: 130px;
-  position: relative;
-  min-height: 100%;
 }
 
 #main {
-  margin-top: 80px;
+  padding-bottom: 130px;
+  position: relative;
+  min-height: 100%;
 }
 </style>

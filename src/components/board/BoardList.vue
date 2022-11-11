@@ -1,11 +1,16 @@
 <template>
   <div class="container">
-    <div>
+    <div class="inner">
+      <div class="page-area">
+        총 <span class="page-count">{{ pageInfo.totalPostCount }}</span>건의 게시물이 있습니다.
+      </div> 
       <button 
-        class="btn btn-add"
+        class="btn btn--black"
         @click="addBoard()">
         등록
-      </button> 
+      </button>
+    </div>
+    <div>
       <BoardItem 
         :posts="posts" />
     </div>
@@ -27,6 +32,7 @@ export default {
   },
   computed: {
     ...mapState('board', ['posts']),
+    ...mapState('board', ['pageInfo']),
   },
   created() {
     this.getPosts();
@@ -48,23 +54,22 @@ export default {
   height: 500px;
   padding-top: 70px;
   margin: 0 auto;
+  .inner {
+    width: 942px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
-.btn {
-  outline: 0;
-  border: 0;
-  width: 100px;
-  height: 30px;
-  background: 0;
+.page-area {
+  width: 350px;
+  font-size: 0.9rem;
+  .page-count {
+    color: $dark-pink;
+    font-weight: 550;
+    line-height: 45px;
+  }
 }
 
-.btn-add {
-  float: right;
-  margin-bottom:5px;
-  background-color: $btn-color;
-  color: white;
-  box-shadow: 2px 2px #00000a13;
-  font-size: 1.0rem;
-  font-weight: 700;
-}
 </style>

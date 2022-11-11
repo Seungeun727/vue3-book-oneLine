@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
   name: 'BoardPageButton',
   emits: {'child': null},
@@ -47,8 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('board', ['totalPage']),
-    ...mapMutations('board', ['totalPages']),
+    ...mapGetters('board', ['totalPage']),
     pageStop() {
       return this.limit == 1 ? true : false;
     },

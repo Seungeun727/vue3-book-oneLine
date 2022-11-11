@@ -4,28 +4,32 @@ const board = {
   state: () => ({
     posts: [],
     post: [],
-    totalPage: 0,
+    pageInfo: [],
   }),
-  getters: {},
+  getters: {
+    totalPage(state) {
+      return state.pageInfo.totalPage;
+    } 
+  },
   mutations: {
     setBoardList(state, payload) {
       return state.posts = payload;
     },
     setUserPost(state, payload) {
-      console.log(payload);
       return state.post = payload;
     },
-    totalPage(state, payload) {
-      return state.totalPage = payload;
-    }
+    setPageInfo(state, payload) {
+      return state.pageInfo = payload;
+    },
   },
   actions: {
     getBoardList({commit}, pageInfo) {
       axios.get(`${process.env.VUE_APP_API_URL}/board`, 
       { params: pageInfo 
       }).then((res) => {
+        console.log(res.data);
         commit('setBoardList', res.data.posts);
-        commit('totalPage', res.data.totalPage);
+        commit('setPageInfo', res.data.pageInfo);
       }).catch((err) => {
         console.log(err.response);
       })
