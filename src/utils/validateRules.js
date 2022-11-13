@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { defineRule } from 'vee-validate';
 
 defineRule("required", (value) => {
@@ -16,7 +17,7 @@ defineRule("name", (value) => {
     return '이름을 다시 확인해주세요.';
   }
   return true;
-})
+});
 
 defineRule("email", (value) => {
   if(!value || !value.length) {
@@ -28,12 +29,37 @@ defineRule("email", (value) => {
     return '이메일 형식에 어긋납니다.';
   }
   return true;
-})
+});
 
 defineRule("id", (value) => {
   const regexId = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{5,20}$/;
   if (!regexId.test(value)) {
-    return '아이디는 5~20자의 영문 소문자, 숫자로만 사용합니다';
+    return '아이디는 5~20자의 영문 대소문자, 숫자, 특수문자로만 사용합니다';
   }
   return true;
-})
+});
+
+defineRule("password", (value) => {
+  const regex = {
+    repeat: /(\w)\1\1/,
+    space: /\s/g,
+    pwd: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/,
+  };
+  if(regex.space.test(value)) {
+    return '비밀번호는 공백이 없어야 합니다.';
+  } else if (regex.repeat.test(value)) {
+    return '비밀번호의 연속된 문자는 취약하므로 재설정해야 합니다.';
+  } else if(!regex.pwd.test(value)) {
+    return '비밀번호는 8~20자 영어 대소문자, 숫자, 특수문자를 포함해야 합니다.';
+  } 
+  return true;
+});
+
+defineRule("confirmed", (value, [target], ctx) => {
+  if(value === "") {
+    return '비밀번호는 8~20자의 영어 대소문자, 숫자, 특수문자를 포함해야 합니다.';
+  } else if(value !== ctx.form.password) {
+    return '작성하신 비밀번호를 다시 확인해주세요.';
+  }
+  return true;
+});
