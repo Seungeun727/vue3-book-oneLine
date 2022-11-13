@@ -6,12 +6,14 @@ import store from './store'
 import axios from 'axios'
 
 import 'normalize.css'
+import './utils/validateRules.js'
+
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axios;
 
 app
-  .use(router)
-  .use(store)
-  .use(veeValidate)
-  .mount('#app')
+.use(store)
+.use(router)
+.use(veeValidate)
+.mount('#app')

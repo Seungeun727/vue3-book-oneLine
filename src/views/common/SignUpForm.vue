@@ -18,35 +18,37 @@ export default {
           label: '이름',
           name: 'name',
           as: 'input',
-          type: 'text'
+          type: 'text',
+          rules: "required|name"
         },
         { 
           label: '이메일',
           name: 'email',
           as: 'input',
-          type: 'text'
+          type: 'text',
+          rules: "email"
         },
         { 
           label: '아이디',
           name: 'id',
           as: 'input',
-          type: 'text'
+          type: 'text',
+          rules: "required|id"
         },
         { 
           label: '비밀번호',
           name: 'password',
           as: 'input',
-          type: 'password'
+          type: 'password',
         },
         { 
           label: '비밀번호 재확인',
           name: 'passwordCheck',
           as: 'input',
-          type: 'password'
+          type: 'password',
         },
       ]
     };
-
     return {
       schema
     }

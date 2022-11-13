@@ -10,18 +10,21 @@
       <Field 
         :as="field.as" 
         :name="field.name"
-        :type="field.type" />
+        :type="field.type"
+        :rules="field.rules" />
+      <ErrorMessage :name="field.name" />
     </div>
     <button>제출</button>
   </Form>
 </template>
 
 <script>
-import { Form, Field } from 'vee-validate';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 export default {
   components: {
     Form,
     Field,
+    ErrorMessage
   },
   props: {
     schema: {
@@ -33,7 +36,6 @@ export default {
     function onSubmit(values) {
       console.log(values);
     }
-
     return {
       onSubmit
     }
@@ -41,5 +43,3 @@ export default {
 
 }
 </script>
-
-<style lang="scss" scoped></style>
