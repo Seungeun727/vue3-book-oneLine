@@ -1,6 +1,6 @@
 <template>
   <Form
-    v-slot="{ errors }"
+    v-slot="{ meta, errors }"
     class="form" 
     @submit="onSubmit">
     <div class="form-inner">
@@ -14,15 +14,24 @@
           <label :for="field.name">
             {{ field.label }}
           </label>
-          <Field 
+          <Field
             :as="field.as" 
             :name="field.name"
             :type="field.type"
             :rules="field.rules"
-            :class="{ invalid: errors[field.name] !== undefined }" />
-          <ErrorMessage
-            :name="field.name"
-            class="error-status" />
+            :class="{ invalid: errors[field.name] !== undefined, valid: meta.touched && meta.valid }" />         
+          <span 
+            v-if="errors[field.name] !== undefined"
+            class="error-status">
+            <FontAwesomeIcon icon="circle-exclamation" />
+            {{ errors[field.name] }}
+          </span>
+          <span
+            v-if="meta.touched && meta.valid"
+            class="success-status">
+            <FontAwesomeIcon
+              icon="circle-check" />
+          </span>
         </div>
       </slot> 
       <slot name="footer" />
@@ -31,12 +40,11 @@
 </template>
 
 <script>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+import { Form, Field } from 'vee-validate';
 export default {
   components: {
     Form,
     Field,
-    ErrorMessage
   },
   props: {
     schema: {
@@ -70,17 +78,36 @@ export default {
 }
 
 .input-area {
+  position: relative;
   padding-top: 7px;
 }
+.invalid {
+  border-color: $dark-pink;
+  font-size: $font-size-small;
+  font-weight: 500;
+}
+
 .error-status {
   display: block;
   color: $dark-pink;
   font-size: $font-size-small;
   font-weight: 500;
-} 
-.invalid {
-  border-color: red;
+}
+
+.success-status {
+  color: green;
+  display: block;
   font-size: $font-size-small;
   font-weight: 500;
-} 
+}
+.valid {
+  border-color: green;
+  font-size: $font-size-small;
+  font-weight: 500;
+}
+.svg-inline--fa.fa-circle-check {
+  position: absolute;
+  bottom: 15px;
+  right: 120px;
+}
 </style>
