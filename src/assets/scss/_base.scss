@@ -1,4 +1,5 @@
 body {
+  width: 1700px;
   height: 100%;
   background: #fafafa;
 }
@@ -15,6 +16,10 @@ input {
   border-radius: .2rem;
   box-shadow: 2px 2px -4px #00000018;
   margin-bottom: 5px;
+  &:focus {
+    outline: 0;
+    border-color: $main-color;
+  }
 }
 
 textarea {
@@ -26,7 +31,7 @@ textarea {
 }
 
 .btn {
-  width: 50px;
+  width: calc(100% -font-size);
   height: 35px;
   padding: 5px;
   margin: 5px 5px;
