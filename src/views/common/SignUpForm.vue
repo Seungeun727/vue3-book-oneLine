@@ -2,7 +2,7 @@
   <div class="form-container">
     <CustomForm 
       :schema="schema"
-      @child="sendParents">
+      @child="registerUser">
       <template #header>
         <span class="title">회원가입</span>
       </template>
@@ -18,9 +18,21 @@
 
 <script>
 import CustomForm from './CustomForm.vue';
+import { useStore } from 'vuex';
 export default {
   components: {
     CustomForm
+  },
+  setup() {
+    const store = useStore();
+    
+    const registerUser = (signInfo) =>  {
+      store.dispatch('user/regsiterUser', signInfo);
+    };
+
+    return {
+      registerUser
+    }
   },
   data: () => {
     const schema = {
@@ -66,11 +78,6 @@ export default {
       schema,
     }
   },
-  methods: {
-    sendParents(signInfo) {
-      console.log(signInfo);
-    },
-  }
 }
 </script>
 

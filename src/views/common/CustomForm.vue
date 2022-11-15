@@ -52,9 +52,10 @@ export default {
       required: true,
     },
   },
-  setup() { 
-    const onSubmit = (values) => {
-      console.log(values);
+  emits: {'child': null},
+  setup(props, context) { 
+    const onSubmit = (signInfo) => {
+      context.emit("child", signInfo);
     };
     
     return {
