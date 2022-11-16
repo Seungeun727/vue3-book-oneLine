@@ -1,24 +1,25 @@
 <template>
   <transition 
-    name="modal" 
+    name="fade" 
     class="modal">
-    <div class="modal-background">
-      <div class="modal-card">
-        <div class="modal-inner">
-          <div class="modal-header">
-            <slot name="header" />
-          </div>
-          <div class="modal-body">
-            <span>{{ content }}</span>
-          </div>
-          <slot name="footer" />
+    <div 
+      class="modal-card error"
+      :class="{ error: state.isError === false, success: content.status == true }">
+      <div class="modal-inner">
+        <div class="modal-header">
+          <slot name="header" />
         </div>
+        <div class="modal-body">
+          <slot name="body" />
+        </div>
+        <slot name="footer" />
       </div>
     </div>
   </transition>
 </template>
 
 <script>
+import { toRefs, computed, reactive } from 'vue';
 export default {
   props: {
     content: {
@@ -26,31 +27,58 @@ export default {
       default: () => {},
     },
   },
+  setup(props) {
+    const { content } = toRefs(props);
+
+    let state = reactive({
+      isError: computed(() => content.status == false),
+    })
+
+    return { 
+      state,
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.modal-card {
+.modal {
   position: absolute;
-  right: 50%;
-  top: 10%;
-  width: 240px;
+  right: 45%;
+  bottom: 350px;
+  width: 280px;
   height: 50px;
-  border-radius: 10px;
+  z-index: 3;
+  margin: 0 auto;
+}
+.modal-card {
+  border-radius: 30px;
   box-shadow: 2px 2px #00000028;
   border: 1px solid $light-gray;
   z-index: 2;
   padding-left: 15px;
-  opacity: .7;
+  .modal-inner {
+    line-height: 50px;
+    padding-left: 3px;
+  }
+}
+.error {
+  background-color: darken($dark-pink, 2%);
+  color: $white;
 }
 
-.modal-inner {
-  text-align: center;
+.success {
+  background-color: darken(green, 2%);
+  color: $white;
 }
 
-.btn--close {
-  outline: 0;
-  float: right;
-  font-size: 1.2rem;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

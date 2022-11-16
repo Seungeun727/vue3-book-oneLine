@@ -1,7 +1,19 @@
 <template>
   <div class="form-container">
     <UserMessageModal
-      :content="signUpMsg" />
+      v-if="isShow"
+      :content="signUpMsg">
+      <template #body>
+        <span v-if="signUpMsg.status == false">
+          <FontAwesomeIcon icon="triangle-exclamation" />
+          {{ signUpMsg.errorMsg }}
+        </span>
+        <span v-if="signUpMsg.status == true">
+          <FontAwesomeIcon icon="circle-check" />
+          {{ signUpMsg.successMsg }}
+        </span>
+      </template>
+    </UserMessageModal>
     <CustomForm 
       :schema="schema"
       @child="registerUser">
@@ -31,19 +43,19 @@ export default {
   setup() {
     const isShow = ref(false);
     const store = useStore();
-
+    
     const signUpCheck = () => store.commit('user/signUpCheck');
-    const signUpMsg = computed(() => store.state.user.status);
-
+    const signUpMsg = computed(() => store.state.user.signUpStatus);
+    
     const registerUser = (signInfo) =>  {
       isShow.value = true;
       store.dispatch('user/regsiterUser', signInfo);
-    };
+    };    
     
     return {
       isShow,
       signUpCheck,
-      signUpMsg,
+      signUpMsg,  
       registerUser,
     }
   },

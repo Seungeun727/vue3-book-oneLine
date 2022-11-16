@@ -8,7 +8,7 @@ const user = {
   getters: {},
   mutations: {
     signUpCheck(state, payload) {
-      return state.status = payload;
+      return state.signUpStatus = payload;
     },
   },
   actions: {
