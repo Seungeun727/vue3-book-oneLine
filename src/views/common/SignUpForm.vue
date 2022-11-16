@@ -1,5 +1,7 @@
 <template>
   <div class="form-container">
+    <UserMessageModal
+      :content="signUpMsg" />
     <CustomForm 
       :schema="schema"
       @child="registerUser">
@@ -18,20 +20,31 @@
 
 <script>
 import CustomForm from './CustomForm.vue';
+import UserMessageModal from '@/components/modal/UserMessageModal.vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 export default {
   components: {
-    CustomForm
+    CustomForm,
+    UserMessageModal
   },
   setup() {
+    const isShow = ref(false);
     const store = useStore();
-    
+
+    const signUpCheck = () => store.commit('user/signUpCheck');
+    const signUpMsg = computed(() => store.state.user.status);
+
     const registerUser = (signInfo) =>  {
+      isShow.value = true;
       store.dispatch('user/regsiterUser', signInfo);
     };
-
+    
     return {
-      registerUser
+      isShow,
+      signUpCheck,
+      signUpMsg,
+      registerUser,
     }
   },
   data: () => {
