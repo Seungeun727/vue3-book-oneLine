@@ -1,10 +1,17 @@
 <template>
   <transition 
     name="fade" 
-    class="modal">
+    class="modal"
+    :class="{ error: state.isError == false, success: content.status == true }">
     <div 
-      class="modal-card error"
-      :class="{ error: state.isError === false, success: content.status == true }">
+      class="modal-card">
+      <button
+        type="text" 
+        class="btn btn--close"
+        @click.self="close">
+        <FontAwesomeIcon
+          icon="fa-solid fa-xmark" />
+      </button> 
       <div class="modal-inner">
         <div class="modal-header">
           <slot name="header" />
@@ -27,15 +34,21 @@ export default {
       default: () => {},
     },
   },
-  setup(props) {
+  emits: ['close'],
+  setup(props, context) {
     const { content } = toRefs(props);
 
     let state = reactive({
+      show: false,
       isError: computed(() => content.status == false),
     })
 
+    const close = () => {
+      context.emit('close', state.show);
+    };
     return { 
       state,
+      close
     }
   }
 }
@@ -60,8 +73,10 @@ export default {
   .modal-inner {
     line-height: 50px;
     padding-left: 3px;
+    vertical-align: middle;
   }
 }
+
 .error {
   background-color: darken($dark-pink, 2%);
   color: $white;
@@ -80,5 +95,11 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.btn.btn--close {
+  float: right;
+  padding-right: 10px;
+  color: $white;
 }
 </style>

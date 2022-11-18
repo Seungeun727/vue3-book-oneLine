@@ -23,6 +23,13 @@
   @include change-button($btn-color);
 }
 
+.btn--black.btn--large {
+  @include change-button($btn-color);
+  margin: 10px 0;
+  width: 456px;
+  height: 45px;
+}
+
 .btn--white {
   @include outline-button($light-gray);
 }

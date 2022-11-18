@@ -1,8 +1,9 @@
 <template>
   <div class="form-container">
     <UserMessageModal
-      v-if="isShow"
-      :content="signUpMsg">
+      v-if="isShow == true"
+      :content="signUpMsg"
+      @close="modalClose">
       <template #body>
         <span v-if="signUpMsg.status == false">
           <FontAwesomeIcon icon="triangle-exclamation" />
@@ -22,7 +23,7 @@
       </template>
       <template #main />
       <template #footer>
-        <button class="btn btn--black">
+        <button class="btn btn--black btn--large">
           회원가입
         </button>
       </template>
@@ -52,11 +53,15 @@ export default {
       store.dispatch('user/regsiterUser', signInfo);
     };    
     
+    const modalClose = () => {
+      isShow.value = false;
+    };
     return {
       isShow,
       signUpCheck,
       signUpMsg,  
       registerUser,
+      modalClose
     }
   },
   data: () => {
