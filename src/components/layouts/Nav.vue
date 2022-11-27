@@ -7,7 +7,12 @@
       :to="{ name: 'BoardList', query: {
         currentpage: 1, pagesize: 10 }}">
       Board
-    </router-link> 
+    </router-link>
+    <div class="inner--right">
+      <router-link to="/sign">
+        Signup
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -43,5 +48,11 @@ a {
   padding: 10px;
   border-radius: 50%;
   background-color: $nav-color;
+}
+
+.inner--right {
+  display: block;
+  margin-right: 10px;
+  float: right;
 }
 </style>
