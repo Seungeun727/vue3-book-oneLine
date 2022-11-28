@@ -82,13 +82,6 @@ export default {
           rules: 'email'
         },
         { 
-          label: '아이디',
-          name: 'id',
-          as: 'input',
-          type: 'text',
-          rules: 'required|id'
-        },
-        { 
           label: '비밀번호',
           name: 'password',
           as: 'input',

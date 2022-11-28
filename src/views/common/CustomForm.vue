@@ -7,6 +7,7 @@
       <slot 
         name="header" />
       <slot name="main">
+        <ConfirmForm />
         <div
           v-for="field in schema.fields" 
           :key="field.name"
@@ -41,10 +42,12 @@
 
 <script>
 import { Form, Field } from 'vee-validate';
+import ConfirmForm from '../user/ConfirmForm.vue';
 export default {
   components: {
     Form,
     Field,
+    ConfirmForm
   },
   props: {
     schema: {
@@ -52,12 +55,13 @@ export default {
       required: true,
     },
   },
-  emits: {'child': null},
+  emits: {'child': null, 'check': [] },
   setup(props, context) { 
+    console.log(context.emit);
     const onSubmit = (signInfo) => {
       context.emit("child", signInfo);
     };
-    
+
     return {
       onSubmit,
     };
@@ -87,7 +91,6 @@ export default {
   font-size: $font-size-small;
   font-weight: 500;
 }
-
 .error-status {
   display: block;
   color: $dark-pink;
