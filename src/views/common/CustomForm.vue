@@ -1,48 +1,51 @@
 <template>
-  <Form
-    v-slot="{ meta, errors }"
-    class="form" 
-    @submit="onSubmit">
-    <div class="form-inner">
-      <slot 
-        name="header" />
-      <slot name="main">
-        <ConfirmForm />
-        <div
-          v-for="field in schema.fields" 
-          :key="field.name"
-          class="input-area">
-          <label :for="field.name">
-            {{ field.label }}
-          </label>
-          <Field
-            :as="field.as" 
-            :name="field.name"
-            :type="field.type"
-            :rules="field.rules"
-            :class="{ invalid: errors[field.name] !== undefined, valid: meta.touched && meta.valid }" />         
-          <span 
-            v-if="errors[field.name] !== undefined"
-            class="error-status">
-            <FontAwesomeIcon icon="circle-exclamation" />
-            {{ errors[field.name] }}
-          </span>
-          <span
-            v-if="meta.touched && meta.valid"
-            class="success-status">
-            <FontAwesomeIcon
-              icon="circle-check" />
-          </span>
+  <div class="form-container">
+    <slot 
+      name="header" />
+    <slot 
+      name="main">
+      <ConfirmForm />
+      <Form
+        v-slot="{ meta, errors }"
+        @submit="onSubmit">
+        <div class="form-inner">
+          <div
+            v-for="field in schema.fields" 
+            :key="field.name"
+            class="input-area">
+            <label :for="field.name">
+              {{ field.label }}
+            </label>
+            <Field
+              :as="field.as" 
+              :name="field.name"
+              :type="field.type"
+              :rules="field.rules"
+              :class="{ invalid: errors[field.name] !== undefined, valid: meta.touched && meta.valid }" />         
+            <span 
+              v-if="errors[field.name] !== undefined"
+              class="error-status">
+              <FontAwesomeIcon icon="circle-exclamation" />
+              {{ errors[field.name] }}
+            </span>
+            <span
+              v-if="meta.touched && meta.valid"
+              class="success-status">
+              <FontAwesomeIcon
+                icon="circle-check" />
+            </span>
+          </div>
+          <slot name="footer" />
         </div>
-      </slot> 
-      <slot name="footer" />
-    </div>
-  </Form>
+      </Form>
+    </slot> 
+  </div>
 </template>
 
 <script>
 import { Form, Field } from 'vee-validate';
 import ConfirmForm from '../user/ConfirmForm.vue';
+
 export default {
   components: {
     Form,
@@ -55,7 +58,7 @@ export default {
       required: true,
     },
   },
-  emits: {'child': null, 'check': [] },
+  emits: {'child': null},
   setup(props, context) { 
     console.log(context.emit);
     const onSubmit = (signInfo) => {
@@ -70,16 +73,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form {
+.form-container {
   width: 600px;
   height: 900px;
   background-color: #fff;
   margin: 0 auto;
   padding-top: 50px;
-  .form-inner {
-    padding: 20px;
-    align-items: center;
-  }
 }
 
 .input-area {

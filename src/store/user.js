@@ -4,12 +4,16 @@ const user = {
   namespaced: true,
   state: () => ({
     signUpStatus: [],
+    status: null,
   }),
-  getters: {},
+ 
   mutations: {
     signUpCheck(state, payload) {
       return state.signUpStatus = payload;
     },
+    isCheck(state, payload) {
+      return state.status = payload.status;
+    }
   },
   actions: {
     regsiterUser({ commit }, signInfo) {
@@ -34,8 +38,10 @@ const user = {
         }
       }).then((res) => {
         console.log("checkId User response success", res.data);
+        commit('isCheck', res.data);
       }).catch((err) => {
         console.log("checkId User response failed.", err.response); 
+        commit('isCheck', err.response.data.status);      
       });
     }
   },
