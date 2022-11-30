@@ -1,5 +1,5 @@
 <template>
-  <div class="form-container">
+  <div class="custorm-form-conatiner">
     <slot 
       name="header" />
     <slot 
@@ -60,7 +60,6 @@ export default {
   },
   emits: {'child': null},
   setup(props, context) { 
-    console.log(context.emit);
     const onSubmit = (signInfo) => {
       context.emit("child", signInfo);
     };
@@ -73,12 +72,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-container {
+.custorm-form-conatiner {
   width: 600px;
   height: 900px;
+  margin: 10px auto;
   background-color: #fff;
-  margin: 0 auto;
-  padding-top: 50px;
 }
 
 .input-area {
