@@ -1,65 +1,69 @@
 <template>
   <div class="custorm-form-conatiner">
-    <slot 
-      name="header" />
-    <slot 
-      name="main">
-      <Form
-        v-slot="{ meta, errors, values }"
-        @submit="onSubmit">
-        <div class="form-inner">
-          <div
-            v-for="field in schema.fields" 
-            :key="field.name"
-            class="input-area">
-            <label :for="field.name">
-              {{ field.label }}
-            </label>
-            <Field
-              :as="field.as" 
-              :name="field.name"
-              :type="field.type"
-              :rules="field.rules"
-              :class="{ invalid: errors[field.name] !== undefined, valid: meta.touched && meta.valid }" />
-            <span v-if="(field.status == false)">
-              <input
-                :disabled="(state.msg == true && values['id'] !== undefined)"
-                type="button"
-                value="중복확인"
-                @click="duplicateIdCheck(values['id'])">
-              <button
-                v-if="(state.msg != true)"
-                type="button"
-                class="btn"
-                @click="resetField(values['id'] = '')">
+    <div class="form-inner">
+      <slot 
+        name="header" />
+      <slot 
+        name="main">
+        <Form
+          v-slot="{ meta, errors, values }"
+          @submit="onSubmit">
+          <div class="form-inner">
+            <div
+              v-for="field in schema.fields" 
+              :key="field.name"
+              class="input-area">
+              <label :for="field.name">
+                {{ field.label }}
+              </label>
+              <Field
+                :as="field.as" 
+                :name="field.name"
+                :type="field.type"
+                :rules="field.rules"
+                :placeholder="field.placeholder"
+                :class="{ invalid: errors[field.name] !== undefined, valid: meta.touched && meta.valid }" />
+              <span v-if="field.status == false">
+                <input
+                  v-if="(state.msg == false || values['id'] !== undefined)"
+                  :disabled="(state.msg == true && values['id'] !== undefined)"
+                  type="button"
+                  class="btn btn--outline--blue"
+                  value="중복확인"
+                  @click="duplicateIdCheck(values['id'])">
+                <button
+                  type="button"
+                  class="btn btn--outline--circle"
+                  @click="resetField(values['id'] = '')">
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-xmark" /> 
+                </button>
+              </span>
+              <span 
+                v-if="errors[field.name] !== undefined"
+                class="error-status">
+                <FontAwesomeIcon icon="circle-exclamation" />
+                {{ errors[field.name] }}
+              </span>
+              <span
+                v-if="meta.touched && meta.valid"
+                class="success-status">
                 <FontAwesomeIcon
-                  icon="fa-solid fa-xmark" /> 
-              </button>
-            </span>
-            <span 
-              v-if="errors[field.name] !== undefined"
-              class="error-status">
-              <FontAwesomeIcon icon="circle-exclamation" />
-              {{ errors[field.name] }}
-            </span>
-            <span
-              v-if="meta.touched && meta.valid"
-              class="success-status">
-              <FontAwesomeIcon
-                icon="circle-check" />
-            </span>
-            <span
-              v-if="(values['id'] !== undefined && field.name == 'id')"
-              class="warn">
-              <FontAwesomeIcon
-                icon="circle-exclamation" />
-              {{ "중복 확인은 필수입니다." }}
-            </span>
+                  icon="circle-check" />
+              </span>
+              <span
+                v-if="(values['id'] !== undefined && field.name == 'id')"
+                class="warn">
+                <FontAwesomeIcon
+                  icon="circle-exclamation" />
+                {{ "중복 확인은 필수입니다." }}
+              </span>
+            </div>
+            <slot name="footer" />
           </div>
-          <slot name="footer" />
-        </div>
-      </Form>
-    </slot> 
+        </Form>
+      </slot> 
+    </div>
   </div>
 </template>
 
@@ -131,8 +135,8 @@ export default {
 .custorm-form-conatiner {
   width: 600px;
   height: 900px;
-  margin: 10px auto;
-  background-color: #fff;
+  position: absolute;
+  left: 40%;
 }
 
 .input-area {
@@ -174,4 +178,9 @@ export default {
   bottom: 15px;
   right: 120px;
 }
-</style>
+.btn.btn--outline--circle {
+  position: relative;
+  right: 130px;
+  bottom: 2px;
+}
+</style> 

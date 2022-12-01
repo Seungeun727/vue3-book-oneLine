@@ -19,6 +19,14 @@
   border: 1px solid $border-color;
 }
 
+.btn--white {
+  @include outline-button($light-gray);
+}
+
+.btn--outline--blue {
+  @include outline-button($main-color);
+}
+
 .btn--black {
   @include change-button($btn-color);
 }
@@ -30,9 +38,6 @@
   height: 45px;
 }
 
-.btn--white {
-  @include outline-button($light-gray);
-}
 
 .btn--red {
   @include change-button($dark-pink);
@@ -42,6 +47,15 @@
   @include change-button(map-get($blue-colors, color3));
 }
 
+
 .btn--navy {
   @include change-button(map-get($blue-colors, $nav-color));
+}
+
+// circle outline button
+.btn--outline--circle {
+  @include outline-button($light-gray);
+  border-radius: 50%;
+  width: 28px;
+  height: 30px;
 }
