@@ -79,7 +79,15 @@ export default {
           name: 'email',
           as: 'input',
           type: 'text',
-          rules: 'email'
+          rules: 'required|email'
+        },
+        { 
+          label: '아이디',
+          name: 'id',
+          as: 'input',
+          type: 'text',
+          rules: 'required|id',
+          status: false
         },
         { 
           label: '비밀번호',
