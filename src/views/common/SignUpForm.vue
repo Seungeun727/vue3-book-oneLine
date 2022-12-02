@@ -91,6 +91,7 @@ export default {
           type: 'text',
           rules: 'required|id',
           status: false,
+          fail: ['이미 사용중인 아이디입니다.', '중복 확인은 필수입니다.'],
           placeholder: '아이디 입력(5자-20자)'
         },
         { 
