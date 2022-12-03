@@ -24,9 +24,8 @@
                 :placeholder="field.placeholder"
                 :class="{ invalid: errors[field.name] !== undefined, valid: meta.valid && state.msg == true}" 
                 @input="checkId(values['id'])" />
-              <span v-if="(field.status == false && values['id'] !== undefined)">
+              <span v-if="(field.status == false && state.msg == false)">
                 <input
-                  v-if="state.msg == false"
                   :disabled="state.msg == true"
                   type="button"
                   class="btn btn--outline--blue"
@@ -47,7 +46,7 @@
                 {{ errors[field.name] }}
               </span>
               <span
-                v-if="(values['id'] !== undefined && field.name == 'id')"
+                v-if="(values['id'] === undefined && field.name == 'id')"
                 class="warn">
                 <FontAwesomeIcon
                   icon="circle-exclamation" />
@@ -60,6 +59,13 @@
                   icon="circle-exclamation" />
                 {{ field.fail[0] }}
               </span>
+              <span
+                v-if="(values['id'] !== '' && state.msg === true && field.fail)"
+                class="success-status">
+                <FontAwesomeIcon
+                  icon="circle-check" />
+                {{ field.fail[2] }}
+              </span>
             </div>
             <slot name="footer" />
           </div>
@@ -71,7 +77,7 @@
 
 <script>
 import { Form, Field } from 'vee-validate';
-import { reactive } from 'vue';
+import { reactive, watch } from 'vue';
 import axios from 'axios';
 
 export default {
@@ -88,17 +94,32 @@ export default {
   emits: {'child': null},
   setup(props, context) { 
     const state = reactive({
+      id: '',
       msg: '',
-      success: '',
-      visible: false,
     });
-
+    
     const onSubmit = (signInfo) => {
       if(state.msg == true) {
         context.emit("child", signInfo);
       } 
     };
     
+    const resetField = () => {
+      state.msg = '';
+    };
+
+    const checkId = (id) => {
+      state.id = id;
+    };
+    watch(
+      ()=> state.id,
+      (prev, curr) => {
+        console.log(`prev: ${prev}, curr: ${curr}`);
+        if(prev !== curr) {
+          state.msg = '';
+        }
+      },
+    );
     const duplicateIdCheck = (async (userId) => {
       const regexId = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{5,20}$/;
       if((userId == 'null' || userId == undefined) || !regexId.test(userId)) return false;
@@ -114,22 +135,12 @@ export default {
     });
 
     
-    const resetField = () => {
-      state.msg = '';
-    };
-
-    const checkId = (id) => {
-      console.log("id", id);
-      if(!id || id.length < 1) {
-        state.msg = '';
-      }
-    };
     return {
       state,
+      resetField,
+      checkId,
       duplicateIdCheck,
       onSubmit,
-      resetField,
-      checkId
     };
   }
 }
@@ -181,9 +192,5 @@ export default {
   position: relative;
   right: 130px;
   bottom: 2px;
-}
-input:disabled {
-  border-color: #ccc;
-  color: #ccc;
 }
 </style> 

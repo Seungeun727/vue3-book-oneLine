@@ -91,7 +91,7 @@ export default {
           type: 'text',
           rules: 'required|id',
           status: false,
-          fail: ['이미 사용중인 아이디입니다.', '중복 확인은 필수입니다.'],
+          fail: ['이미 사용중인 아이디입니다.', '중복 확인은 필수입니다.', '사용 가능한 아이디입니다.'],
           placeholder: '아이디 입력(5자-20자)'
         },
         { 
@@ -127,7 +127,8 @@ export default {
   font-size: $font-size;
 }
 .sub-title {
-  margin-top: 3px;
+  padding-top: 3px;
+  margin-bottom: 10px;
   display: block;
 }
 </style>

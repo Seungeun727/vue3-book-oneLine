@@ -13,7 +13,7 @@ label {
 
 input {
   width: 450px;
-  height: 37px;
+  height: 45px;
   border: 1px solid $light-gray;
   border-radius: .2rem;
   box-shadow: 2px 2px -4px #00000018;
@@ -24,8 +24,23 @@ input {
   }
 }
 
+input[type="text"] {
+  padding-left: 7px;
+}
+
 input[type="button"] {
   width: 80px;
+  height: 45px;
+}
+
+input::placeholder {
+  padding-left: 5px;
+  color: $light-gray;
+}
+
+input:disabled {
+  border-color: $light-gray;
+  color: $light-gray;
 }
 textarea {
   width: 450px;

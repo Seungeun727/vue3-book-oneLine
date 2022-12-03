@@ -47,7 +47,6 @@
   @include change-button(map-get($blue-colors, color3));
 }
 
-
 .btn--navy {
   @include change-button(map-get($blue-colors, $nav-color));
 }
