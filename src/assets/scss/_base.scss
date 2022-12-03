@@ -1,17 +1,19 @@
 body {
-  width: 1900px;
+  width: 100%;
   height: 100%;
-  background: #fafafa;
+  background-color: white;
+  overflow-x: hidden;
 }
 
 label {
   display: block;
   margin: 7px 3px;
+  font-size: 15px;
 }
 
 input {
   width: 450px;
-  height: 32px;
+  height: 45px;
   border: 1px solid $light-gray;
   border-radius: .2rem;
   box-shadow: 2px 2px -4px #00000018;
@@ -22,6 +24,24 @@ input {
   }
 }
 
+input[type="text"] {
+  padding-left: 7px;
+}
+
+input[type="button"] {
+  width: 80px;
+  height: 45px;
+}
+
+input::placeholder {
+  padding-left: 5px;
+  color: $light-gray;
+}
+
+input:disabled {
+  border-color: $light-gray;
+  color: $light-gray;
+}
 textarea {
   width: 450px;
   height: 150px;
@@ -32,7 +52,7 @@ textarea {
 
 .btn {
   width: calc(100% -font-size);
-  height: 35px;
+  height: 37px;
   padding: 5px;
   margin: 5px 5px;
   border: 0;

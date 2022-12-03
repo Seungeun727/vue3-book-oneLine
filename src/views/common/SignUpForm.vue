@@ -20,6 +20,7 @@
       @child="registerUser">
       <template #header>
         <span class="title">회원가입</span>
+        <span class="sub-title">{{ '방문자님 오신 것을 환영합니다. 회원정보를 입력해주세요.' }}</span>
       </template>
       <template #main />
       <template #footer>
@@ -72,35 +73,42 @@ export default {
           name: 'name',
           as: 'input',
           type: 'text',
-          rules: 'required|name'
+          rules: 'required|name',
+          placeholder: '이름 입력'
         },
         { 
           label: '이메일',
           name: 'email',
           as: 'input',
           type: 'text',
-          rules: 'email'
+          rules: 'required|email',
+          placeholder: '이메일 주소(예시: hong@gmail.com)'
         },
         { 
           label: '아이디',
           name: 'id',
           as: 'input',
           type: 'text',
-          rules: 'required|id'
+          rules: 'required|id',
+          status: false,
+          fail: ['이미 사용중인 아이디입니다.', '중복 확인은 필수입니다.', '사용 가능한 아이디입니다.'],
+          placeholder: '아이디 입력(5자-20자)'
         },
         { 
           label: '비밀번호',
           name: 'password',
           as: 'input',
           type: 'password',
-          rules: 'required|password'
+          rules: 'required|password',
+          placeholder: '비밀번호 입력(8자-20자)'
         },
         { 
           label: '비밀번호 재확인',
           name: 'passwordCheck',
           as: 'input',
           type: 'password',
-          rules: 'confirmed:@password'
+          rules: 'confirmed:@password',
+          placeholder: '비밀번호 재입력'
         },
       ]
     };
@@ -113,13 +121,14 @@ export default {
 
 <style lang="scss" scoped>
 .form-container {
-  background-color: $white;
-  width: 100%;
   height: 900px;
 }
 .title {
-  margin-bottom: 5px; 
   font-size: $font-size;
-  border-bottom: 1px solid $light-gray;
+}
+.sub-title {
+  padding-top: 3px;
+  margin-bottom: 10px;
+  display: block;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <SignUpForm />
   </div>
 </template>
@@ -13,4 +13,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.container {
+  width: 100%;
+  background-color: $white;
+  padding-top: 100px;
+}
+</style>

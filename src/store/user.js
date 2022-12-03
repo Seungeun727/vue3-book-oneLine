@@ -5,7 +5,7 @@ const user = {
   state: () => ({
     signUpStatus: [],
   }),
-  getters: {},
+ 
   mutations: {
     signUpCheck(state, payload) {
       return state.signUpStatus = payload;
