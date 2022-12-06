@@ -9,8 +9,11 @@
       Board
     </router-link>
     <div class="inner--right">
-      <router-link to="/sign">
-        Signup
+      <router-link to="/signup">
+        회원가입
+      </router-link>
+      <router-link to="/login">
+        로그인
       </router-link>
     </div>
   </div>

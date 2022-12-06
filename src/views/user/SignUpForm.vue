@@ -33,10 +33,11 @@
 </template>
 
 <script>
-import CustomForm from './CustomForm.vue';
+import CustomForm from '../common/CustomForm.vue';
 import UserMessageModal from '@/components/modal/UserMessageModal.vue';
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 export default {
   components: {
     CustomForm,
@@ -45,6 +46,7 @@ export default {
   setup() {
     const isShow = ref(false);
     const store = useStore();
+    const router = useRouter();
     
     const signUpCheck = () => store.commit('user/signUpCheck');
     const signUpMsg = computed(() => store.state.user.signUpStatus);
@@ -52,6 +54,7 @@ export default {
     const registerUser = (signInfo) =>  {
       isShow.value = true;
       store.dispatch('user/regsiterUser', signInfo);
+      router.push({ name: 'Home'});
     };    
     
     const modalClose = () => {

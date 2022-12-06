@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from '../views/Home';
 import Sign from '../views/Sign';
+import Login from '../views/Login';
 import Board from '../views/Board';
 import BoardList from '../components/board/BoardList';
 import BoardWrite from '../components/board/BoardWrite';
@@ -15,9 +16,14 @@ const routes = [
     component: Home,
   },
   {
-    path: '/sign',
+    path: '/signup',
     name: 'Sign',
     component: Sign,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
   {
     path: '/board',

@@ -113,9 +113,8 @@ export default {
     };
     watch(
       ()=> state.id,
-      (prev, curr) => {
-        console.log(`prev: ${prev}, curr: ${curr}`);
-        if(prev !== curr) {
+      (prevId, currentId) => {
+        if(prevId !== currentId) {
           state.msg = '';
         }
       },
