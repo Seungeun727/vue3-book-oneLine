@@ -25,6 +25,19 @@ const user = {
         commit('signUpCheck', err.response.data.signMessage);
       });
     },
+    // eslint-disable-next-line no-unused-vars
+    loginUser({ commit }, loginInfo) {
+      console.log("loginInfo", loginInfo);
+       axios.post(`${process.env.VUE_APP_API_URL}/user/signin`, JSON.stringify(loginInfo), {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }).then((res) => {
+        console.log("loginUser response success", res.data);
+      }).catch((err) => {
+        console.error("loginUser response failed", err.response);
+      })
+    }
   },
 };
 
