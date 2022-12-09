@@ -3,6 +3,7 @@ import * as veeValidate from 'vee-validate';
 import App from './App.vue';
 import router from './routes';
 import store from './store';
+import VueCookies from 'vue3-cookies';
 import axios from 'axios';
 
 import 'normalize.css';
@@ -13,6 +14,10 @@ const app = createApp(App)
 app.config.globalProperties.$axios = axios;
 
 app
+  .use(VueCookies, {
+    expiresTimes: "7d",
+    secure: true
+  })
   .use(store)
   .use(router)
   .use(veeValidate)
