@@ -33,7 +33,7 @@ const user = {
       login(loginInfo).then((res) => {
         console.log("loginUser response success", res);
         commit('setUser', res.data.userInfo);
-        commit('login', res.data.accessToken);
+        commit('login', res.data.access_token);
       }).catch((err) => {
         console.error("loginUser response failed", err.response);
       })
