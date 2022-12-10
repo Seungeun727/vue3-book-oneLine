@@ -15,13 +15,12 @@ const user = {
     getUser(state) {
       return state.userInfo;
     },
-    // eslint-disable-next-line no-unused-vars
     getToken(state) {
       let accessToken = cookies.get('accessToken');
-      return accessToken;
+      state.token = accessToken;
     },
     isLogin(state) {
-      return state.isAuth !== null;
+      return state.isLogin !== null;
     }
   },   
   mutations: {
@@ -33,7 +32,7 @@ const user = {
     },
     login(state, accessToken) {
       state.token = accessToken;
-      state.isAuth = true;
+      state.isLogin = true;
       cookies.set('accessToken', accessToken);
     } 
   },
@@ -52,7 +51,7 @@ const user = {
       .then((res) => {
         console.log("loginUser response success", res.data);
         commit('setUser', res.data.userInfo);
-        commit('login', res.data.acces_token);
+        commit('login', res.data.access_token);
         if(res.status === 201) {
           router.push({ name: 'Home'});
         }

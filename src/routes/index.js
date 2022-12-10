@@ -1,13 +1,14 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from '../views/Home';
-import Sign from '../views/Sign';
-import Login from '../views/Login';
+import { Auth } from '../routes/auth';
+import Mypage from '../views/user/MyPage';
 import Board from '../views/Board';
 import BoardList from '../components/board/BoardList';
 import BoardWrite from '../components/board/BoardWrite';
 import BoardEdit from '../components/board/BoardEdit';
 import BoardDetail from '../components/board/BoardDetail';
 import NotFound from '../views/NotFound';
+import store from '../store/index';
 
 const routes = [
   {
@@ -15,16 +16,13 @@ const routes = [
     name: 'Home',
     component: Home,
   },
+  ...Auth,
   {
-    path: '/signup',
-    name: 'Sign',
-    component: Sign,
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-  },
+    path: '/mypage',
+    name: 'Mypage',
+    component: Mypage,
+    meta: { requiresAuth: true},
+  }, 
   {
     path: '/board',
     name: 'Board',
@@ -64,5 +62,19 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 });
+
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.requiresAuth !== undefined) {
+    const isAuthorized = store.getters['user/getToken'];
+    if(isAuthorized !== undefined) {
+      next();
+    } else {
+      next('/login');
+    }
+  } else {
+    next();
+  } 
+})
 
 export default router;

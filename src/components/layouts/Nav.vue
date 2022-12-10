@@ -18,6 +18,13 @@
         로그인
       </router-link>
     </div>
+    <div
+      v-else
+      class="inner--right">
+      <router-link to="/mypage">
+        마이페이지
+      </router-link>
+    </div>
   </div>
 </template>
 
