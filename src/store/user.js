@@ -1,22 +1,40 @@
 import { signUp, login } from '../api/auth';
+import { useCookies } from 'vue3-cookies';
+import router from '../routes';
 
+const { cookies } = useCookies();
 const user = {
   namespaced: true,
   state: () => ({
     signUpStatus: [],
     userInfo: [],
     token: null,
+    isLogin: null,
   }),
-  getters: {},   
+  getters: {
+    getUser(state) {
+      return state.userInfo;
+    },
+    // eslint-disable-next-line no-unused-vars
+    getToken(state) {
+      let accessToken = cookies.get('accessToken');
+      return accessToken;
+    },
+    isLogin(state) {
+      return state.isAuth !== null;
+    }
+  },   
   mutations: {
     signUpCheck(state, payload) {
       return state.signUpStatus = payload;
     },
     setUser(state, userInfo) {
-      return state.userInfo = userInfo;
+      state.userInfo = userInfo;
     },
     login(state, accessToken) {
-      return state.token = accessToken;
+      state.token = accessToken;
+      state.isAuth = true;
+      cookies.set('accessToken', accessToken);
     } 
   },
   actions: {
@@ -30,11 +48,16 @@ const user = {
       });
     },
     loginUser({ commit }, loginInfo) {
-      login(loginInfo).then((res) => {
-        console.log("loginUser response success", res);
+      login(loginInfo)
+      .then((res) => {
+        console.log("loginUser response success", res.data);
         commit('setUser', res.data.userInfo);
-        commit('login', res.data.access_token);
-      }).catch((err) => {
+        commit('login', res.data.acces_token);
+        if(res.status === 201) {
+          router.push({ name: 'Home'});
+        }
+      })
+      .catch((err) => {
         console.error("loginUser response failed", err.response);
       })
     }

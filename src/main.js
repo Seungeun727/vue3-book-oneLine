@@ -16,7 +16,6 @@ app.config.globalProperties.$axios = axios;
 app
   .use(VueCookies, {
     expiresTimes: "7d",
-    secure: true
   })
   .use(store)
   .use(router)

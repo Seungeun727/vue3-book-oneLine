@@ -8,7 +8,9 @@
         currentpage: 1, pagesize: 10 }}">
       Board
     </router-link>
-    <div class="inner--right">
+    <div
+      v-if="!isLogin"
+      class="inner--right">
       <router-link to="/signup">
         회원가입
       </router-link>
@@ -20,9 +22,17 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';
+import { computed } from 'vue';
 export default {
   name: 'Nav',
-  components: {}
+  setup() {
+    const store = useStore();
+
+    return {
+      isLogin: computed(() => store.getters['user/isLogin']),
+    }
+  }
 }
 </script>
 
