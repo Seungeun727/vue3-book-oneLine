@@ -37,6 +37,7 @@ const routes = [
         path: 'write',
         name: 'BoardWrite',
         component: BoardWrite,
+        meta: { requiresAuth: true }
       },
       {
         path: 'edit/:id',
@@ -65,9 +66,9 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  if(to.meta.requiresAuth !== undefined) {
+  if(to.meta.requiresAuth == true) {
     const isAuthorized = store.getters['user/getToken'];
-    if(isAuthorized !== undefined) {
+    if(isAuthorized !== null) {
       next();
     } else {
       next('/login');

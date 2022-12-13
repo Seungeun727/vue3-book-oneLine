@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { writeBoard } from '@/api/board';
 import ValidateForm from './ValidateForm.vue';
 export default {
   name: 'BoardWrite',
@@ -20,12 +20,7 @@ export default {
   },
   methods: {
     submitForm(formData) {
-      axios.post(`${process.env.VUE_APP_API_URL}` + "/board/write/" + 4, 
-      JSON.stringify(formData), {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      writeBoard(formData)
       .then((res) => {
         console.log("submitForm Success", res.data);
       }).catch((err) => {

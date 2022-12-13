@@ -17,7 +17,7 @@ const user = {
     },
     getToken(state) {
       let accessToken = cookies.get('accessToken');
-      state.token = accessToken;
+      return state.token = accessToken;
     },
     isLogin(state) {
       return state.isLogin !== null;
@@ -33,7 +33,6 @@ const user = {
     login(state, accessToken) {
       state.token = accessToken;
       state.isLogin = true;
-      cookies.set('accessToken', accessToken);
     } 
   },
   actions: {
@@ -53,6 +52,7 @@ const user = {
         commit('setUser', res.data.userInfo);
         commit('login', res.data.access_token);
         if(res.status === 201) {
+          cookies.set('accessToken', res.data.access_token);
           router.push({ name: 'Home'});
         }
       })
