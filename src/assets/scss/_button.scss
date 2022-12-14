@@ -4,6 +4,12 @@
   padding: 5px;
   border-radius: 3px;
   background-color: $bg-color;
+  &:hover {
+    background-color: darken($main-color, 15%);
+  }
+  &:disabled {
+   background-color: darken($light-gray, 20%); 
+  }
 }
 
 @mixin outline-button($border-color) {
@@ -38,6 +44,19 @@
   height: 45px;
 }
 
+.btn--white.btn--large {
+  @include outline-button($light-gray);
+  margin: 10px 0;
+  width: 456px;
+  height: 45px;
+}
+
+.btn--blue.btn--large {
+  @include change-button($main-color);
+  margin: 10px 0;
+  width: 456px;
+  height: 45px;
+}
 
 .btn--red {
   @include change-button($dark-pink);

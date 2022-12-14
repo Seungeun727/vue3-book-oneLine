@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-container">
     <LoginForm />
   </div>
 </template>
@@ -13,4 +13,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.login-container {
+  box-shadow: 2px 2px 4px 2px #0f0f0f20;
+  border-radius: 30px;
+  width: 600px;
+  height: 600px;
+  top: 100px;
+  left: 35%;
+  position: absolute;
+}
+</style>
