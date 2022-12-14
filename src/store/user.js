@@ -1,7 +1,6 @@
-import { signUp, login } from '../api/auth';
+import authApi from '../api/auth';
 import { useCookies } from 'vue3-cookies';
 import router from '../routes';
-
 const { cookies } = useCookies();
 const user = {
   namespaced: true,
@@ -21,7 +20,7 @@ const user = {
     },
     isLogin(state) {
       return state.isLogin !== null;
-    }
+    },
   },   
   mutations: {
     signUpCheck(state, payload) {
@@ -33,11 +32,17 @@ const user = {
     login(state, accessToken) {
       state.token = accessToken;
       state.isLogin = true;
-    } 
+    },
+    logout(state) {
+      state.userInfo = [];
+      state.token = null;
+      state.isLogin = null;
+      cookies.remove('accessToken');
+    }
   },
   actions: {
     regsiterUser({ commit }, signInfo) {
-      signUp(signInfo).then((res) => {
+      authApi.signUp(signInfo).then((res) => {
         console.log("Resigster User response success.", res.data);
         commit('signUpCheck', res.data);
       }).catch((err) => {
@@ -46,7 +51,7 @@ const user = {
       });
     },
     loginUser({ commit }, loginInfo) {
-      login(loginInfo)
+      authApi.login(loginInfo)
       .then((res) => {
         console.log("loginUser response success", res.data);
         commit('setUser', res.data.userInfo);
@@ -58,6 +63,18 @@ const user = {
       })
       .catch((err) => {
         console.error("loginUser response failed", err.response);
+      })
+    },
+    logout({ commit }, logout) {
+      console.log(logout);
+      commit('logout');
+      authApi.logout()
+      .then((res) => {
+        console.log("logout response success", res.data);
+        router.push({ name: 'Login'})
+      })
+      .catch((err) => {
+        console.log("logout response err", err.response.data);
       })
     }
   },

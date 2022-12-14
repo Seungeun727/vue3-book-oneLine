@@ -8,4 +8,7 @@ function login(userInfo) {
   return instance.post('/user/signin', userInfo);
 }
 
-export { signUp, login };
+function logout() {
+  return instance.get('user/logout');
+}
+export default { signUp, login, logout };

@@ -24,6 +24,11 @@
       <router-link to="/mypage">
         마이페이지
       </router-link>
+      <button
+        type="text"
+        @click="logout">
+        로그아웃
+      </button>
     </div>
   </div>
 </template>
@@ -36,8 +41,12 @@ export default {
   setup() {
     const store = useStore();
 
+    const logout = () => {
+      store.dispatch('user/logout');
+    };
     return {
       isLogin: computed(() => store.getters['user/isLogin']),
+      logout
     }
   }
 }
