@@ -2,39 +2,26 @@
   <div class="container">
     <div class="inner">
       <form>
-        <div class="input-area">
-          <label>아이디</label>
-          <input
-            v-model="id" 
-            name="id"
-            type="text"
-            placeholder="아이디">
-          <button
-            type="button"
-            class="btn btn--outline--circle"
-            @click="resetField(values['id'] = '')">
-            <FontAwesomeIcon
-              icon="fa-solid fa-xmark" /> 
-          </button> 
-          <span>
-            {{ errors.id }}
-          </span>
-        </div>
-        <div class="input-area">
-          <label>비밀번호</label>
+        <div 
+          v-for="field in schema"
+          :key="field.name"
+          class="input-area">
           <input 
-            v-model="password" 
-            type="password"
-            placeholder="비밀번호">
-          <span>
-            {{ errors.password }}
+            v-model="values[field.name]"
+            :name="field.name"
+            :type="field.type"
+            :rules="field.rules"
+            :placeholder="field.placeholder"
+            :class="{ valid: !isValid && meta.valid}">
+          <span class="error-status">
+            {{ errors[field.name] }}
           </span>
           <button
             type="button"
             class="btn btn--outline--circle"
-            @click="resetField(values['password'] = '')">
+            @click="resetField(values[field.name] = '')">
             <FontAwesomeIcon
-              icon="fa-solid fa-xmark" /> 
+              :icon="['fas', 'xmark']" /> 
           </button> 
         </div>
         <div class="btn-area">
@@ -45,7 +32,7 @@
             회원가입
           </button>
           <button
-            type="submit"
+            type="button"
             class="btn btn--blue btn--large"
             :disabled="isValid || meta.valid == false"
             @click="submitLogin(values)">
@@ -77,6 +64,12 @@ import { reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter} from 'vue-router';
 export default {
+  props: {
+    schema: {
+      type: Object,
+      required: true,
+    },
+  },
   setup() {
     const findUser = reactive(['아이디 찾기', '비밀번호 찾기']);
     const store = useStore();
@@ -86,6 +79,10 @@ export default {
       validationSchema: {
         id: 'required|id',
         password: 'required|password',
+      },
+      initialValues: {
+        id: '', 
+        password: ''
       }
     });
 
@@ -98,6 +95,7 @@ export default {
 
     const submitLogin = (loginData) => {
       if(loginData.id !== '' || loginData.password !== '') {
+        console.log(loginData);
         store.dispatch('user/loginUser', loginData);
       }
     };
@@ -111,8 +109,6 @@ export default {
       values,
       errors,
       meta,
-      id,
-      password,
       findUser,
       isValid,
       submitLogin,
@@ -136,6 +132,8 @@ export default {
   }
 }
 .input-area {
+  position: relative;
+  height: 70px;
   margin-bottom: 20px;
 }
 .btn-area {
@@ -144,5 +142,28 @@ export default {
 .sub-button-area {
   text-align: center;
   color: $font-color;
+}
+
+.error-status {
+  display: block;
+  color: $dark-pink;
+  font-size: $font-size-small;
+  font-weight: 500;
+}
+
+.success-status {
+  color: green;
+  display: block;
+  font-size: $font-size-small;
+  font-weight: 500;
+}
+
+.valid {
+  border-color: green;
+}
+.btn.btn--outline--circle {
+  position: absolute;
+  left: 400px;
+  bottom: 25px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <LoginForm />
+    <LoginForm :schema="schema" />
   </div>
 </template>
 
@@ -9,6 +9,28 @@ import LoginForm from './user/LoginForm.vue';
 export default {
   components: {
     LoginForm
+  },
+  setup() {
+    const schema = [
+      { 
+        name: 'id',
+        as: 'input',
+        type: 'text',
+        rules: 'required|id',
+        placeholder: '아이디 입력(5자-20자)',
+      },
+      { 
+        name: 'password',
+        as: 'input',
+        type: 'password',
+        rules: 'required|password',
+        placeholder: '비밀번호 입력(8자-20자)'
+      },
+    ];
+
+    return {
+      schema
+    }
   }
 }
 </script>
