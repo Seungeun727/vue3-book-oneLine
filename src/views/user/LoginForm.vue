@@ -5,16 +5,37 @@
         <div class="input-area">
           <label>아이디</label>
           <input
-            v-model="loginData.id" 
+            v-model="id" 
+            name="id"
             type="text"
-            placeholder="아이디"> 
+            placeholder="아이디">
+          <button
+            type="button"
+            class="btn btn--outline--circle"
+            @click="resetField(values['id'] = '')">
+            <FontAwesomeIcon
+              icon="fa-solid fa-xmark" /> 
+          </button> 
+          <span>
+            {{ errors.id }}
+          </span>
         </div>
         <div class="input-area">
           <label>비밀번호</label>
           <input 
-            v-model="loginData.password" 
+            v-model="password" 
             type="password"
             placeholder="비밀번호">
+          <span>
+            {{ errors.password }}
+          </span>
+          <button
+            type="button"
+            class="btn btn--outline--circle"
+            @click="resetField(values['password'] = '')">
+            <FontAwesomeIcon
+              icon="fa-solid fa-xmark" /> 
+          </button> 
         </div>
         <div class="btn-area">
           <button
@@ -24,10 +45,10 @@
             회원가입
           </button>
           <button
-            type="button"
+            type="submit"
             class="btn btn--blue btn--large"
-            :disabled="loginData.password == '' || loginData.id == ''" 
-            @click="submitLogin(loginData)">
+            :disabled="isValid || meta.valid == false"
+            @click="submitLogin(values)">
             로그인
           </button>
         </div>
@@ -35,15 +56,13 @@
           class="sub-button-area">      
           <button
             type="button"
-            class="btn"
-            @click="moveSignUp">
+            class="btn">
             {{ findUser[0] }}
           </button>
           <span>{{ findUser[1] }}</span>  
           <button
             type="button"
-            class="btn"
-            @click="moveSignUp">
+            class="btn">
             {{ findUser[2] }}
           </button>
         </div>
@@ -53,16 +72,30 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { useForm } from 'vee-validate';
+import { reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter} from 'vue-router';
 export default {
   setup() {
-    const loginData = reactive({ id: '', password: ''});
     const findUser = reactive(['아이디 찾기', '비밀번호 찾기']);
     const store = useStore();
     const router = useRouter();
     
+    const { values, meta, errors, useFieldModel } = useForm({
+      validationSchema: {
+        id: 'required|id',
+        password: 'required|password',
+      }
+    });
+
+    const id = useFieldModel('id');
+    const password = useFieldModel('password');
+    
+    const isValid = computed(() => {
+      return id == undefined || password == undefined;
+    });
+
     const submitLogin = (loginData) => {
       if(loginData.id !== '' || loginData.password !== '') {
         store.dispatch('user/loginUser', loginData);
@@ -75,8 +108,13 @@ export default {
 
     findUser.splice(1, 0, '|');
     return {
+      values,
+      errors,
+      meta,
+      id,
+      password,
       findUser,
-      loginData,
+      isValid,
       submitLogin,
       moveSignUp
     }
