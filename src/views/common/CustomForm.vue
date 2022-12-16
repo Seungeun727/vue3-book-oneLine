@@ -36,34 +36,35 @@
                   class="btn btn--outline--circle"
                   @click="resetField(values['id'] = '')">
                   <FontAwesomeIcon
-                    icon="fa-solid fa-xmark" /> 
+                    :icon="['fas', 'xmark']" /> 
                 </button>
               </span>
-              <span 
+              <span
                 v-if="errors[field.name] !== undefined"
                 class="error-status">
-                <FontAwesomeIcon icon="circle-exclamation" />
+                <FontAwesomeIcon 
+                  :icon="['fas', 'circle-exclamation']" />
                 {{ errors[field.name] }}
               </span>
               <span
                 v-if="(values['id'] === undefined && field.name == 'id')"
                 class="warn">
                 <FontAwesomeIcon
-                  icon="circle-exclamation" />
+                  :icon="['fas', 'circle-exclamation']" />
                 {{ field.fail[1] }}
               </span>
               <span
                 v-if="(values['id'] !== '' && state.msg === false && field.fail)"
                 class="error-status">
                 <FontAwesomeIcon
-                  icon="circle-exclamation" />
+                  :icon="['fas', 'circle-exclamation']" />
                 {{ field.fail[0] }}
               </span>
               <span
                 v-if="(values['id'] !== '' && state.msg === true && field.fail)"
                 class="success-status">
                 <FontAwesomeIcon
-                  icon="circle-check" />
+                  :icon="['fas', 'xmark']" />
                 {{ field.fail[2] }}
               </span>
             </div>
@@ -133,7 +134,6 @@ export default {
       });
     });
 
-    
     return {
       state,
       resetField,
@@ -157,36 +157,7 @@ export default {
   position: relative;
   padding-top: 7px;
 }
-.invalid {
-  border-color: $dark-pink;
-  font-size: $font-size-small;
-  font-weight: 500;
-}
-.error-status {
-  display: block;
-  color: $dark-pink;
-  font-size: $font-size-small;
-  font-weight: 500;
-}
 
-.success-status {
-  color: green;
-  display: block;
-  font-size: $font-size-small;
-  font-weight: 500;
-}
-.valid {
-  border-color: green;
-  font-size: $font-size-small;
-  font-weight: 500;
-}
-
-.warn {
-  display: block;
-  color: #0048ff;
-  font-size: $font-size-small;
-  font-weight: 500;
-}
 .btn.btn--outline--circle {
   position: relative;
   right: 130px;

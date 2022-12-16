@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="inner">
+      <span class="title">로그인</span>
       <form>
         <div 
           v-for="field in schema"
@@ -12,14 +13,18 @@
             :type="field.type"
             :rules="field.rules"
             :placeholder="field.placeholder"
-            :class="{ valid: !isValid && meta.valid}">
-          <span class="error-status">
+            :maxlength="20"
+            :class="{ valid: !isValid && meta.valid, invalid: errors[field.name] !== undefined && values[field.name] !== ''}">
+          <span 
+            v-if="values[field.name] !== ''"
+            class="error-status">
             {{ errors[field.name] }}
           </span>
           <button
+            v-if="values[field.name] !== ''"
             type="button"
             class="btn btn--outline--circle"
-            @click="resetField(values[field.name] = '')">
+            @click="resetField(field.name)">
             <FontAwesomeIcon
               :icon="['fas', 'xmark']" /> 
           </button> 
@@ -27,30 +32,16 @@
         <div class="btn-area">
           <button
             type="button"
-            class="btn btn--white btn--large"
+            class="btn btn--white--medium"
             @click="moveSignUp">
             회원가입
           </button>
           <button
             type="button"
-            class="btn btn--blue btn--large"
+            class="btn btn--blue--medium"
             :disabled="isValid || meta.valid == false"
             @click="submitLogin(values)">
             로그인
-          </button>
-        </div>
-        <div 
-          class="sub-button-area">      
-          <button
-            type="button"
-            class="btn">
-            {{ findUser[0] }}
-          </button>
-          <span>{{ findUser[1] }}</span>  
-          <button
-            type="button"
-            class="btn">
-            {{ findUser[2] }}
           </button>
         </div>
       </form>
@@ -59,8 +50,8 @@
 </template>
 
 <script>
-import { useForm } from 'vee-validate';
-import { reactive, computed } from 'vue';
+import { useForm, useField } from 'vee-validate';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter} from 'vue-router';
 export default {
@@ -71,23 +62,17 @@ export default {
     },
   },
   setup() {
-    const findUser = reactive(['아이디 찾기', '비밀번호 찾기']);
     const store = useStore();
     const router = useRouter();
     
-    const { values, meta, errors, useFieldModel } = useForm({
-      validationSchema: {
-        id: 'required|id',
-        password: 'required|password',
-      },
+    const { values, meta, errors } = useForm({
       initialValues: {
         id: '', 
         password: ''
       }
     });
-
-    const id = useFieldModel('id');
-    const password = useFieldModel('password');
+    const id = useField('id', 'required|id');
+    const password = useField('password', 'required|password');
     
     const isValid = computed(() => {
       return id == undefined || password == undefined;
@@ -100,17 +85,19 @@ export default {
       }
     };
 
+    const resetField = (input) => {
+      return values[input] = '';
+    };
     const moveSignUp = () => {
       router.push({ name: 'Sign'});
     };
 
-    findUser.splice(1, 0, '|');
     return {
       values,
       errors,
       meta,
-      findUser,
       isValid,
+      resetField,
       submitLogin,
       moveSignUp
     }
@@ -122,48 +109,36 @@ export default {
 .container {
   width: 500px;
   height: 400px;
-  padding: 5px;
   top: 50px;
-  left: 50px;
   position: absolute;
   .inner {
     position: relative;
     padding-left: 25px;
+    text-align: center;
   }
+}
+
+.title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: $font-size;
+}
+input {
+  width: 340px;
 }
 .input-area {
   position: relative;
   height: 70px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .btn-area {
   margin-top: 2px;
 }
-.sub-button-area {
-  text-align: center;
-  color: $font-color;
-}
-
-.error-status {
-  display: block;
-  color: $dark-pink;
-  font-size: $font-size-small;
-  font-weight: 500;
-}
-
-.success-status {
-  color: green;
-  display: block;
-  font-size: $font-size-small;
-  font-weight: 500;
-}
-
-.valid {
-  border-color: green;
-}
 .btn.btn--outline--circle {
   position: absolute;
-  left: 400px;
-  bottom: 25px;
+  left: 350px;
+  bottom: 20px;
+  color: $white;
+  background-color: $main-color;
 }
 </style>

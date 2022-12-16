@@ -51,7 +51,7 @@ textarea {
 }
 
 .btn {
-  width: calc(100% -font-size);
+  width: 50px;
   height: 37px;
   padding: 5px;
   margin: 5px 5px;
@@ -59,4 +59,33 @@ textarea {
   outline: 0;
   background: 0;
   font-size: 1.0rem;
+}
+
+.error-status {
+  display: block;
+  color: $dark-pink;
+  font-size: $font-size-small;
+  font-weight: 500;
+}
+
+.success-status {
+  color: green;
+  display: block;
+  font-size: $font-size-small;
+  font-weight: 500;
+}
+
+.warn {
+  display: block;
+  color: #0048ff;
+  font-size: $font-size-small;
+  font-weight: 500;
+}
+
+.valid {
+  border-color: green;
+}
+
+.invalid {
+  border-color: $dark-pink;
 }

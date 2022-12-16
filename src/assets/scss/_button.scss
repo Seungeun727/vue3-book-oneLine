@@ -1,9 +1,22 @@
-@mixin change-button($bg-color) {
+$button-size: (
+  small: small,
+  medium: medium,
+  large: large,
+);
+
+@mixin change-button($bg-color, $button-size: '') {
+  @if $button-size == medium {
+    width: 350px;
+  } @else if $button-size == large {
+    width: 456px;
+  }
   border: 0;
   color: $white;
   padding: 5px;
   border-radius: 3px;
   background-color: $bg-color;
+  margin: 10px 0;
+  height: 45px;
   &:hover {
     background-color: darken($main-color, 15%);
   }
@@ -12,17 +25,24 @@
   }
 }
 
-@mixin outline-button($border-color) {
+@mixin outline-button($border-color, $button-size: '') {
   @if $border-color == $light-gray {
     color: map-get($gray-colors, color4);
   }
   @else {
     color: $border-color;
   }
+  @if $button-size == medium {
+    width: 350px;
+  } @else if $button-size == large{
+    width: 456px;
+  }
   margin-left: 2px;
   background: 0;
   border-radius: 3px;
   border: 1px solid $border-color;
+  margin: 10px 0;
+  height: 45px;
 }
 
 .btn--white {
@@ -38,24 +58,15 @@
 }
 
 .btn--black.btn--large {
-  @include change-button($btn-color);
-  margin: 10px 0;
-  width: 456px;
-  height: 45px;
+  @include change-button($btn-color, 'large');
 }
 
-.btn--white.btn--large {
-  @include outline-button($light-gray);
-  margin: 10px 0;
-  width: 456px;
-  height: 45px;
+.btn--blue--medium {
+  @include change-button($main-color, 'medium');
 }
 
-.btn--blue.btn--large {
-  @include change-button($main-color);
-  margin: 10px 0;
-  width: 456px;
-  height: 45px;
+.btn--white--medium {
+  @include outline-button($light-gray, 'medium');
 }
 
 .btn--red {
@@ -64,10 +75,6 @@
 
 .btn--blue {
   @include change-button(map-get($blue-colors, color3));
-}
-
-.btn--navy {
-  @include change-button(map-get($blue-colors, $nav-color));
 }
 
 // circle outline button

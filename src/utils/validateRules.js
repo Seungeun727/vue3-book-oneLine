@@ -34,7 +34,7 @@ defineRule("email", (value) => {
 defineRule("id", (value) => {
   const regexId = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{5,20}$/;
   if (!regexId.test(value)) {
-    return '아이디는 5~20자의 영문 대소문자, 숫자, 특수문자로만 사용합니다';
+    return '아이디는 5~20자로 영문 대소문자, 숫자만 사용합니다.';
   }
   return true;
 });
@@ -50,7 +50,7 @@ defineRule("password", (value) => {
   } else if (regex.repeat.test(value)) {
     return '비밀번호의 연속된 문자는 취약하므로 재설정해야 합니다.';
   } else if(!regex.pwd.test(value)) {
-    return '비밀번호는 8~20자 영어 대소문자, 숫자, 특수문자를 포함해야 합니다.';
+    return '비밀번호는 영어 대소문자, 숫자, 특수문자 사용하세요.';
   } 
   return true;
 });
