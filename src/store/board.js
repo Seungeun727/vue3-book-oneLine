@@ -1,4 +1,4 @@
-import axios from "axios";
+import { boardList, userPost } from "@/api/board";
 const board = {
   namespaced: true,
   state: () => ({
@@ -24,10 +24,7 @@ const board = {
   },
   actions: {
     getBoardList({commit}, pageInfo) {
-      axios.get(`${process.env.VUE_APP_API_URL}/board`, 
-      { params: pageInfo 
-      }).then((res) => {
-        console.log(res.data);
+      boardList(pageInfo).then((res) => {
         commit('setBoardList', res.data.posts);
         commit('setPageInfo', res.data.pageInfo);
       }).catch((err) => {
@@ -35,8 +32,8 @@ const board = {
       })
     },
     getUserPost({commit}, payload) {
-      axios.get(`${process.env.VUE_APP_API_URL}/board/` + payload.postId,
-      ).then((res) => {
+      userPost(payload.postId)
+      .then((res) => {
         commit('setUserPost', res.data);        
       }).catch((err) => {
         console.log(err.response);

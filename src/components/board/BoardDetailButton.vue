@@ -2,7 +2,7 @@
   <div class="btn-container">
     <router-link
       class="btn btn--white"
-      :to="{ name: 'BoardEdit', params: $route.params.id }">
+      :to="{ name: 'BoardEdit', params: id }">
       수정
     </router-link>
     <button
