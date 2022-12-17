@@ -2,7 +2,7 @@
   <div class="btn-container">
     <router-link
       class="btn btn--white"
-      :to="{ name: 'BoardEdit', params: { id }}">
+      :to="{ name: 'BoardEdit', params: $route.params.id }">
       수정
     </router-link>
     <button
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { deleteBoard } from '@/api/board';
 import ModalMessage from '../modal/ModalMessage.vue';
 export default {
   components: {
@@ -69,12 +69,7 @@ export default {
     },
     deletePost() {
       const postId = this.$route.params.id;
-      console.log(typeof postId);
-      axios.post(`${process.env.VUE_APP_API_URL}` + "/board/delete/" + postId, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
+      deleteBoard(postId)
       .then((res) => {
         console.log("deletePost Success", res.data);
         this.message = '게시물이 삭제되었습니다.';

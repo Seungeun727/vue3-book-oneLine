@@ -59,7 +59,7 @@
 </template>
 <script>
 import { Form, Field } from 'vee-validate';
-import axios from 'axios';
+import { updateBoard } from '@/api/board';
 export default {
   components: {
     Form,
@@ -92,12 +92,7 @@ export default {
     },
     modifyForm(formData) {
       const postId = this.$route.params.id;
-      axios.post(`${process.env.VUE_APP_API_URL}` + "/board/update/" + postId,
-      JSON.stringify(formData), {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      updateBoard(postId, formData)
       .then((res) => {
         console.log("modifyForm Success", res.data);
       }).catch((err) => {
