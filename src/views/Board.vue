@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <div class="container">
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -9,4 +11,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.container {
+  width: 900px;
+}
+</style>

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="wrapper">
     <TheHeader />
     <div id="main">
       <router-view />
     </div>
-    <TheFooter />
+    <TheFooter /> 
   </div>
 </template>
 
@@ -21,14 +21,16 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
+#wrapper {
   color: #333;
-  margin-top: 60px;
+  margin-top: 30px;
+  padding-bottom: 130px;
+  position: relative;
+  min-height: 100vh;
 }
 
 #main {
-  padding-bottom: 130px;
-  position: relative;
-  min-height: 100%;
+  position: absolute;
+  left: 25%;
 }
 </style>

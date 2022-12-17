@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer">
+  <div id="footer">
     <div 
       id="content">
       <span class="content-title">bookLine</span>
@@ -7,7 +7,7 @@
       <span>이메일: seun2230@gmail.com</span>
     </div>
     <span class="copyright">Copyright 2022 &copy; bookLine</span>
-  </footer>
+  </div>
 </template>
 
 <script>
@@ -18,14 +18,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-footer {
-  border-top: 1px solid #fffdfded;
+#footer {
   width: 100%;
   height: 130px;
-  background-color: #fffdfd;
+  background-color: #f0efef;
   position: absolute;
-  transform: translateY(100%);
   color: gray;
+  left: 0;
   bottom: 0;
   text-align: center;
   padding: 15px;
