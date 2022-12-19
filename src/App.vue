@@ -4,8 +4,8 @@
     <div id="main">
       <router-view />
     </div>
-    <TheFooter /> 
   </div>
+  <TheFooter /> 
 </template>
 
 <script>
@@ -22,15 +22,14 @@ export default {
 
 <style lang="scss">
 #wrapper {
+  margin-top: 50px;
   color: #333;
-  margin-top: 30px;
+  min-height: 100%;
   padding-bottom: 130px;
-  position: relative;
-  min-height: 100vh;
 }
 
 #main {
-  position: absolute;
-  left: 25%;
+  width: 100%;
+  height: auto;
 }
 </style>

@@ -25,7 +25,7 @@ export default {
   position: absolute;
   color: gray;
   left: 0;
-  bottom: 0;
+  bottom: -380px;
   text-align: center;
   padding: 15px;
 }
