@@ -11,4 +11,8 @@ function login(userInfo) {
 function logout() {
   return instance.get('user/logout');
 }
-export default { signUp, login, logout };
+
+function userPost() {
+  return instance.get('mypage/board');
+}
+export default { signUp, login, logout, userPost };

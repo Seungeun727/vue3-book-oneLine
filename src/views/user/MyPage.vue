@@ -2,14 +2,16 @@
   <div class="my-container">
     <div class="inner">
       <aside class="menu">
-        menu
+        <span>프로필 설정</span>
+        <span>나의 기록</span>
+        <span>목표 설정</span>
       </aside>
       <div class="profile">
         <UserProfile />
       </div>
       <div class="post">
         <UserBoard />
-      </div>
+      </div> 
     </div>
   </div>
 </template>
