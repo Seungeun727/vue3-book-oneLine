@@ -21,7 +21,7 @@
     <div
       v-else
       class="inner--right">
-      <router-link to="/mypage">
+      <router-link to="/user/mypage">
         마이페이지
       </router-link>
       <button

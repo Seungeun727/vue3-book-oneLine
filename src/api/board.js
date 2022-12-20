@@ -18,7 +18,7 @@ function updateBoard(userId, postData) {
 }
 
 function deleteBoard(userId) {
-  return instance.post('/baord/delete', userId)
+  return instance.post('/board/delete/' + userId)
 }
 
 export {
