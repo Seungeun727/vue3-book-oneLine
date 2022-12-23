@@ -3,6 +3,8 @@ import Home from '../views/Home';
 import User from '../views/User';
 import { Auth } from '../routes/auth';
 import Mypage from '../views/user/MyPage';
+import UserProfile from '../views/user/UserProfile.vue';
+import UserBoard from '../views/user/UserBoard.vue';
 import Board from '../views/Board';
 import BoardWrite from '../components/board/BoardWrite';
 import BoardEdit from '../components/board/BoardEdit';
@@ -26,6 +28,19 @@ const routes = [
         name: 'Mypage',
         component: Mypage,
         meta: { requiresAuth: true},
+        children: [
+          {
+            path: 'article',
+            name: 'Article',
+            component: UserBoard,
+            meta: { requiresAuth: true }
+          },
+          {
+            path: '',
+            name: 'profile',
+            component: UserProfile,
+          },
+        ]
       },
     ]
   }, 

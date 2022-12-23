@@ -12,12 +12,15 @@
         v-for="post in state.myPost"
         :key="post.board_no" 
         :post="post" />
-      <button>
-        더보기
+      <button
+        type="button"
+        class="btn btn--outline--circle">
+        <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
       </button>
     </div>
     <div v-else>
-      <button>작성한 기록이 없습니다.</button>
+      <span>작성하신 기록이 없습니다.</span>
+      <button>지금 등록하러 가실래요?</button>
     </div>
   </div>
 </template>
@@ -26,10 +29,12 @@
 import UserBoardItem from './userBoardItem.vue';
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 export default {
   components: {
-    UserBoardItem
-  },
+    UserBoardItem,
+    FontAwesomeIcon
+},
   setup() {
     const state = reactive({
       myPost: computed(() => store.state.mypage.userPost),
@@ -46,12 +51,22 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  padding: 20px;
+  padding: 30px;
+  .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
 }
 .card-container {
   display: flex;
   flex-direction: row;
   width: 900px;
   height: 350px;
+}
+
+.btn--outline--circle {
+  position: absolute;
+  top: 30%;
+  right: 22%;
 }
 </style>
