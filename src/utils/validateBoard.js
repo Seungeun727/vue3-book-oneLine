@@ -3,7 +3,7 @@ function checkDate(date) {
     return '날짜 입력란은 필수입니다.';
   } else {
     const regex = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
-    if(regex.test(date) && date.length != 10) {
+    if(regex.test(date) && date.length !== 10) {
       return '날짜 형식은 10자입니다.';
     } else {
       const year = date.substring(0, 4);
@@ -22,7 +22,7 @@ function checkDate(date) {
           if(day >= 29) return `${year}년은 28일까지 입니다.`;
         }
       }
-      return `${year}-${month}-${day}`;
+      return true;
     }
   }
 }

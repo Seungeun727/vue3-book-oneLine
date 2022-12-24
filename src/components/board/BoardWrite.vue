@@ -2,7 +2,6 @@
   <div class="container">
     <div class="form">
       <div class="content">
-        <span class="main-title">책 등록</span>
         <ValidateForm 
           @get-child="submitForm" />
       </div>
@@ -13,43 +12,50 @@
 <script>
 import { writeBoard } from '@/api/board';
 import ValidateForm from './ValidateForm.vue';
+import { useRouter } from 'vue-router';
 export default {
   name: 'BoardWrite',
   components: {
     ValidateForm
   },
-  methods: {
-    submitForm(formData) {
+  setup() {
+    const router = useRouter();
+    const submitForm = (formData) => {
       writeBoard(formData)
       .then((res) => {
         console.log("submitForm Success", res.data);
+        router.go(-1);
       }).catch((err) => {
         console.log("submitForm Error", err.response);
       })
-    }, 
-  },
+    };
+    return { 
+      submitForm,
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-  margin: 0 auto;
-  width: 800px;
+  width: 100%;
+  height: 100%;
   background-color: $white;
-  height: 800px;
+  width: 100%;
+  height: auto;
+  left: 20%;
   .form {
+    padding-top: 70px;
+    margin: 0 auto;
     width: 600px;
     height: 700px;
-    margin: 30px auto;
-    
-    .main-title {
-      display: inline-block;
-      font-size: $font-size;
-      margin-bottom: 15px;
+    background-color: $white;
+    .content {
+      width: 600px;
+      height: 750px;
+      background-color: #ededf3;
+      border-radius: 20px;
     }
   }
-}
-.content {
-  padding: 20px;
 }
 </style>
