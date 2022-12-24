@@ -12,7 +12,7 @@ const user = {
   }),
   getters: {
     getUser(state) {
-      return state.userInfo;
+      return state.userInfo.user_id;
     },
     getToken(state) {
       let accessToken = cookies.get('accessToken');

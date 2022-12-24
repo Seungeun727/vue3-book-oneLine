@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div id="main-content">
     <router-view />
   </div>
 </template>
@@ -12,7 +12,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  width: 900px;
+#main-content {
+  height: 100%;
+  width: 100%;
 }
 </style>

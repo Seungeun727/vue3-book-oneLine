@@ -7,23 +7,21 @@
         <button 
           class="btn btn--close"
           @click.self="$emit('close')">
-          x
+          <FontAwesomeIcon
+            :icon="['fas', 'xmark']" /> 
         </button>
         <div class="modal-inner">
           <div class="modal-header">
             <slot name="header">
-              <h2>알림</h2>
+              <span class="main-title">알림</span>
             </slot>
           </div>
           <div class="modal-body">
-            <p v-if="visible == false">
-              게시글 {{ message }}하시겠습니까?
-            </p>
-            <p v-else>
-              {{ message }}
-            </p>
+            <slot name="body" />
           </div>
-          <slot name="footer" />
+          <div class="modal-footer">
+            <slot name="footer" />
+          </div>
         </div>
       </div>
     </div>
@@ -62,26 +60,41 @@ export default {
   height: 100%;
   .modal-card {
     position: absolute;
-    right: 50%;
+    left: 40%;
     bottom: 450px;
-    width: 240px;
-    height: 180px;
+    width: 400px;
+    height: 150px;
     border-radius: 10px;
     box-shadow: 2px 2px #00000015;
-    border: 1px solid $light-gray;
     z-index: 2;
-    padding-left: 15px;
     background-color: $white;
   }
 }
 
 .modal-inner {
+  width: 100%;
+  height: 140px;
   text-align: center;
+  padding: 10px;
+  .modal-footer {
+    width: 320px;
+    height: 60px;
+  }
+  .modal-body {
+    margin-top: 8px;
+    width: 380px;
+    height: 40px;
+  }
 }
 
 .btn--close {
   outline: 0;
   float: right;
-  font-size: 1.2rem;
+  font-size: 18px;
+}
+
+.main-title {
+  font-size: 18px;
+  font-weight: 550;
 }
 </style>

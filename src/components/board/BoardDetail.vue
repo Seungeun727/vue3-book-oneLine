@@ -1,23 +1,23 @@
 <template>
   <div class="container">
     <div
-      v-for="post in post"
+      v-for="post in state.posts"
       :key="post.board_no"
       class="content">
+      <div class="content-title">
+        <span>{{ post.board_title }}</span>
+      </div>
       <div
-        class="content-inner">
-        <span class="content-number">
-          {{ post.board_no }}
-        </span>
-        <span class="content-title">
-          {{ post.board_title }}
-        </span>
-        <span class="content-author">
-          저자: {{ post.board_author }}
-        </span>
+        class="content-profile">
+        <div class="profile-img">
+          <FontAwesomeIcon 
+            :icon="['fas', 'user']" />
+        </div>
         <div  
-          class="sub-title">
-          {{ post.user_name }}
+          class="profile-user">
+          <span class="user-info">
+            {{ post.users_user_id }}
+          </span>
           {{ post.createdAt }}
         </div>
       </div>
@@ -25,14 +25,17 @@
         {{ post.board_text }}
       </div>
       <div class="btn-group">
-        <BoardDetailButton />
+        <BoardDetailButton
+          :post-id="post.users_user_id" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { reactive, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 import BoardDetailButton from './BoardDetailButton';
 export default {
   components: {
@@ -44,63 +47,76 @@ export default {
       default: 1,
     },
   },
-  computed: {
-    ...mapState('board', ['post']),
-  },
-  created() {
-    this.$store.dispatch("board/getUserPost", { postId: this.id});
-  },
+  setup() {
+    const store = useStore();
+    const route = useRoute();
+    
+    const postId = parseInt(route.params.id);
+    const state = reactive({
+      posts: computed(() => store.state.board.post)
+    });
+    store.dispatch('board/getUserPost', { postId });
+
+    return {
+      state,
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .container {
-  width: 100%;
-  height:700px;
+  width: 1200px;
+  height: auto;
   padding-top: 70px;
+  position: absolute;
+  left: 20%;
 }
-.content {
-  position: relative;
-  width: 70%;
-  height: 600px;
-  margin-left: 150px;
-  border-radius:0px 0px 30px 0px;
-  box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.3);
-  .content-inner {
-    padding: 15px;
-    background-color: #333;  
-    color: $white;
 
-    .content-number {
-      display: inline-block;
-      border: 1px solid #fffafa;
-      width: 40px;
-      font-size: $font-size;
-      text-align: center;
-      border-radius: .2rem;
-    }
+.content {
+  width: 900px;
+  height: 500px auto;
+  border: 1px solid #ebdef3;
+  border-radius: 20px;
+  margin-left: 150px;
+  color: $font-color;
+  padding: 30px;
+  font-size: 18px;
+  font-weight: 500;
+
+  .content-text {
+    padding-top: 30px;
+    height: 350px;
+  }
+  .content-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
   }
 }
-.content-title {
-  font-size: $font-size;
-  font-weight: 650;
-  margin: 5px;
-}
 
-.sub-title {
+.content-profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: $white;
+  .profile-img {
+    background-color: #ebdef3;
+    width: 35px;
+    height: 35px;
+    border-radius: 15px;
+    text-align: center;
+  }
+}
+.profile-user {
+  padding-left: 12px;
   color: $light-gray;
-  border-bottom: 1px solid #ccc;
-  padding: 5px 0;
+  font-size: 18px;
+  
+  .user-info {
+    display: block;
+    font-weight: 550;
+    margin-bottom: 3px;
+    color: $font-color;
+  }
 }
-.post-text {
-  color: black;
-  padding: 10px;
-}
-.btn-group {
-  width: 350px;
-  right: 0;
-  bottom: 30px;
-  position: absolute;
-}
-
 </style>
