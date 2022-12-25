@@ -8,6 +8,12 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  text-decoration: none;
+  color: $font-color;
+  font-weight: 550;
+}
+
 label {
   display: block;
   margin: 7px 3px;

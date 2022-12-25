@@ -3,23 +3,21 @@
     <table>
       <tr>
         <th>번호</th>
-        <th>작성자</th>
         <th>제목</th>
-        <th>텍스트</th>
+        <th>작성자</th>
         <th>등록일</th>
       </tr>
       <tr 
         v-for="post in posts"
         :key="post.board_no">
         <td>{{ post.board_no }}</td>
-        <td>{{ post.user_name }}</td>
         <td>
           <router-link
             :to="{ name: 'BoardDetail', params: { id: `${post.board_no}`}}">
             {{ post.board_title }}
           </router-link>
         </td>
-        <td>{{ post.board_text }}</td>
+        <td>{{ post.users_user_id }}</td>
         <td>{{ post.createdAt }}</td>
       </tr>
     </table>
@@ -76,13 +74,6 @@ th, td {
 th {
   color: $font-color;
   font-weight: 600;
-}
-
-a {
-  width: 0;
-  text-decoration: none;
-  color: $font-color;
-  font-weight: 550;
 }
 
 a:hover {
