@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import BoardItem from './BoardItem.vue';
-import BoardPageButton from './BoardPageButton.vue';
+import BoardItem from '@/components/board/BoardItem.vue';
+import BoardPageButton from '@/components/board/BoardPageButton.vue';
 import { mapState } from 'vuex';
 
 export default {

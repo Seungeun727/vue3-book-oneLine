@@ -1,14 +1,15 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Home from '../views/Home';
+const Home = () => import('../views/Home.vue');
 import User from '../views/User';
 import { Auth } from '../routes/auth';
 import Mypage from '../views/user/MyPage';
 import UserProfile from '../views/user/UserProfile.vue';
-import UserBoard from '../views/user/UserBoard.vue';
-import Board from '../views/Board';
-import BoardWrite from '../components/board/BoardWrite';
-import BoardEdit from '../components/board/BoardEdit';
-import BoardDetail from '../components/board/BoardDetail';
+const UserBoard = () =>  import('../views/user/UserBoard.vue');
+const Board = () => import('../views/Board.vue');
+const BoardList = () => import('../views/board/BoardList.vue');
+import BoardWrite from '../views/board/BoardWrite';
+import BoardEdit from '../views/board/BoardEdit';
+import BoardDetail from '../views/board/BoardDetail';
 import NotFound from '../views/NotFound';
 import store from '../store/index';
 
@@ -52,7 +53,8 @@ const routes = [
       {
         path: '',
         name: 'BoardList',
-        component: () => import('../components/board/BoardList'),
+        component: BoardList,
+        // component: () => import('../components/board/'),
       },
       {
         path: 'write',

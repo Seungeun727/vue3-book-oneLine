@@ -36,7 +36,7 @@
 import { reactive, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
-import BoardDetailButton from './BoardDetailButton';
+import BoardDetailButton from '@/components/board/BoardDetailButton.vue';
 export default {
   components: {
     BoardDetailButton,

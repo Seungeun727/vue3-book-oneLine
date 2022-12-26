@@ -3,12 +3,10 @@
     <div class="form">
       <div class="content">
         <ValidateForm
-          v-for="post in state.post"
-          :key="post.board_no"
-          :post="post" 
+          :post="state.post"
           @get-child="submitForm">
           <template #title>
-            북로그를 수정해보세요.
+            오늘 북로그는 무슨 기록인가요?
           </template>
           <template #subtitle>
             북로그는 독서를 기록하고 좋은 책은 우리와 함께 공유해요!
@@ -20,38 +18,29 @@
 </template>
 
 <script>
-import { updateBoard } from '@/api/board';
-import ValidateForm from './ValidateForm.vue';
-import { useRouter, useRoute } from 'vue-router';
-import { useStore } from 'vuex';
-import { reactive, computed } from 'vue';
+import { writeBoard } from '@/api/board';
+import ValidateForm from '@/components/board/ValidateForm.vue';
+import { useRouter } from 'vue-router';
+import { reactive } from 'vue';
 export default {
-  name: 'BoardEdit',
+  name: 'BoardWrite',
   components: {
     ValidateForm
   },
   setup() {
     const router = useRouter();
-    const route = useRoute();
-    const store = useStore();
-    const state = reactive({
-      post: computed(() => store.state.board.post)
-    });
-    const postId = parseInt(route.params.id);
-    store.dispatch('board/getUserPost', { postId });
-    
-    
+    const state = reactive({ post: []});
     const submitForm = (formData) => {
-      updateBoard(formData, postId)
+      writeBoard(formData)
       .then((res) => {
-        console.log("submitForm updateBoard Success", res.data);
+        console.log("submitForm Success", res.data);
         router.go(-1);
       }).catch((err) => {
-        console.log("submitForm updateBoard Error", err.response);
+        console.log("submitForm Error", err.response);
       })
     };
-    return {
-      state, 
+    return { 
+      state,
       submitForm,
     }
   }
