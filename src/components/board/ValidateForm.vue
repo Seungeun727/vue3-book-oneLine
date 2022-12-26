@@ -6,51 +6,64 @@
           <FontAwesomeIcon 
             :icon="['fas', 'book-open' ]" />
           {{ userId }}님,</span> 
-        오늘 북로그는 무슨 내용인가요?
+        <slot name="title" />
       </span>
-      <span class="sub-title">북로그는 독서를 기록하고 좋은 책은 우리와 함께 공유해요!</span>
+      <span class="sub-title">
+        <slot name="subtitle" />
+      </span>
     </div>
-    <div class="form-content">
-      <label>제목</label>
-      <input 
-        v-model="values.title"
-        type="text" 
-        name="title"
-        placeholder="책 제목을 작성해주세요.">
-      <label>저자</label>
-      <input 
-        v-model="values.author"
-        type="text" 
-        name="author"
-        placeholder="책 저자를 작성해주세요.">
-      <label>시작 날짜</label>
-      <input 
-        v-model="values.date"
-        type="text" 
-        name="date"
-        placeholder="YYYY/MM/DD"
-        :class="{ invalid: meta.valid == false && values.date.length > 1}"
-        @input="formatDate($event)">
-      <span class="error-status">{{ dateError[0] }}</span>
-      <label>기록</label>
-      <textarea
-        v-model="values.text"
-        type="text" 
-        name="memo" />
-    </div>
-    <div class="btn-group">
-      <button 
-        class="btn--white--small"
-        type="button" 
-        @click="cancleForm()">
-        취소
-      </button>
-      <button
-        class="btn--blue--small" 
-        type="button" 
-        @click="onSubmit(values)">
-        지금 등록할래요!
-      </button>
+    <div>
+      <div class="form-content">
+        <label>제목</label>
+        <input 
+          v-model="values.title"
+          type="text" 
+          name="title"
+          :placeholder="isPost ? '제목을 작성해주세요.' : post.board_title">
+        <label>저자</label>
+        <input 
+          v-model="values.author"
+          type="text" 
+          :placeholder="isPost ? '저자를 작성해주세요.' : post.board_author"
+          name="author">
+        <label>시작 날짜</label>
+        <input 
+          v-model="values.date"
+          type="text" 
+          name="date"
+          :placeholder="isPost == 0 ? '날짜를 작성해주세요.' : post.createdAt"
+          :class="{ invalid: meta.valid == false && values.date.length > 1}"
+          @input="formatDate($event)">
+        <span class="error-status">{{ dateError[0] }}</span>
+        <label>기록</label>
+        <textarea
+          v-model="values.text"
+          type="text" 
+          :placeholder="post.length == 0 ? '내용을 작성해주세요.' : post.board_text"
+          name="memo" />
+      </div>
+      <div class="btn-group">
+        <button 
+          class="btn--white--small"
+          type="button" 
+          @click="cancleForm()">
+          취소
+        </button>
+        <button
+          v-if="isPost"
+          class="btn--blue--small" 
+          type="button" 
+          @click="onSubmit(values)">
+          지금 등록할래요! 
+        </button>
+        <button
+          v-else
+          class="btn--blue--small" 
+          type="button" 
+          @click="onSubmit(values)">
+          지금 수정할래요! 
+        </button>
+      </div>
     </div>
   </form>
 </template>
@@ -62,21 +75,22 @@ import { useStore } from 'vuex';
 import { computed } from 'vue';
 
 export default {
+  props: {
+    post: {
+      type: Object,
+      default: () => {},
+    }
+  },
   emits: ['get-child'],
   setup(props, context) {
     const router = useRouter();
     const store = useStore();
-    const { values, errors } = useForm({
-      initialValues: {
-        title: '',
-        author: '',
-        text: '',
-        date: '',
-      },
-    });
+    const { values, errors } = useForm({ initialValues: { title: '', author: '', text: '', date: '' }});
     const { meta, errors: dateError } = useField('date', checkDate);
-
+    const isPost = computed(() => props.post.length == 0);
+    
     const onSubmit = (formData) => {
+      console.log(formData);
       if(formData.title !== '' || formData.text !== '') {
         context.emit('get-child', formData);
       }
@@ -88,8 +102,8 @@ export default {
     const formatDate = (e) =>{
       e.target.value = e.target.value.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');  
     };
-    
     return {
+      isPost,
       meta,
       values,
       errors,

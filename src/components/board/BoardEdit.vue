@@ -1,128 +1,83 @@
 <template>
   <div class="container">
-    <Form
-      class="form"
-      :initial-values="formValues">
-      <div class="main-title">
-        <span class="title">
-          책 편집
-        </span>
-      </div>
+    <div class="form">
       <div class="content">
-        <Field
-          v-slot="{ field, errorMessage }"
-          v-model="formValues.title"
-          :rules="validateTitle"
-          name="title"
-          type="text">
-          <label>제목</label>
-          <input
-            v-bind="field">
-          <span
-            v-if="errorMessage"
-            :class="{ valid: isValid}">
-            {{ errorMessage }}
-          </span>
-        </Field>
-        <label for="content">내용</label>
-        <Field
-          v-slot="{ field, errorMessage }"
-          v-model="formValues.text" 
-          name="content"
-          :rules="validateContent">
-          <textarea
-            v-bind="field" />
-          <span
-            v-if="errorMessage"
-            :class="{ valid: isValid }">
-            {{ errorMessage }}
-          </span>
-        </Field>
+        <ValidateForm
+          v-for="post in state.post"
+          :key="post.board_no"
+          :post="post" 
+          @get-child="submitForm">
+          <template #title>
+            북로그를 수정해보세요.
+          </template>
+          <template #subtitle>
+            북로그는 독서를 기록하고 좋은 책은 우리와 함께 공유해요!
+          </template>
+        </ValidateForm>
       </div>
-      <div class="btn-group">
-        <button
-          class="btn btn--blue" 
-          type="button" 
-          @click="modifyForm(formValues)">
-          수정
-        </button>
-        <button
-          class="btn btn--white" 
-          type="button" 
-          @click="cancleForm()">
-          취소
-        </button>
-      </div>
-    </Form>
-    {{ msg }}
+    </div>
   </div>
 </template>
+
 <script>
-import { Form, Field } from 'vee-validate';
 import { updateBoard } from '@/api/board';
+import ValidateForm from './ValidateForm.vue';
+import { useRouter, useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+import { reactive, computed } from 'vue';
 export default {
+  name: 'BoardEdit',
   components: {
-    Form,
-    Field,
+    ValidateForm
   },
-  data() {
-    return {
-      formValues: {
-        title: '',
-        text: '',
-      },
-      msg: '',
-      isValid: false,
-    }
-  },
-  methods: {
-    validateTitle(value) {
-      if (!value && value =="") {
-        this.isValid = true;
-        return '제목 입력란은 필수입니다.';
-      }
-      return true;
-    },
-    validateContent(value) {
-      if(!value && value == "") {
-        this.isValid = true;
-        return '내용 입력란은 필수입니다.';
-      }
-      return true;
-    },
-    modifyForm(formData) {
-      const postId = this.$route.params.id;
-      updateBoard(postId, formData)
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    const store = useStore();
+    const state = reactive({
+      post: computed(() => store.state.board.post)
+    });
+    const postId = parseInt(route.params.id);
+    store.dispatch('board/getUserPost', { postId });
+    
+    
+    const submitForm = (formData) => {
+      updateBoard(formData, postId)
       .then((res) => {
-        console.log("modifyForm Success", res.data);
+        console.log("submitForm updateBoard Success", res.data);
+        router.go(-1);
       }).catch((err) => {
-        console.log("modifyForm Error", err.response);
+        console.log("submitForm updateBoard Error", err.response);
       })
-    }, 
-    cancleForm() {
-      this.$router.go(-1);
-    } 
-  },
+    };
+    return {
+      state, 
+      submitForm,
+    }
+  }
 };
 </script>
-<style lang="scss" scoped>
-.form {
-  margin: 0 auto;
-  width: 500px;
-  height: 700px;
-}
 
-.main-title { 
-  height: 45px;
-  font-size: $font-size;
-  color: $font-color;
-  padding: 5px;
-}
-.btn-group {
-  position: absolute;
-  right: 740px;
-}
-.valid  {
-  color: $dark-pink;
+<style lang="scss" scoped>
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: $white;
+  width: 100%;
+  height: auto;
+  left: 20%;
+  .form {
+    padding-top: 70px;
+    margin: 0 auto;
+    width: 600px;
+    height: 700px;
+    background-color: $white;
+    .content {
+      width: 600px;
+      height: 750px;
+      background-color: #ededf3;
+      border-radius: 20px;
+    }
+  }
 }
 </style>

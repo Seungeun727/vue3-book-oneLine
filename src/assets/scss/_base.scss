@@ -36,6 +36,7 @@ input {
 }
 
 input[type="text"] {
+  color: $font-color;
   padding-left: 7px;
 }
 
@@ -49,18 +50,27 @@ input::placeholder {
   color: $light-gray;
 }
 
+
 input:disabled {
   border-color: $light-gray;
   color: $light-gray;
 }
+
 textarea {
   width: 450px;
   height: 150px;
   border: 1px solid $light-gray;
+  padding: 10px;
   border-radius: .2rem;
+  color: $font-color;
   outline: none;
 }
 
+
+textarea::placeholder {
+  color: $light-gray;
+  padding-left: 5px;
+}
 .btn {
   width: 50px;
   height: 37px;

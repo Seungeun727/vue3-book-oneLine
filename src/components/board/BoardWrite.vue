@@ -2,8 +2,16 @@
   <div class="container">
     <div class="form">
       <div class="content">
-        <ValidateForm 
-          @get-child="submitForm" />
+        <ValidateForm
+          :post="state.post"
+          @get-child="submitForm">
+          <template #title>
+            오늘 북로그는 무슨 기록인가요?
+          </template>
+          <template #subtitle>
+            북로그는 독서를 기록하고 좋은 책은 우리와 함께 공유해요!
+          </template>
+        </ValidateForm>
       </div>
     </div>
   </div>
@@ -13,6 +21,7 @@
 import { writeBoard } from '@/api/board';
 import ValidateForm from './ValidateForm.vue';
 import { useRouter } from 'vue-router';
+import { reactive } from 'vue';
 export default {
   name: 'BoardWrite',
   components: {
@@ -20,6 +29,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const state = reactive({ post: []});
     const submitForm = (formData) => {
       writeBoard(formData)
       .then((res) => {
@@ -30,6 +40,7 @@ export default {
       })
     };
     return { 
+      state,
       submitForm,
     }
   }
