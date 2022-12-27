@@ -5,12 +5,16 @@
       <div class="wrapper">
         <img class="profile-img">
         <div class="content">
-          <label>이름</label>
-          <span class="content-info" />
+          <label>이름: </label>
+          <span class="content-info">
+            {{ userInfo.user_id }}
+          </span>
         </div>
         <div class="content">
-          <label>이메일</label>
-          <span class="content-info" />
+          <label>이메일: </label>
+          <span class="content-info">
+            {{ userInfo.user_email }}
+          </span>
         </div>
       </div>
       <div class="move-page">
@@ -26,7 +30,18 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
+  setup() {
+    const store = useStore();
+    const userInfo = computed(() => store.state.mypage.userInfo);
+    store.dispatch('mypage/getUserInfo');
+
+    return {
+      userInfo
+    }
+  }
 }
 </script>
 
@@ -34,14 +49,19 @@ export default {
 .card {
   padding: 30px;
   background-color: $white;
+  background-color: red;
   .profile-title {
+    margin: 10px 0;
     font-size: 1.2rem;
     font-weight: 600;
+    background-color: purple;
   }
 }
 
 .wrapper {
-  margin-top: 10px;
+  margin: 10px 0;
+  background-color: green;
+  padding: 10px;
   .profile-img {
     width: 100px;
     height: 100px;
@@ -56,7 +76,7 @@ export default {
 }
 
 .content-info {
-  color: $font-color;
+  color: $light-gray;
   font-weight: 550;
 }
 
