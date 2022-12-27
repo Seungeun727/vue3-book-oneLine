@@ -79,6 +79,7 @@
 <script>
 import { Form, Field } from 'vee-validate';
 import { reactive, watch } from 'vue';
+import userInfo from '../../utils/maskUserInfo';
 import axios from 'axios';
 
 export default {
@@ -100,6 +101,12 @@ export default {
     });
     
     const onSubmit = (signInfo) => {
+      console.log("customForm signInfo", signInfo);
+      let { name, email } = signInfo;
+      const maskData = userInfo(name, email);
+      const { maskName, maskEmail } = maskData;
+      signInfo.name = maskName;
+      signInfo.email = maskEmail;
       if(state.msg == true) {
         context.emit("child", signInfo);
       } 

@@ -20,9 +20,6 @@ defineRule("name", (value) => {
 });
 
 defineRule("email", (value) => {
-  if(!value || !value.length) {
-    return true;
-  }
   // eslint-disable-next-line no-useless-escape
   const regexEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
   if (!regexEmail.test(value)) {
