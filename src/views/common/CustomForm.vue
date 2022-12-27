@@ -64,7 +64,7 @@
                 v-if="(values['id'] !== '' && state.msg === true && field.fail)"
                 class="success-status">
                 <FontAwesomeIcon
-                  :icon="['fas', 'xmark']" />
+                  :icon="['fas', 'circle-check']" />
                 {{ field.fail[2] }}
               </span>
             </div>

@@ -98,7 +98,7 @@ export default {
 .router-link-exact-active {
   color: $font-color;
   border-bottom: 3px solid $main-color;
-  padding-left: 3px;
+  padding-bottom: 20px;
 }
 
 .btn--blue--small {

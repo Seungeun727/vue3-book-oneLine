@@ -8,35 +8,32 @@
         더보기
       </router-link>
     </div>
-    <div 
-      v-for="post in posts"
+    <router-link
+      v-for="post in state.posts"
       :key="post.board_no"
-      class="board">
-      <span>{{ post.board_title }}</span>
-      <router-link
-        class="inner--left"
-        :to="{ name: 'BoardDetail', params: { id: `${post.board_no}`}}">
-        {{ post.createdAt }}
-      </router-link>
-    </div>
+      class="board"
+      :to="{ name: 'BoardDetail', params: { id: `${post.board_no}`}}">
+      <span class="inner--left">{{ post.board_title }}</span>
+      {{ post.createdAt }}
+    </router-link>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
+import { computed, reactive } from 'vue';
+import { useStore } from 'vuex';
 export default {
-  computed: {
-    ...mapState('board', ['posts']),
-  },
-  created() {
-    this.getPosts();
-  },
-  methods: {
-    getPosts(pageInfo) {
-      pageInfo = 0;
-      this.$store.dispatch("board/getBoardList", pageInfo)
-    },
+  setup() {
+    const store = useStore();
+    const state = reactive({
+      posts: computed(() => store.state.board.posts),
+      pageInfo: 0
+    });
+
+    store.dispatch('board/getBoardList', state.pageInfo);
+    return {
+      state
+    }
   }
 }
 </script>
@@ -50,33 +47,24 @@ export default {
   border-radius: 20px;
   .board {
     padding: 3px;
-    border-bottom: 1px solid $light-gray;
     line-height: 25px;
+    font-weight: 500;
     display: flex;
     justify-content: space-between;
     flex: 1;
   }
 }
-.title {
-  font-size: 1.1rem;
-  font-weight: 550;
-}
-
-a {
-  text-decoration: none;
-  color: $font-color;
-}
 
 .btn-text {
   display: block;
-  width: 50px;
-  height: 30px;
+  width: 60px;
+  height: 25px;
   border: 0;
   outline: 0;
-  padding: 5px;
   background: 0;
   line-height: 30px;
   color: $main-color;
+  font-size: 1.1rem;
   &:active {
     background-color: #007bff53;
     border-radius: 20px;
@@ -88,9 +76,16 @@ a {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  line-height: 40px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid $light-gray;
+  .title {
+    font-weight: 550;
+    font-size: 1.1rem;
+  }
 }
 
-.inner--left {
-  font-weight: 500;
+a:hover {
+  color: $main-color;
 }
 </style>

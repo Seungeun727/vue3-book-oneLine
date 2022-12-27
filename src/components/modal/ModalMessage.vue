@@ -6,7 +6,7 @@
       <div class="modal-card">
         <button 
           class="btn btn--close"
-          @click.self="$emit('close')">
+          @click="closeButton">
           <FontAwesomeIcon
             :icon="['fas', 'xmark']" /> 
         </button>
@@ -41,6 +41,15 @@ export default {
     },
   },
   emits: ['close'],
+  setup(props, context) {
+    const closeButton = () => {
+      context.emit('close');
+    };
+
+    return {
+      closeButton
+    }
+  }
 }
 </script>
 

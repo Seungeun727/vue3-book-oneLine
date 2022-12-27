@@ -1,6 +1,8 @@
 <template>
   <div class="card">
-    <div class="wrapper">
+    <router-link
+      class="wrapper" 
+      :to="{ name: 'BoardDetail', params: { id: post.board_no }}">
       <img class="image">
       <div class="content">
         <span>{{ post.board_no }}</span>
@@ -8,7 +10,7 @@
         <span>{{ post.board_title }}</span>
         <span>{{ post.createdAt }}</span>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
