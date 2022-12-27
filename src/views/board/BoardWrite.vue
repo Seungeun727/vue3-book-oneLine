@@ -33,7 +33,7 @@ export default {
     const submitForm = (formData) => {
       writeBoard(formData)
       .then((res) => {
-        console.log("submitForm Success", res.data);
+        console.log("submitForm Success", res);
         router.go(-1);
       }).catch((err) => {
         console.log("submitForm Error", err.response);
@@ -49,8 +49,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 100%;
-  height: 100%;
+  width: 1200px;
+  height: 1100px;
   background-color: $white;
   width: 100%;
   height: auto;
