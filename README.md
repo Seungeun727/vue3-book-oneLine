@@ -5,6 +5,7 @@
 <a href="https://velog.io/@seondal"><img src="https://img.shields.io/badge/JSONWebTokens-000000?style=flat-round&logo=JSONWebTokens&logoColor=white"/></a>
 
 - node 17.9.1버전 사용했습니다.
+
 <br />
 
 ## 프로젝트 개요
@@ -55,15 +56,15 @@ npm run lint
 ### 🔎 게시판 
 | 기능 | 설명 |
 |------ |-----|
-| 게시판 | - 게시판의 기본 기능(등록, 수정, 삭제) <br /> - 특정 사용자의 상세 페이지 반영
+| 게시판 | - 게시판의 기본 기능(등록, 수정, 삭제) <br /> - 특정 사용자의 상세 페이지 반영 <br /> 게시물 유저 권한에 따른 수정, 삭제 hidden/show 처리
 <br />
 
 ### 🔎 회원관리
 | 기능 | 설명 |
 |-----|-----|
 | 회원가입 | - 회원가입 vee-validate로 유효성 검증, 필드 메시지 활성화 <br /> - 회원가입 성공 시 모달로 알림 추가 
-| 로그인   | - 로그인 vee-validate 유효성 검증 추가 <br /> - JWT accessToken 사용자 인증
-| 마이페이지 | - 프로필 기본 설정, 유저가 작성한 게시물 조회
+| 로그인   | - 로그인 vee-validate 유효성 검증 추가 <br /> - JWT accessToken 사용자 인증 <br /> - 로그아웃 추가
+| 마이페이지 | - 프로필 기본 정보 (이름, 이메일) 마스킹 처리, 유저가 작성한 게시물 조회  <br /> - 회원정보 수정 추가 <br />
 
 <br />
 
