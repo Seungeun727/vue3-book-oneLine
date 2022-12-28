@@ -5,11 +5,28 @@
         {{ state.userId }}님,</span>
       안녕하세요.
     </div>
-    <div class="user-content">
+    <div class="profile">
       <img class="profile-img">
-      <span class="content-user">
-        {{ state.userId }}님
-      </span>
+      <div class="content">
+        <div class="contnent-inner">
+          <label>이름: </label>
+          <span class="content-info">
+            {{ state.userInfo.user_name }}
+          </span>
+        </div>
+        <div class="contnent-inner">
+          <label>아이디: </label>
+          <span class="content-info">
+            {{ state.userInfo.user_id }}
+          </span>
+        </div>
+        <div class="contnent-inner">
+          <label>이메일: </label>
+          <span class="content-info">
+            {{ state.userInfo.user_email }}
+          </span>
+        </div>
+      </div>
     </div>
     <div class="wrapper">
       <router-link 
@@ -52,8 +69,11 @@ export default {
     store.dispatch("mypage/userBoardList");
     const state = reactive({
       userId: computed(() => store.getters["user/getUser"]),
+      userInfo: computed(() => store.state.mypage.userInfo),
       userPost: computed(() => store.state.mypage.userPost),
     });
+
+    store.dispatch('mypage/getUserInfo');
     return {
       state
     };
@@ -82,6 +102,7 @@ export default {
 .wrapper {
   @include flex-box(flex, row, center);
   justify-content: center;
+  margin-bottom: 20px;
   .check-area {
     @include flex-box(flex, column, space-around);
     background: $sub-color;
@@ -115,5 +136,30 @@ export default {
     font-size: 1.1rem;
     font-weight: 550;
   }
+}
+
+.profile {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: $light-gray;
+  }
+  .content {
+    padding-left: 15px;
+  }
+}
+
+label { 
+  display: inline-block;
+}
+.content-info {
+  padding-left: 5px;
+  color: $light-gray;
+  font-weight: 550;
 }
 </style>

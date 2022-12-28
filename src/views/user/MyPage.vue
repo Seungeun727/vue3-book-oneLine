@@ -4,17 +4,22 @@
       <aside class="menu">
         <router-link :to="{ name: 'profile'}">
           <FontAwesomeIcon :icon="['fas', 'user' ]" />
-          <span class="page-name">프로필 설정</span>
+          <span class="page-name">기본 프로필</span>
         </router-link>
         <router-link :to="{ name: 'Article'}">
           <FontAwesomeIcon :icon="['fas', 'book-open' ]" />
           <span class="page-name">나의 책</span>
         </router-link>
       </aside>
-      <div class="user">
-        <MyPageContent />
+      {{ isRoute }}
+      <div 
+        v-if="!isRoute"
+        class="user">
+        <router-view />
       </div>
-      <div class="profile">
+      <div
+        v-else
+        class="profile">
         <router-view />
       </div>
     </div>
@@ -22,10 +27,16 @@
 </template>
 
 <script>
-import MyPageContent from '../../components/MyPageContent.vue';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 export default {
-  components: {
-    MyPageContent
+  setup() {
+    const router = useRoute();
+    console.log(router.meta);
+    const isRoute = computed(() => router.meta.name !== undefined);
+    return {
+      isRoute
+    }
   }
 }
 </script>
@@ -53,11 +64,16 @@ export default {
 .menu {
   @include border;
   grid-area: 1/1/2/2;
+  .page-name {
+    padding-left: 5px;
+    font-weight: 550;
+    color: $font-color;
+  }
 }
 
 .profile {
   @include border;
-  grid-area: 2/2/3/3;
+  grid-area: 1/2/3/3;
 }
 .user {
   @include border;
@@ -77,11 +93,5 @@ a {
   background-color: $box-color;
   color: $main-color;
   border-radius: 20px;
-}
-
-.page-name {
-  padding-left: 5px;
-  font-weight: 550;
-  color: $font-color;
 }
 </style>

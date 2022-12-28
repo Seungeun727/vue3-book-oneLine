@@ -98,7 +98,5 @@ export default {
 
 .btn--outline--circle {
   position: absolute;
-  bottom: 32%;
-  right: 28%;
 }
 </style>

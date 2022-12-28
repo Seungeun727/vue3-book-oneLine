@@ -2,8 +2,9 @@ import { createWebHistory, createRouter } from "vue-router";
 const Home = () => import('../views/Home.vue');
 import User from '../views/User';
 import { Auth } from '../routes/auth';
-import Mypage from '../views/user/MyPage';
+import MyPage from '../views/user/MyPage';
 import UserProfile from '../views/user/UserProfile.vue';
+import MyPageEdit from '../views/user/MyPageEdit.vue';
 const UserBoard = () =>  import('../views/user/UserBoard.vue');
 const Board = () => import('../views/Board.vue');
 const BoardList = () => import('../views/board/BoardList.vue');
@@ -27,19 +28,26 @@ const routes = [
       {
         path: 'mypage',
         name: 'Mypage',
-        component: Mypage,
-        meta: { requiresAuth: true},
+        component: MyPage,
+        meta: { requiresAuth: true },
         children: [
+          {
+            path: '',
+            name: 'profile',
+            component: UserProfile,
+            meta: { name: 'MypageProfile'}
+          },
           {
             path: 'article',
             name: 'Article',
             component: UserBoard,
             meta: { requiresAuth: true }
           },
-          {
-            path: '',
-            name: 'profile',
-            component: UserProfile,
+           {
+            path: 'edit',
+            name: 'MyPageEdit',
+            component: MyPageEdit,
+            meta: { requiresAuth: true, name: 'MyPageEdit' }
           },
         ]
       },
@@ -54,7 +62,6 @@ const routes = [
         path: '',
         name: 'BoardList',
         component: BoardList,
-        // component: () => import('../components/board/'),
       },
       {
         path: 'write',

@@ -13,11 +13,11 @@ function logout() {
 }
 
 function userInfo() {
-  return instance.get('mypage/');
+  return instance.get('user/mypage');
 }
 
 function userPost() {
-  return instance.get('mypage/article');
+  return instance.get('user/mypage/article');
 }
 export default { 
   signUp, 
