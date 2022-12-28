@@ -12,12 +12,12 @@ function logout() {
   return instance.get('user/logout');
 }
 
-function userPost() {
-  return instance.get('mypage/board');
-}
-
 function userInfo() {
   return instance.get('mypage/');
+}
+
+function userPost() {
+  return instance.get('mypage/article');
 }
 export default { 
   signUp, 

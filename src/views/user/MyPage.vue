@@ -11,6 +11,9 @@
           <span class="page-name">나의 책</span>
         </router-link>
       </aside>
+      <div class="user">
+        <MyPageContent />
+      </div>
       <div class="profile">
         <router-view />
       </div>
@@ -19,8 +22,12 @@
 </template>
 
 <script>
+import MyPageContent from '../../components/MyPageContent.vue';
 export default {
-};
+  components: {
+    MyPageContent
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -30,29 +37,34 @@ export default {
   box-shadow: 2px 2px #00000010;
 }
 .my-container {
-  background-color: $white;
   width: 1200px;
   height: 1100px;
-  margin-left: 120px;
-  padding-top: 70px;
+  margin: 0 auto;
+  padding-top: 40px;
   .inner {
     display: grid;
-    grid-template-columns: 400px 200px;
-    grid-template-rows: 350px 00px;
-    gap: 30px;
+    grid-template-columns: 350px 700px ;
+    grid-template-rows: repeat(2, 350px) ;
+    gap: 20px;
   }
 }
 
 .menu {
   @include border;
+  background-color: $white;
   grid-area: 1/1/2/2;
 }
 
 .profile {
   @include border;
-  grid-area: 1/2/2/4;
+  background-color: $white;
+  grid-area: 2/2/3/3;
 }
-
+.user {
+  @include border;
+  background-color: #ebedf3;
+  grid-area: 1/2/2/3;
+}
 a {
   display: block;
   padding: 15px;
@@ -71,5 +83,9 @@ a {
   padding-left: 5px;
   font-weight: 550;
   color: $font-color;
+}
+
+.user {
+  padding: 30px;
 }
 </style>

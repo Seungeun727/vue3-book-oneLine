@@ -29,7 +29,7 @@ const mypage = {
     getUserInfo({ commit }) {
       authApi.userInfo().then((res) => {
         console.log("mypage userInfo res.data", res.data);
-        commit('setUserInfo', res.data);
+        commit('setUserInfo', res.data.userInfo);
       })
       .catch((err) => {
         console.log("mypage userInfo", err.response.data);
