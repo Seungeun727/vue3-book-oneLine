@@ -32,7 +32,8 @@ export default {
 
 <style lang="scss" scoped>
 @mixin border {
-  border: 2px solid #ebedf3;
+  border: 2px solid $box-color;
+  background-color: $white;
   border-radius: 20px;
   box-shadow: 2px 2px #00000010;
 }
@@ -51,20 +52,19 @@ export default {
 
 .menu {
   @include border;
-  background-color: $white;
   grid-area: 1/1/2/2;
 }
 
 .profile {
   @include border;
-  background-color: $white;
   grid-area: 2/2/3/3;
 }
 .user {
   @include border;
-  background-color: #ebedf3;
   grid-area: 1/2/2/3;
+  padding: 30px;
 }
+
 a {
   display: block;
   padding: 15px;
@@ -74,7 +74,7 @@ a {
 
 .router-link-exact-active {
   font-weight: 550;
-  background-color: #ebedf3;
+  background-color: $box-color;
   color: $main-color;
   border-radius: 20px;
 }
@@ -83,9 +83,5 @@ a {
   padding-left: 5px;
   font-weight: 550;
   color: $font-color;
-}
-
-.user {
-  padding: 30px;
 }
 </style>

@@ -5,10 +5,8 @@
       :to="{ name: 'BoardDetail', params: { id: post.board_no }}">
       <img class="image">
       <div class="content">
-        <span>{{ post.board_no }}</span>
-        <span>{{ post.board_text }}</span>
         <span>{{ post.board_title }}</span>
-        <span>{{ post.createdAt }}</span>
+        <span>{{ post.board_text }}</span>
       </div>
     </router-link>
   </div>
@@ -27,40 +25,38 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  width: 300px;
-  height: 250px;
-}
-
-.wrapper {
-  margin-top: 10px;
-  width: 250px;
-  height: 200px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 250px;
+  width: 100%;
+  height: 220px;
+  .wrapper {
+    margin: 5px;
+    width: 200px;
     height: 200px;
-    background-color: #ebedf3;
-    border-radius: 15px;
-    &:hover + .content {
-      display: block;
-      background-color: darken(#ebedf3, 30%);
-      color: $white;
-    }
-  }
-  .content {
-    width: 250px;
-    height: 80px;
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    z-index: 1;
-    border-radius: .2rem;
-    display: none;
+    position: relative;
+    border-radius: 30px;
   }
 }
 
+.content {
+  margin: 5px;
+  width: 200px;
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  border-radius: .2rem;
+  display: none;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  background-color: $box-color;
+  border-radius: .5rem;
+  &:active + .content {
+    display: block;
+    border-radius: .5rem;
+    background-color: map-get($blue-colors, color6);
+    color: $white;
+  }
+}
 </style>
