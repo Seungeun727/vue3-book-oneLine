@@ -41,6 +41,7 @@
     </div>
     <MyPageModalEdit 
       v-if="state.isModal"
+      :user-info="state.userInfo"
       @close="closeChildModal()" />
   </div>
 </template>

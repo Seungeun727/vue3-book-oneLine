@@ -16,6 +16,10 @@ function userInfo() {
   return instance.get('user/mypage');
 }
 
+function updateUserInfo() {
+  return instance.put('user/mypage');
+}
+
 function userPost() {
   return instance.get('user/mypage/article');
 }
@@ -24,5 +28,6 @@ export default {
   login, 
   logout,
   userInfo, 
-  userPost 
+  userPost,
+  updateUserInfo 
 };
