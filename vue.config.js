@@ -1,4 +1,6 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require('@vue/cli-service');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = defineConfig({
   css: {
     loaderOptions: {
@@ -24,5 +26,8 @@ module.exports = defineConfig({
   },
   outputDir: '../express-books/public',
   transpileDependencies: true,
-  lintOnSave: false
+  lintOnSave: false,
+  configureWebpack: {
+    plugins: [new BundleAnalyzerPlugin()],
+  },
 })
