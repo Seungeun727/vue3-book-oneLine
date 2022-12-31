@@ -64,55 +64,85 @@ npm run lint
 |-----|-----|
 | 회원가입 | - 회원가입 vee-validate로 유효성 검증, 필드 메시지 활성화 <br /> - 회원가입 성공 시 모달로 알림 추가 
 | 로그인   | - 로그인 vee-validate 유효성 검증 추가 <br /> - JWT accessToken 사용자 인증 <br /> - 로그아웃 추가
-| 마이페이지 | - 프로필 기본 정보 (이름, 이메일) 마스킹 처리, 유저가 작성한 게시물 조회  <br /> - 회원정보 수정 추가 <br />
+| 마이페이지 | - 프로필 기본 정보 (이름, 이메일) 마스킹 처리, 유저가 작성한 게시물 조회  <br /> - 회원정보 (사용자 이름) 수정 <br />
 
 <br />
 
 ## 💡프로젝트 새로 배운 점 
 <br />
 
-### ✏️ Composition API
-> [VUE 공식문서](https://vuejs.org/guide/extras/composition-api-faq.html#what-is-composition-api)에서 Composition API는 옵션 대신 가져온 함수를 사용하여 Vue 구성요소를 있게 해주는 API 세트이다.
+## ✏️회원정보 수정
 
-<br />
+### Props와 Emit 개념
+- Props: 부모-자식 컴포넌트 관계에서 자식 컴포넌트는 부모 컴포넌트의 데이터 참조를위해 Props를 지정한다.
+- Emit: Props 데이터 갱신 혹은 자식 컴포넌트의 데이터를 전달할 때 사용한다.
 
-1. 필요성
-- setup() 내 변수, 함수를 모두 작성하여 가독성과 재사용에 용이함.
-
-2. 사용 방식
-- script setup과 setup()방식이 존재한다.
-<br />
-
-| 개념 | 의미|
-|---|:---:|
-| script setup | return 필요 없다.
-| `setup()` | - Option API와 다르게 this 사용하지 못한다. <br /> - setup()의 인자는 props와 context가 있다. <br /> - setup() 내 변수, 함수는 return 반환해야 한다.
+## 💡해결한 방식
 
 <details>
-<summary>setup() 선언 방식</summary>
+<summary>회원정보편집 모달(자식 컴포넌트)</summary>
 <div>
-
+  
 ```javascript
-import { ref, reactive } from 'vue';
+<template>
+  <MyPageModalEdit 
+    :user-info="state.userInfo"  // props: 회원정보를 전달하는 객체
+    @update="updateUserInfo" />  
+</template>
+
+<script>
 export default {
   setup() {
-    // 변수 선언
-    const isShow = ref('');  // ref: 원시값
-    const state = reactive({ isShow: '' });  // reactive: 객체, 배열
-
-    // 함수 선언
-    const visibleContent = () => {
-      isShow.value = true;     // ref를 사용
-      state.isShow = true;  // reactive를 사용
+    const updateUserInfo = (updateData) => {
+      state.userInfo.user_name = updateData.name;
     };
-
     return {
-      isShow,
-      state,
-      visibleContent
+      updateUserInfo
     };
   }
 }
+</script>
 ```
+- 위 코드는 부모 컴포넌트로 props는 자식 컴포넌트에 전달하기 위한 데이터이다.
+- `props를 받은 자식 컴포넌트에서 데이터가 변경된다면 꼭 emit으로 변경여부를 알려야한다`.
+- @update는 emit으로 자식 컴포넌트에서 변경된 데이터를 updateUserInfo 함수로 받게 된다.
 </div>
 </details> 
+
+
+<details>
+<summary>회원정보편집 모달(자식 컴포넌트)</summary>
+<div>
+  ```javascript
+<template>
+  <button 
+    type="button"
+    @click="onSubmit({id, name, email})">
+    변경
+  </button>
+</template>
+
+<script>
+import authApi from '@/api/auth';
+export default {
+  setup() {
+    const onSubmit = (formData) => {
+      authApi.updateUserInfo(userData)
+      .then((res) => {
+        context.emit('update', userData);   // 회원정보 요청 성공 후 부모컴포넌트로 갱신된 데이터 전달.
+      })
+      .catch((err) => {
+        console.log("updateUserInfo fail", err);
+      });
+    };
+    return {
+      onSubmit
+    };
+  }
+}
+</script>
+- 사용자가 회원정보 수정 버튼 클릭 시 axios로 회원정보 api요청이 수행된다.
+- 사용자의 api 요청이 성공 시 부모 컴포넌트로 갱신된 데이터를 emit으로 전달한다.
+- 위 방법으로 변경된 데이터를 새로고침하지 않아도 사용자가 변경된 필드의 값을 확인한다.
+</div>
+</details>  
