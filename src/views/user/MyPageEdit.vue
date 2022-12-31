@@ -20,29 +20,20 @@
           <span class="content-info">
             {{ state.userInfo.user_id }}
           </span>
-          <button 
-            type="button" 
-            @click="showModal()">
-            수정
-          </button>
         </div>
         <div class="contnent-inner">
           <label>이메일: </label>
           <span class="content-info">
             {{ state.userInfo.user_email }}
           </span>
-          <button
-            type="button" 
-            @click="showModal()">
-            수정
-          </button>
         </div>
       </div>
     </div>
     <MyPageModalEdit 
       v-if="state.isModal"
       :user-info="state.userInfo"
-      @close="closeChildModal()" />
+      @close="closeChildModal()"
+      @update="updateUserInfo" />
   </div>
 </template>
 
@@ -69,11 +60,16 @@ export default {
 
     const closeChildModal = (resultData) => {
       state.isModal = resultData;
-    }
+    };
+
+    const updateUserInfo = (updateData) => {
+      state.userInfo.user_name = updateData.name;
+    };
     return {
       state,
       showModal,
       closeChildModal,
+      updateUserInfo
     };
   }
 };

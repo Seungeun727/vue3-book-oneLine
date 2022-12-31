@@ -16,8 +16,8 @@ function userInfo() {
   return instance.get('user/mypage');
 }
 
-function updateUserInfo() {
-  return instance.put('user/mypage');
+function updateUserInfo(userInfo) {
+  return instance.put('user/mypage/edit', userInfo);
 }
 
 function userPost() {

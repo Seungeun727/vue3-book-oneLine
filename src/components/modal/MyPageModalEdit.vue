@@ -34,11 +34,12 @@
               :icon="['fas', 'xmark']" /> 
           </button>
           <div class="field">
-            <label>이름</label>
+            <label>아이디</label>
             <input
               id="uid"
               v-model="id"
               name="id"
+              readonly="readonly"
               :placeholder="userInfo.user_id">
             <span>{{ errors.id }}</span>
           </div>
@@ -65,8 +66,8 @@
             </button>
             <button 
               type="button"
-              :disabled="id === '' || name === ''"
-              @click="onSubmit(id, name)">
+              :disabled="name === ''"
+              @click="onSubmit({id, name, email})">
               변경
             </button>
           </div>
@@ -80,6 +81,7 @@
 import { useForm, } from 'vee-validate';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
+import authApi from '@/api/auth';
 export default {
   props: {
     userInfo: {
@@ -87,7 +89,7 @@ export default {
       default: () => {}
     }
   }, 
-  emits: ['close'],
+  emits: ['close', 'update'],
   setup(props, context) {
     const router = useRouter();
     const state = reactive({
@@ -109,10 +111,17 @@ export default {
       values[inputName] = '';
     };
 
-    const onSubmit = (id, name) => {
-      const maskName = name.replace(/(?<=.{1})./gi, "*");
-      const formData = { id, name: maskName};
-      return formData;
+    const onSubmit = (formData) => {
+      const maskName = formData.name.replace(/(?<=.{1})./gi, "*");
+      const userData = { name: maskName };
+      authApi.updateUserInfo(userData)
+      .then((res) => {
+        console.log("updateUserInfo success", res.data);
+        context.emit('update', userData);
+      })
+      .catch((err) => {
+        console.log("updateUserInfo fail", err);
+      });
     };
 
     const cancleEdit = () => {

@@ -11,7 +11,6 @@
           <span class="page-name">나의 책</span>
         </router-link>
       </aside>
-      {{ isRoute }}
       <div 
         v-if="!isRoute"
         class="user">
