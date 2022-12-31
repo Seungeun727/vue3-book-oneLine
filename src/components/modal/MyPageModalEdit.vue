@@ -1,78 +1,85 @@
 <template>
   <transition
+    name="modal"
     class="modal">
-    <div class="modal-card">
-      <button
-        type="button" 
-        class="btn btn--close"
-        @click.self="closeModal">
-        <FontAwesomeIcon
-          icon="fa-solid fa-xmark" />
-      </button> 
-      <form id="mypage-edit">
-        <div class="form-inner">
-          <div class="main-title">
-            <h2 class="main-text">
-              기본 정보 수정
-            </h2>
-            <span class="sub-text" />
-          </div>
-          <div class="field">
-            <label>이름</label>
-            <input 
-              id="name"
-              v-model="name"
-              name="name"
-              :placeholder="userInfo.user_name">
-            <span>{{ errors.name }}</span>
-          </div>
-          <button
-            type="button"
-            class="btn btn--outline--circle"
-            @click="resetField('name')">
-            <FontAwesomeIcon
-              :icon="['fas', 'xmark']" /> 
-          </button>
-          <div class="field">
-            <label>아이디</label>
-            <input
-              id="uid"
-              v-model="id"
-              name="id"
-              readonly="readonly"
-              :placeholder="userInfo.user_id">
-            <span>{{ errors.id }}</span>
-          </div>
-          <button
-            type="button"
-            class="btn btn--outline--circle"
-            @click="resetField('id')">
-            <FontAwesomeIcon
-              :icon="['fas', 'xmark']" /> 
-          </button>
-          <div class="field"> 
-            <label>이메일</label>
-            <input
-              type="text"
-              readonly="readonly"
-              :placeholder="userInfo.user_email"
-              disabled>
-          </div>
-          <div class="btn-group">
-            <button 
+    <div class="modal-background">
+      <div class="modal-card">
+        <button
+          type="button" 
+          class="btn btn--close"
+          @click.self="closeModal">
+          <FontAwesomeIcon
+            icon="fa-solid fa-xmark" />
+        </button> 
+        <form id="mypage-edit">
+          <div class="form-inner">
+            <div class="main-title">
+              <h2 class="main-text">
+                기본 정보 수정
+              </h2>
+              <span class="sub-text" />
+            </div>
+            <div class="field">
+              <label>이름</label>
+              <input 
+                id="name"
+                v-model="name"
+                name="name"
+                :placeholder="userInfo.user_name">
+              <span class="error-status">{{ errors.name }}</span>
+            </div>
+            <button
+              v-if="name !== ''"
               type="button"
-              @click="cancleEdit()">
-              취소
+              class="btn btn--outline--circle"
+              @click="resetField('name')">
+              <FontAwesomeIcon
+                :icon="['fas', 'xmark']" /> 
             </button>
-            <button 
+            <div class="field">
+              <label>아이디</label>
+              <input
+                id="uid"
+                v-model="id"
+                name="id"
+                readonly="readonly"
+                :placeholder="userInfo.user_id"
+                disabled>
+            </div>
+            <button
+              v-if="id !== ''"
               type="button"
-              :disabled="name === ''"
-              @click="onSubmit({id, name, email})">
-              변경
+              class="btn btn--outline--circle"
+              @click="resetField('id')">
+              <FontAwesomeIcon
+                :icon="['fas', 'xmark']" /> 
             </button>
+            <div class="field"> 
+              <label>이메일</label>
+              <input
+                type="text"
+                readonly="readonly"
+                :placeholder="userInfo.user_email"
+                disabled>
+            </div>
+            <div class="btn-group">
+              <button 
+                type="button"
+                class="btn--outline--blue"
+                @click="cancleEdit()">
+                취소
+              </button>
+              <button 
+                type="button"
+                class="btn--all--blue"
+                :disabled="name === ''"
+                @click="onSubmit({id, name, email})">
+                변경
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </transition>
 </template>
@@ -140,4 +147,95 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@mixin button-box($bg-color, $color) {
+  width: 70px;
+  height: 35px;
+  font-size: .9rem;
+  font-weight: 550;
+  border-color: $main-color;
+  background-color: $bg-color;
+  box-shadow: 2px 2px #00000017;
+  color: $color;
+}
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+.modal-background {
+  background-color: #0000004b;
+  width: 100%;
+  height: 100%;
+  .modal-card {
+    background-color: darken($box-color, 5%);
+    box-shadow: 2px 2px #00000015;
+    width: 550px;
+    height: 650px;
+    position: absolute;
+    padding: 5px 15px;
+    top: 15%;
+    left: 40%;
+    bottom: 450px;
+    border-radius: 10px;
+    z-index: 2;
+  }
+}
+
+#mypage-edit {
+  width: 500px;
+  height: 600px;
+  background-color: $white;
+  padding: 5px 15px;
+  margin: 10px;
+  .form--inner {
+    padding: 30px;
+  }
+}
+
+.btn.btn--outline--circle {
+  position: relative;
+  left: 460px;
+  bottom: 55px;
+}
+.btn--close {
+  float: right;
+}
+.btn-group {
+  position: absolute;
+  float: right;
+  bottom: 200px;
+  right: 80px;
+  .btn--outline--blue {
+    @include button-box($white, $main-color);
+    &:active {
+      background-color: $main-color;
+      color: $white;
+    }
+  }
+
+  .btn--all--blue {
+    @include button-box($main-color, $white);
+    border-radius: 5px;
+    margin-left: 3px;
+    &:active {
+      color: $main-color;
+      border-color: $main-color;
+      background-color: $white;
+    }
+  }
+}
+
+.field {
+  margin-bottom: 20px;
+}
+label {
+  color: $main-color;
+  font-size: 1rem;
+  font-weight: 550;
+}
+</style>

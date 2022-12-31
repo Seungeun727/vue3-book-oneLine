@@ -58,8 +58,9 @@ export default {
 <style lang="scss" scoped>
 .container {
   background-color: $white;
-  height: 280px;
-  padding: 30px;
+  width: 620px;
+  height: 260px;
+  padding: 10px;
   .title {
     display: inline-block;
     font-size: 1.2rem;
@@ -98,5 +99,7 @@ export default {
 
 .btn--outline--circle {
   position: absolute;
+  right: 310px;
+  top: 30%;
 }
 </style>
