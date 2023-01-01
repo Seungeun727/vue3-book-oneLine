@@ -8,8 +8,7 @@
           type="button" 
           class="btn btn--close"
           @click.self="closeModal">
-          <FontAwesomeIcon
-            icon="fa-solid fa-xmark" />
+          <i class="fas fa-xmark" />
         </button> 
         <form id="mypage-edit">
           <div class="form-inner">
@@ -33,8 +32,7 @@
               type="button"
               class="btn btn--outline--circle"
               @click="resetField('name')">
-              <FontAwesomeIcon
-                :icon="['fas', 'xmark']" /> 
+              <i class="fas fa-xmark" />
             </button>
             <div class="field">
               <label>아이디</label>
@@ -51,8 +49,7 @@
               type="button"
               class="btn btn--outline--circle"
               @click="resetField('id')">
-              <FontAwesomeIcon
-                :icon="['fas', 'xmark']" /> 
+              <i class="fas fa-xmark" />
             </button>
             <div class="field"> 
               <label>이메일</label>

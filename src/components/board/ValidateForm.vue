@@ -3,8 +3,7 @@
     <div class="main-title">
       <span class="title">
         <span class="user">
-          <FontAwesomeIcon 
-            :icon="['fas', 'book-open' ]" />
+          <i class="fas fa-book-open" />
           {{ userId }}님,</span> 
         <slot name="title" />
       </span>
