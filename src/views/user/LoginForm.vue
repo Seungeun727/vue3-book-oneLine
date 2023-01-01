@@ -25,8 +25,7 @@
             type="button"
             class="btn btn--outline--circle"
             @click="resetField(field.name)">
-            <FontAwesomeIcon
-              :icon="['fas', 'xmark']" /> 
+            <i class="fas fa-xmark" />
           </button> 
         </div>
         <div class="btn-area">

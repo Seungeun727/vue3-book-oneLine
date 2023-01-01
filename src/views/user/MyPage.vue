@@ -3,11 +3,11 @@
     <div class="inner">
       <aside class="menu">
         <router-link :to="{ name: 'profile'}">
-          <FontAwesomeIcon :icon="['fas', 'user' ]" />
+          <i class="fas fa-user" />
           <span class="page-name">기본 프로필</span>
         </router-link>
         <router-link :to="{ name: 'Article'}">
-          <FontAwesomeIcon :icon="['fas', 'book-open' ]" />
+          <i class="fas fa-book-open" />
           <span class="page-name">나의 책</span>
         </router-link>
       </aside>

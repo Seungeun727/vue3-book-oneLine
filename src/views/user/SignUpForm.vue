@@ -6,11 +6,11 @@
       @close="modalClose">
       <template #body>
         <span v-if="signUpMsg.status == false">
-          <FontAwesomeIcon icon="triangle-exclamation" />
+          <i class="fas fa-triangle-exclamation" />
           {{ signUpMsg.errorMsg }}
         </span>
         <span v-if="signUpMsg.status == true">
-          <FontAwesomeIcon icon="circle-check" />
+          <i class="fas fa-circle-check" />
           {{ signUpMsg.successMsg }}
         </span>
       </template>
