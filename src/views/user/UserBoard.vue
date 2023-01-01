@@ -35,12 +35,10 @@
 import UserBoardItem from './userBoardItem.vue';
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 export default {
   components: {
     UserBoardItem,
-    FontAwesomeIcon
-},
+  },
   setup() {
     const state = reactive({
       myPost: computed(() => store.state.mypage.userPost),
