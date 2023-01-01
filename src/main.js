@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import 'normalize.css';
 import './utils/validateRules.js';
+import '@fortawesome/fontawesome-free/js/all.js';
 import FontAwesomeIcon from './plugins/fontAwesomeIcon.js';
 
 const app = createApp(App)
