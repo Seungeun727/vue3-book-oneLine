@@ -7,6 +7,7 @@ import VueCookies from 'vue3-cookies';
 import axios from 'axios';
 
 import 'normalize.css';
+import './assets/scss/_index.scss';
 import './utils/validateRules.js';
 import '@fortawesome/fontawesome-free/js/all.js';
 
