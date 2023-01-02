@@ -30,4 +30,5 @@ module.exports = defineConfig({
   configureWebpack: {
     plugins: [new BundleAnalyzerPlugin()],
   },
+  productionSourceMap: false,
 })
