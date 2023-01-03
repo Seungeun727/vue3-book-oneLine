@@ -5,7 +5,7 @@
     <div class="modal-background">
       <div class="modal-card">
         <button 
-          class="btn btn--close"
+          class="btn--outline-circle"
           @click="closeButton">
           <i class="fas fa-xmark" />
         </button>
@@ -63,7 +63,7 @@ export default {
   right: 0;
 }
 .modal-background {
-  background-color: #0000004b;
+  background-color: $shadow-color;
   width: 100%;
   height: 100%;
   .modal-card {
@@ -73,7 +73,7 @@ export default {
     width: 400px;
     height: 150px;
     border-radius: 10px;
-    box-shadow: 2px 2px #00000015;
+    box-shadow: 2px 2px $shadow-color;
     z-index: 2;
     background-color: $white;
   }
@@ -94,13 +94,6 @@ export default {
     height: 40px;
   }
 }
-
-.btn--close {
-  outline: 0;
-  float: right;
-  font-size: 18px;
-}
-
 .main-title {
   font-size: 18px;
   font-weight: 550;

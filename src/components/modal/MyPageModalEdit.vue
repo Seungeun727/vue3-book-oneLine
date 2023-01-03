@@ -4,19 +4,18 @@
     class="modal">
     <div class="modal-background">
       <div class="modal-card">
-        <button
-          type="button" 
-          class="btn btn--close"
-          @click.self="closeModal">
-          <i class="fas fa-xmark" />
-        </button> 
         <form id="mypage-edit">
+          <button
+            type="button"
+            class="btn--close"
+            @click.self="closeModal">
+            <i class="fas fa-xmark" />
+          </button> 
           <div class="form-inner">
             <div class="main-title">
               <h2 class="main-text">
                 기본 정보 수정
               </h2>
-              <span class="sub-text" />
             </div>
             <div class="field">
               <label>이름</label>
@@ -30,7 +29,7 @@
             <button
               v-if="name !== ''"
               type="button"
-              class="btn btn--outline--circle"
+              class="btn--outline--circle"
               @click="resetField('name')">
               <i class="fas fa-xmark" />
             </button>
@@ -44,13 +43,6 @@
                 :placeholder="userInfo.user_id"
                 disabled>
             </div>
-            <button
-              v-if="id !== ''"
-              type="button"
-              class="btn btn--outline--circle"
-              @click="resetField('id')">
-              <i class="fas fa-xmark" />
-            </button>
             <div class="field"> 
               <label>이메일</label>
               <input
@@ -68,7 +60,7 @@
               </button>
               <button 
                 type="button"
-                class="btn--all--blue"
+                class="btn--blue"
                 :disabled="name === ''"
                 @click="onSubmit({id, name, email})">
                 변경
@@ -145,16 +137,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@mixin button-box($bg-color, $color) {
-  width: 70px;
-  height: 35px;
-  font-size: .9rem;
-  font-weight: 550;
-  border-color: $main-color;
-  background-color: $bg-color;
-  box-shadow: 2px 2px #00000017;
-  color: $color;
-}
 .modal {
   width: 100%;
   height: 100%;
@@ -200,6 +182,8 @@ export default {
   bottom: 55px;
 }
 .btn--close {
+  width: 100px;
+  height: 50px;
   float: right;
 }
 .btn-group {
@@ -207,24 +191,6 @@ export default {
   float: right;
   bottom: 200px;
   right: 80px;
-  .btn--outline--blue {
-    @include button-box($white, $main-color);
-    &:active {
-      background-color: $main-color;
-      color: $white;
-    }
-  }
-
-  .btn--all--blue {
-    @include button-box($main-color, $white);
-    border-radius: 5px;
-    margin-left: 3px;
-    &:active {
-      color: $main-color;
-      border-color: $main-color;
-      background-color: $white;
-    }
-  }
 }
 
 .field {

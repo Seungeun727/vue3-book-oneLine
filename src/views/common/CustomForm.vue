@@ -28,12 +28,12 @@
                 <input
                   :disabled="state.msg == true"
                   type="button"
-                  class="btn btn--outline--blue"
+                  class="btn--outline--blue"
                   value="중복확인"
                   @click="duplicateIdCheck(values['id'])">
                 <button
                   type="button"
-                  class="btn btn--outline--circle"
+                  class="btn--outline--circle"
                   @click="resetField(values['id'] = '')">
                   <i class="fas fa-xmark" />
                 </button>
@@ -160,7 +160,7 @@ export default {
   padding-top: 7px;
 }
 
-.btn.btn--outline--circle {
+.btn--outline--circle {
   position: relative;
   right: 130px;
   bottom: 2px;

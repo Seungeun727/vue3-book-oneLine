@@ -4,13 +4,11 @@
   } @else if $button-size == large {
     width: 456px;
   }
-  border: 0;
   color: $white;
-  padding: 5px;
   border-radius: 3px;
   background-color: $bg-color;
   margin: 10px 0;
-  height: 37px;
+  height: 45px;
   &:hover {
     background-color: darken($main-color, 15%);
   }
@@ -37,6 +35,21 @@
   border: 1px solid $border-color;
   margin: 10px 0;
   height: 45px;
+}
+
+@mixin text-button($border-color) {
+  margin-left: 10px;
+  color: $font-color;
+  border: 0;
+  outline: 0;
+  background: 0;
+  font-size: 16px;
+  &:active  {
+    font-weight: 550;
+    padding: 10px;
+    background-color: $border-color;
+    border-radius: .3rem;
+  }
 }
 
 .btn--white {
@@ -69,6 +82,10 @@
 
 .btn--blue {
   @include change-button(map-get($blue-colors, color3));
+}
+
+.btn--light-blue {
+  @include text-button(map-get($blue-colors, color1));
 }
 
 // circle outline button

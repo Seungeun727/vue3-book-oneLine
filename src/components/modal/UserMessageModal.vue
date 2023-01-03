@@ -7,7 +7,7 @@
       class="modal-card">
       <button
         type="text" 
-        class="btn btn--close"
+        class="btn--close"
         @click.self="close">
         <i class="fas fa-xmark" />
       </button> 
@@ -96,7 +96,7 @@ export default {
   opacity: 0;
 }
 
-.btn.btn--close {
+.btn--close {
   float: right;
   padding-right: 10px;
   color: $white;
