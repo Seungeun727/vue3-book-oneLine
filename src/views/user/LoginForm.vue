@@ -23,7 +23,7 @@
           <button
             v-if="values[field.name] !== ''"
             type="button"
-            class="btn btn--outline--circle"
+            class="btn--outline--circle"
             @click="resetField(field.name)">
             <i class="fas fa-xmark" />
           </button> 
@@ -31,13 +31,13 @@
         <div class="btn-area">
           <button
             type="button"
-            class="btn btn--white--medium"
+            class="btn--white--medium"
             @click="moveSignUp">
             회원가입
           </button>
           <button
             type="button"
-            class="btn btn--blue--medium"
+            class="btn--blue--medium"
             :disabled="isValid || meta.valid == false"
             @click="submitLogin(values)">
             로그인
@@ -133,7 +133,7 @@ input {
 .btn-area {
   margin-top: 2px;
 }
-.btn.btn--outline--circle {
+.btn--outline--circle {
   position: absolute;
   left: 350px;
   bottom: 20px;

@@ -14,7 +14,7 @@
         :post="post" />
       <button
         type="button"
-        class="btn btn--outline--circle">
+        class="btn--outline--circle">
         <i class="fas fa-arrow-right" />
       </button>
     </div>
@@ -73,7 +73,7 @@ export default {
 .card-column-container {
   font-family:'Arial, sans-serif';
   position: absolute;
-  top: 60%;
+  top: 25%;
   left: 50%;
   display: flex;
   flex-direction: column;
@@ -84,20 +84,11 @@ export default {
     font-weight: 550;
     font-size: 1.3rem;
   }
-  .btn-text {
-    font-size: 1.1rem;
-    color: $main-color;
-    &:active {
-      padding: 10px;
-      border-radius: .5rem;
-      background-color: map-get($blue-colors, color1);
-    }
-  }
 }
 
 .btn--outline--circle {
   position: absolute;
-  right: 310px;
+  right: 28%;
   top: 30%;
 }
 </style>

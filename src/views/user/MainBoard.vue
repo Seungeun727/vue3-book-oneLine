@@ -54,23 +54,6 @@ export default {
     flex: 1;
   }
 }
-
-.btn-text {
-  display: block;
-  width: 60px;
-  height: 25px;
-  border: 0;
-  outline: 0;
-  background: 0;
-  line-height: 30px;
-  color: $main-color;
-  font-size: 1.1rem;
-  &:active {
-    background-color: #007bff53;
-    border-radius: 20px;
-  }
-}
-
 .first-content {
   display: flex;
   flex-direction: row;

@@ -54,8 +54,8 @@ export default {
   padding-top: 40px;
   .inner {
     display: grid;
-    grid-template-columns: 350px 700px ;
-    grid-template-rows: repeat(2, 350px) ;
+    grid-template-columns: 350px 700px;
+    grid-template-rows: repeat(2, 350px);
     gap: 20px;
   }
 }
