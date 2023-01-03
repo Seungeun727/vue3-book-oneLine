@@ -21,6 +21,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@/assets/scss/index.scss';
 #wrapper {
   margin-top: 50px;
   color: #333;

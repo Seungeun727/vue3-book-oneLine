@@ -10,7 +10,7 @@
   border-radius: 3px;
   background-color: $bg-color;
   margin: 10px 0;
-  height: 45px;
+  height: 37px;
   &:hover {
     background-color: darken($main-color, 15%);
   }
@@ -77,4 +77,16 @@
   border-radius: 50%;
   width: 28px;
   height: 30px;
+}
+
+.btn--text {
+  display: block;
+  text-align: center;
+  line-height: 37px;
+  width: 50px;
+  height: 37px;
+  padding: 3px;
+  margin: 10px 5px;
+  border: 1px solid $light-gray;
+  border-radius: .3rem;
 }

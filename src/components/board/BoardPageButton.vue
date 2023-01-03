@@ -2,34 +2,33 @@
   <div class="btn-container">
     <button
       type="button"
-      class="btn btn-prev"
+      class="btn--page"
       :disabled="pageStop"
       @click="prevBtn()">
-      Prev
+      <i class="fas fa-chevron-left" />
     </button>
     <div 
       v-for="num in totalPage"
       :key="num">
       <button
+        v-if="currentPage == num"
         type="button" 
-        class="btn btn-page"
+        :class="isActive"
         @click="pageBtn">
-        <span
-          v-if="currentPage == num"
-          :class="isActive">
-          {{ num }}
-        </span>
-        <span
-          v-else>
-          {{ num }}
-        </span>
+        {{ num }}
+      </button>
+      <button
+        v-else
+        type="button" 
+        @click="pageBtn">
+        {{ num }}
       </button>
     </div>
     <button
       type="button"
-      class="btn btn-next"
+      class="btn--page"
       @click="nextBtn()">
-      Next
+      <i class="fas fa-chevron-right" />
     </button>
   </div>
 </template>
@@ -43,7 +42,7 @@ export default {
     return {
       pageSize: 10,
       limit: 0,
-      isActive: "change",
+      isActive: "btn--black",
     }
   },
   computed: {
@@ -87,7 +86,6 @@ export default {
       this.$router.push({ name: 'BoardList', query: { currentpage: currentPage, pagesize: this.pageSize}});
     }
   },
-  
 }
 </script>
 
@@ -96,24 +94,16 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   margin-top: 40px;
 }
 
-.btn .btn-page {
+.btn--page {
+  margin-top: 5px;
   padding: 8px;
+  border: 1px solid $light-gray;
+  border-radius: .3rem;
+  color: map-get($gray-colors, color4);
 }
 
-.change {
-  display: block;
-  width: 30px;
-  padding: 6px;
-  color: $white;
-  background-color: $btn-color;
-  border-radius: 30px;
-  font-size: 1.0rem;
-  &:hover {
-    background-color: map-get($blue-colors, color3);
-    border-radius: 30px;
-  }
-}
 </style>

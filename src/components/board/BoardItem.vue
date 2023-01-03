@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 .table-container {
   width: 1200px;
-  height: 700px auto;
+  height: 500px auto;
 }
 
 tr {

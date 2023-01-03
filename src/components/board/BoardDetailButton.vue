@@ -4,13 +4,13 @@
       v-if="state.user === postId"
       class="user-option">
       <router-link
-        class="btn btn--white"
+        class="btn--text"
         :to="{ name: 'BoardEdit', params: id }">
         수정
       </router-link>
       <button
         type="text"
-        class="btn btn--white"
+        class="btn--white"
         @click="openModal()">
         삭제
       </button>
@@ -29,12 +29,12 @@
       </template>
       <template #footer>
         <button 
-          class="btn btn--red"
+          class="btn--red"
           @click="deletePost()">
           확인
         </button>
         <button 
-          class="btn btn--white"
+          class="btn--white"
           @click="cancleModal()">
           취소
         </button>
@@ -42,7 +42,7 @@
     </ModalMessage> 
     <button 
       type="button"
-      class="btn btn--black"
+      class="btn--black"
       @click="moveList()">
       목록
     </button>
@@ -122,17 +122,10 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-a.btn.btn--white {
-  display: block;
-  text-decoration: none;
-  text-align: center;
-  line-height: 42px;
-  height: 42px;
-  padding: 0px;
-}
-.user-option {
-  display: flex;
-  flex-direction: row;
+  align-items: center;
+  .user-option {
+    display: flex;
+    flex-direction: row;
+  }
 }
 </style>

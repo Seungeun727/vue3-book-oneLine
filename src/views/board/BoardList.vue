@@ -88,11 +88,11 @@ export default {
 
 .list {
   width: 100%;
-  height: 700px;
+  height: 600px;
 }
 table {
   width: 100%;
-  height: 700px;
+  height: 500px;
   text-align: center;
   table-layout: fixed;
   border-collapse: collapse;
