@@ -75,8 +75,7 @@
 import { Form, Field } from 'vee-validate';
 import { reactive, watch } from 'vue';
 import userInfo from '../../utils/maskUserInfo';
-import axios from 'axios';
-
+import authApi from '@/api/auth';
 export default {
   components: {
     Form,
@@ -96,7 +95,6 @@ export default {
     });
     
     const onSubmit = (signInfo) => {
-      console.log("customForm signInfo", signInfo);
       let { name, email } = signInfo;
       const maskData = userInfo(name, email);
       const { maskName, maskEmail } = maskData;
@@ -125,15 +123,12 @@ export default {
     const duplicateIdCheck = (async (userId) => {
       const regexId = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{5,20}$/;
       if((userId == 'null' || userId == undefined) || !regexId.test(userId)) return false;
-      await axios.get(`${process.env.VUE_APP_API_URL}/user/register/` + userId, {
-        headers: { 'Content-Type': 'application/json'}
-      }).then(res => {
-        console.log(res.data);
+      await authApi.userCheckId(userId).then(res => {
         state.msg = res.data.status;
       }).catch(err => {
         console.log(err.response);
         state.msg = err.response.data.status;
-      });
+      })
     });
 
     return {

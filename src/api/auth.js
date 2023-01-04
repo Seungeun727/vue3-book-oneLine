@@ -4,6 +4,10 @@ function signUp(signInfo) {
   return instance.post('/user/register', signInfo);
 }
 
+function userCheckId(userId) {
+  return instance.get('/user/register/' + userId);
+}
+
 function login(userInfo) {
   return instance.post('/user/signin', userInfo);
 }
@@ -24,7 +28,8 @@ function userPost() {
   return instance.get('user/mypage/article');
 }
 export default { 
-  signUp, 
+  signUp,
+  userCheckId, 
   login, 
   logout,
   userInfo, 
