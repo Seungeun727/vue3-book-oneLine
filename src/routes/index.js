@@ -1,11 +1,11 @@
 import { createWebHistory, createRouter } from "vue-router";
-const Home = () => import('../views/Home.vue');
+import Home from '../views/Home.vue';
 import User from '../views/User';
 import { Auth } from '../routes/auth';
-import MyPage from '../views/user/MyPage';
+const MyPage = () => import('../views/user/MyPage.vue');
 import UserProfile from '../views/user/UserProfile.vue';
 import MyPageEdit from '../views/user/MyPageEdit.vue';
-const UserBoard = () =>  import('../views/user/UserBoard.vue');
+const UserBoard = () => import('../views/user/UserBoard.vue');
 const Board = () => import('../views/Board.vue');
 const BoardList = () => import('../views/board/BoardList.vue');
 import BoardWrite from '../views/board/BoardWrite';

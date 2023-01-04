@@ -20,11 +20,11 @@
       @child="registerUser">
       <template #header>
         <span class="title">회원가입</span>
-        <span class="sub-title">{{ '방문자님 오신 것을 환영합니다. 회원정보를 입력해주세요.' }}</span>
+        <span class="sub-title">방문자님 오신 것을 환영합니다. 회원정보를 입력해주세요.</span>
       </template>
       <template #main />
       <template #footer>
-        <button class="btn btn--black btn--large">
+        <button class="btn--black--large">
           회원가입
         </button>
       </template>
@@ -125,13 +125,13 @@ export default {
 <style lang="scss" scoped>
 .form-container {
   height: 900px;
-}
-.title {
-  font-size: $font-size;
-}
-.sub-title {
-  padding-top: 3px;
-  margin-bottom: 10px;
-  display: block;
+  .title {
+    font-size: $font-size;
+  }
+  .sub-title {
+    padding-top: 3px;
+    margin-bottom: 10px;
+    display: block;
+  }
 }
 </style>

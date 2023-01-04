@@ -1,4 +1,5 @@
 import { boardList, userPost } from "@/api/board";
+import router from '../routes';
 const board = {
   namespaced: true,
   state: () => ({
@@ -24,9 +25,11 @@ const board = {
   },
   actions: {
     getBoardList({commit}, pageInfo) {
+      console.log("store", pageInfo);
       boardList(pageInfo).then((res) => {
         commit('setBoardList', res.data.posts);
         commit('setPageInfo', res.data.pageInfo);
+        router.push({ name: 'BoardList', query: { currentpage: pageInfo.currentPage, pagesize: pageInfo.pageSize}});
       }).catch((err) => {
         console.log(err.response);
       })

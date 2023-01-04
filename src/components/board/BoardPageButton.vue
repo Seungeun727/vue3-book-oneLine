@@ -3,89 +3,90 @@
     <button
       type="button"
       class="btn--page"
-      :disabled="pageStop"
-      @click="prevBtn()">
+      @click="prevPageButton()">
       <i class="fas fa-chevron-left" />
     </button>
     <div 
-      v-for="num in totalPage"
+      v-for="num in state.totalPage"
       :key="num">
       <button
-        v-if="currentPage == num"
+        v-if="state.currentPage == num"
         type="button" 
-        :class="isActive"
-        @click="pageBtn">
+        :class="state.isActive"
+        @click="clickPageButton">
         {{ num }}
       </button>
       <button
         v-else
         type="button" 
-        @click="pageBtn">
+        @click="clickPageButton">
         {{ num }}
       </button>
     </div>
     <button
       type="button"
       class="btn--page"
-      @click="nextBtn()">
+      @click="nextPageButton()">
       <i class="fas fa-chevron-right" />
     </button>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { reactive, computed } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter, useRoute } from 'vue-router';
 export default {
   name: 'BoardPageButton',
   emits: {'child': null},
-  data() {
-    return {
+  setup(props, context) {
+    const store = useStore();
+    const router = useRouter();
+    const route = useRoute();
+    const state = reactive({
       pageSize: 10,
-      limit: 0,
-      isActive: "btn--black",
-    }
-  },
-  computed: {
-    ...mapGetters('board', ['totalPage']),
-    pageStop() {
-      return this.limit == 1 ? true : false;
-    },
-    currentPage() {
-      return parseInt(this.$route.query.currentpage);
-    }
-  },
-  methods: {
-    pageBtn(e) {
+      limit: 1,
+      isActive: "change",
+      totalPage: computed(() => store.getters['board/totalPage']),
+      currentPage: computed(() => parseInt(route.query.currentpage)),
+    });
+
+    const clickPageButton = (e) => {
       const currentPage = parseInt(e.target.textContent);
-      const pageInfo = { currentPage, pageSize: this.pageSize };
-      this.$emit('child', pageInfo);
-      this.$router.push({ name: 'BoardList', query: { currentpage: currentPage, pagesize: 10}});
-    },  
-    prevBtn() {
-      let currentPage = this.currentPage;
+      const pageInfo = { currentPage, pageSize: state.pageSize };
+      context.emit('child', pageInfo);
+      router.push({ name: 'BoardList', query: { currentpage: currentPage, pagesize: state.pageSize}});
+    };
+
+    const prevPageButton = () => {
+      let currentPage = parseInt(route.query.currentpage);
       if(currentPage > 1) {
         currentPage -= 1;
       } else {
         currentPage = 1;
-        this.limit = 1;
+        state.limit = 1;
       }
-      const pageInfo = { currentPage, pageSize: this.pagesize };
-      this.$store.dispatch("board/getBoardList", pageInfo);
-      this.$router.push({ name: 'BoardList', query: { currentpage: currentPage, pageSize: 10}});
-    },
-    nextBtn() {
-      this.limit = 0;
-      let currentPage = this.currentPage;
-      if(currentPage >= this.totalPage) {
-        currentPage = this.totalPage;
+      const pageInfo = { currentPage, pageSize: state.pageSize };
+      store.dispatch("board/getBoardList", pageInfo);
+    };
+    const nextPageButton = () => {
+      let currentPage = parseInt(route.query.currentpage);
+      if(currentPage >= state.totalPage) {
+        currentPage = state.totalPage;
       } else {
         currentPage += 1;
       }
-      const pageInfo = { currentPage, pageSize: this.pageSize };
-      this.$store.dispatch("board/getBoardList", pageInfo);
-      this.$router.push({ name: 'BoardList', query: { currentpage: currentPage, pagesize: this.pageSize}});
+      const pageInfo = { currentPage, pageSize: state.pageSize };
+      store.dispatch("board/getBoardList", pageInfo);
+    };
+
+    return {
+      state,
+      clickPageButton,
+      prevPageButton,
+      nextPageButton,
     }
-  },
+  }
 }
 </script>
 
@@ -106,4 +107,15 @@ export default {
   color: map-get($gray-colors, color4);
 }
 
+.change {
+  margin-top: 5px;
+  padding: 8px;
+  border: 1px solid $light-gray;
+  border-radius: .3rem;
+  background-color: map-get($gray-colors, color4);
+  color: $white;
+  &:hover {
+    background-color: $main-color;
+  }
+}
 </style>

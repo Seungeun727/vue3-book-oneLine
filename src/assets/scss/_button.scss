@@ -1,5 +1,7 @@
 @mixin change-button($bg-color, $button-size: '') {
-  @if $button-size == medium {
+  @if $button-size == small {
+    width: 230px;
+  } @else if $button-size == medium {
     width: 350px;
   } @else if $button-size == large {
     width: 456px;
@@ -20,17 +22,18 @@
 @mixin outline-button($border-color, $button-size: '') {
   @if $border-color == $light-gray {
     color: map-get($gray-colors, color4);
-  }
-  @else {
+  } @else {
     color: $border-color;
   }
-  @if $button-size == medium {
+  @if $button-size == small {
+    width: 230px;
+  } @else if $button-size == medium {
     width: 350px;
   } @else if $button-size == large{
     width: 456px;
   }
   margin-left: 2px;
-  background: 0;
+  background: $white;
   border-radius: 3px;
   border: 1px solid $border-color;
   margin: 10px 0;
@@ -44,16 +47,13 @@
   outline: 0;
   background: 0;
   font-size: 16px;
+  width: 100px;
   &:active  {
     font-weight: 550;
     padding: 10px;
     background-color: $border-color;
     border-radius: .3rem;
   }
-}
-
-.btn--white {
-  @include outline-button($light-gray);
 }
 
 .btn--outline--blue {
@@ -64,12 +64,28 @@
   @include change-button($btn-color);
 }
 
-.btn--black.btn--large {
+.btn--black--large {
   @include change-button($btn-color, 'large');
+}
+
+.btn--blue {
+  @include change-button($main-color);
+}
+
+.btn--blue--small {
+  @include change-button($main-color, 'small');
 }
 
 .btn--blue--medium {
   @include change-button($main-color, 'medium');
+}
+
+.btn--white {
+  @include outline-button($light-gray);
+}
+
+.btn--white--small {
+  @include outline-button($light-gray, 'small');
 }
 
 .btn--white--medium {
@@ -80,9 +96,6 @@
   @include change-button($dark-pink);
 }
 
-.btn--blue {
-  @include change-button(map-get($blue-colors, color3));
-}
 
 .btn--light-blue {
   @include text-button(map-get($blue-colors, color1));
