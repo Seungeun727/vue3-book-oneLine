@@ -1,12 +1,15 @@
+import Sign from '../views/Home.vue';
+import Login from '../views/Home.vue';
+
 export const Auth = [
   {
     path: '/signup',
     name: 'Sign',
-    component: () => import('../views/Sign.vue'),
+    component: Sign,
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue'),
+    component: Login,
   },
 ];
