@@ -32,7 +32,7 @@
       <router-link 
         class="check-area"
         :to="{ name: 'Article' }">
-        <i class="fas fa-book" />
+        <FontAwesomeIcon :icon="['fas','book']" />
         <span>기록 작성</span>
         <div class="point">
           <span class="number-count">{{ state.userPost.length }}</span>
@@ -41,7 +41,7 @@
       <router-link 
         class="check-area"
         :to="{ name: 'Article' }">
-        <i class="fas fa-book" />
+        <FontAwesomeIcon :icon="['fas','book']" />
         <span>기록 작성</span>
         <div class="point">
           <span class="number-count">{{ state.userPost.length }}</span>
@@ -50,7 +50,7 @@
       <router-link 
         class="check-area"
         :to="{ name: 'Article' }">
-        <i class="fas fa-book" />
+        <FontAwesomeIcon :icon="['fas','book']" />
         <span>기록 작성</span>
         <div class="point">
           <span class="number-count">{{ state.userPost.length }}</span>

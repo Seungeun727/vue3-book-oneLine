@@ -9,7 +9,7 @@
             type="button"
             class="btn--close"
             @click.self="closeModal">
-            <i class="fas fa-xmark" />
+            <FontAwesomeIcon :icon="['fas', 'xmark']" />
           </button> 
           <div class="form-inner">
             <div class="main-title">
@@ -31,7 +31,7 @@
               type="button"
               class="btn--outline--circle"
               @click="resetField('name')">
-              <i class="fas fa-xmark" />
+              <FontAwesomeIcon :icon="['fas', 'xmark']" />
             </button>
             <div class="field">
               <label>아이디</label>
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { useForm, } from 'vee-validate';
+import { useForm } from 'vee-validate';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import authApi from '@/api/auth';

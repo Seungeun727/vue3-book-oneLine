@@ -9,7 +9,7 @@
         type="text" 
         class="btn--close"
         @click.self="close">
-        <i class="fas fa-xmark" />
+        <FontAwesomeIcon :icon="['fas', 'xmark']" />
       </button> 
       <div class="modal-inner">
         <div class="modal-header">

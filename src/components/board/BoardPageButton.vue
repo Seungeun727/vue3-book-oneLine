@@ -4,6 +4,7 @@
       type="button"
       class="btn--page"
       @click="prevPageButton()">
+      <FontAwesomeIcon :icon="['fas', 'chevron-left']" />
       <i class="fas fa-chevron-left" />
     </button>
     <div 
@@ -27,7 +28,7 @@
       type="button"
       class="btn--page"
       @click="nextPageButton()">
-      <i class="fas fa-chevron-right" />
+      <FontAwesomeIcon :icon="['fas', 'chevron-right']" />
     </button>
   </div>
 </template>

@@ -10,7 +10,7 @@
       <div
         class="content-profile">
         <div class="profile-img">
-          <i class="fas fa-user" />
+          <FontAwesomeIcon :icon="['fas', 'user']" />
         </div>
         <div  
           class="profile-user">

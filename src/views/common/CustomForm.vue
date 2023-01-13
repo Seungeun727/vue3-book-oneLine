@@ -36,30 +36,31 @@
                   class="btn--outline--circle"
                   @click="resetField(values['id'] = '')">
                   <i class="fas fa-xmark" />
+                  <FontAwesomeIcon :icon="['fas', 'xmark']" />
                 </button>
               </span>
               <span
                 v-if="errors[field.name] !== undefined"
                 class="error-status">
-                <i class="fas fa-circle-exclamation" />
+                <FontAwesomeIcon :icon="['fas', 'circle-exclamation']" />
                 {{ errors[field.name] }}
               </span>
               <span
                 v-if="(values['id'] === undefined && field.name == 'id')"
                 class="warn">
-                <i class="fas fa-circle-exclamation" />
+                <FontAwesomeIcon :icon="['fas', 'circle-exclamation']" />
                 {{ field.fail[1] }}
               </span>
               <span
                 v-if="(values['id'] !== '' && state.msg === false && field.fail)"
                 class="error-status">
-                <i class="fas fa-circle-exclamation" />
+                <FontAwesomeIcon :icon="['fas', 'circle-exclamation']" />
                 {{ field.fail[0] }}
               </span>
               <span
                 v-if="(values['id'] !== '' && state.msg === true && field.fail)"
                 class="success-status">
-                <i class="fas fa-circle-check" />      
+                <FontAwesomeIcon :icon="['fas', 'circle-check']" />
                 {{ field.fail[2] }}
               </span>
             </div>
