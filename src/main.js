@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import * as veeValidate from 'vee-validate';
 import App from './App.vue';
 import router from './routes/index';
 import store from './store/index';
@@ -18,5 +17,4 @@ app
   })
   .use(store)
   .use(router)
-  .use(veeValidate)
   .mount('#app')

@@ -1,17 +1,17 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from '../views/Home.vue';
-import User from '../views/User';
+import User from '../views/User.vue';
 import { Auth } from '../routes/auth';
-import MyPage from '../views/user/MyPage.vue';
-import UserProfile from '../views/user/UserProfile.vue';
+const MyPage = () => import(/* webpackChunkName: "mypage"*/'../views/user/MyPage.vue');
+import MyUserProfile from '../views/user/UserProfile.vue';
 import MyPageEdit from '../views/user/MyPageEdit.vue';
-import UserBoard from '../views/user/UserBoard.vue';
-import Board from '../views/Board.vue';
+import MyUserBoard from '../views/user/UserBoard.vue';
+const Board = () => import(/* webpackChunkName: "board" */ '../views/Board.vue');
 import BoardList from '../views/board/BoardList.vue';
-import BoardWrite from '../views/board/BoardWrite';
-import BoardEdit from '../views/board/BoardEdit';
-import BoardDetail from '../views/board/BoardDetail';
-import NotFound from '../views/NotFound';
+import BoardWrite from '../views/board/BoardWrite.vue';
+import BoardEdit from '../views/board/BoardEdit.vue';
+import BoardDetail from '../views/board/BoardDetail.vue';
+import NotFound from '../views/NotFound.vue';
 import store from '../store/index';
 
 const routes = [
@@ -34,13 +34,13 @@ const routes = [
           {
             path: '',
             name: 'profile',
-            component: UserProfile,
+            component: MyUserProfile,
             meta: { name: 'MypageProfile'}
           },
           {
             path: 'article',
             name: 'Article',
-            component: UserBoard,
+            component: MyUserBoard,
             meta: { requiresAuth: true }
           },
            {
