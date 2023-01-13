@@ -6,11 +6,11 @@
         :to="{ name: 'MyPageEdit' }"
         class="move-page">
         <span class="profile-title">나의 회원 정보 수정</span>
-        <i class="fas fa-angle-right" />
+        <FontAwesomeIcon :icon="['fas', 'angle-right']" />
       </router-link>
       <div class="move-page">
         <span class="profile-title">패스워드 변경</span>
-        <i class="fas fa-angle-right" />
+        <FontAwesomeIcon :icon="['fas', 'angle-right']" />
       </div>
     </div> 
   </div>

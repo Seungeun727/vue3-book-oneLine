@@ -15,7 +15,7 @@
       <button
         type="button"
         class="btn--outline--circle">
-        <i class="fas fa-arrow-right" />
+        <FontAwesomeIcon :icon="['fas', 'arrow-right']" />
       </button>
     </div>
     <div

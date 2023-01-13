@@ -26,6 +26,7 @@
             class="btn--outline--circle"
             @click="resetField(field.name)">
             <i class="fas fa-xmark" />
+            <FontAwesomeIcon :icon="['fas', 'xmark']" />
           </button> 
         </div>
         <div class="btn-area">
@@ -79,7 +80,6 @@ export default {
 
     const submitLogin = (loginData) => {
       if(loginData.id !== '' || loginData.password !== '') {
-        console.log(loginData);
         store.dispatch('user/loginUser', loginData);
       }
     };

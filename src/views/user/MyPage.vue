@@ -4,10 +4,12 @@
       <aside class="menu">
         <router-link :to="{ name: 'profile'}">
           <i class="fas fa-user" />
+          <FontAwesomeIcon :icon="['fas', 'user']" />
           <span class="page-name">기본 프로필</span>
         </router-link>
         <router-link :to="{ name: 'Article'}">
           <i class="fas fa-book-open" />
+          <FontAwesomeIcon :icon="['fas', 'book-open']" />
           <span class="page-name">나의 책</span>
         </router-link>
       </aside>
@@ -31,7 +33,6 @@ import { useRoute } from 'vue-router';
 export default {
   setup() {
     const router = useRoute();
-    console.log(router.meta);
     const isRoute = computed(() => router.meta.name !== undefined);
     return {
       isRoute
