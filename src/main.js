@@ -6,8 +6,8 @@ import VueCookies from 'vue3-cookies';
 
 import 'normalize.css';
 import './assets/scss/_index.scss';
+import FontAwesomeIcon from './plugins/fontAwesomeIcon.js';
 import './utils/validateRules.js';
-import '@fortawesome/fontawesome-free/js/all.js';
 
 const app = createApp(App)
 
@@ -17,4 +17,5 @@ app
   })
   .use(store)
   .use(router)
+  .component('FontAwesomeIcon', FontAwesomeIcon)
   .mount('#app')
